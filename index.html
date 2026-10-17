@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brinkley Model Z 2680 — Victron Off-Grid Build</title>
+<style>
+  :root{
+    --ink:#0f172a; --ink2:#334155; --ink3:#64748b; --line:#e2e8f0; --bg:#f8fafc;
+    --accent:#0d9488; --accent2:#0f766e; --amber:#b45309;
+    --existing:#2563eb; --new:#ea580c; --pv-old:#7c3aed; --pv-new:#16a34a;
+    --dcpos:#dc2626; --dcneg:#1e293b; --dcold:#94a3b8;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+
+  /* ---------- hero ---------- */
+  .hero{background:linear-gradient(135deg,#0f172a 0%,#1e293b 55%,#134e4a 100%);color:#fff;padding:44px 28px 36px}
+  .hero-in{max-width:1460px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#5eead4;font-weight:700;margin:0 0 10px}
+  .hero h1{font-size:34px;margin:0 0 12px;font-weight:800;letter-spacing:-.01em}
+  .hero p{margin:0;color:#cbd5e1;max-width:980px;font-size:15px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 14px;font-size:12.5px;color:#e2e8f0}
+  .meta b{color:#5eead4}
+
+  /* ---------- nav ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav ul{max-width:1460px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:2px;list-style:none}
+  nav a{display:block;padding:13px 14px;font-size:13px;font-weight:600;color:var(--ink2);text-decoration:none;border-bottom:2px solid transparent}
+  nav a:hover{color:var(--accent2);border-bottom-color:var(--accent)}
+
+  .wrap{max-width:1460px;margin:0 auto;padding:8px 28px 70px}
+  section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 30px;margin:26px 0;box-shadow:0 1px 3px rgba(15,23,42,.05);scroll-margin-top:64px}
+  h2{font-size:21px;margin:0 0 4px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+  h2 .dot{width:12px;height:12px;border-radius:4px;background:var(--accent);flex:none}
+  .lead{color:var(--ink3);margin:0 0 18px;font-size:14px}
+  h3{font-size:15.5px;margin:26px 0 8px;font-weight:700;color:var(--ink)}
+  h4{font-size:14px;margin:18px 0 6px;font-weight:700;color:var(--accent2)}
+
+  /* ---------- legend ---------- */
+  .legend{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:12.5px;color:var(--ink2);align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+  .sw{display:inline-block;width:30px;height:0;border-top-width:4px;border-top-style:solid;border-radius:2px}
+  .sw.box{height:13px;border:2px solid;border-radius:4px;background:#fff}
+
+  /* ---------- svg ---------- */
+  .diagram{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  svg{display:block;width:100%;height:auto}
+
+  /* ---------- tables ---------- */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:12px 0 20px}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+  th{background:#f1f5f9;color:var(--ink2);text-transform:uppercase;font-size:11px;letter-spacing:.06em;text-align:left;padding:9px 12px;border-bottom:2px solid #cbd5e1;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+  tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:#fafcff}
+  tbody tr:hover{background:#f0fdfa}
+  td b,td strong{color:var(--ink)}
+
+  .tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+  .t-new{background:#ffedd5;color:#9a3412}
+  .t-exist{background:#dbeafe;color:#1d4ed8}
+  .t-reuse{background:#dcfce7;color:#15803d}
+  .t-check{background:#fef9c3;color:#a16207}
+
+  /* ---------- callouts ---------- */
+  .callout{border-radius:12px;padding:14px 18px 14px 16px;margin:16px 0;font-size:13.5px;border-left:5px solid;display:flex;gap:12px}
+  .callout .ic{font-size:18px;line-height:1.3}
+  .warn{background:#fef2f2;border-color:#dc2626;color:#7f1d1d}
+  .note{background:#fffbeb;border-color:#f59e0b;color:#78350f}
+  .tip{background:#f0fdfa;border-color:#0d9488;color:#134e4a}
+
+  /* ---------- steps ---------- */
+  ol.steps{list-style:none;counter-reset:st;margin:10px 0 6px;padding:0}
+  ol.steps>li{counter-increment:st;position:relative;padding:0 0 18px 46px;margin:0}
+  ol.steps>li::before{content:counter(st);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+  ol.steps>li::after{content:"";position:absolute;left:14px;top:34px;bottom:2px;width:2px;background:var(--line)}
+  ol.steps>li:last-child::after{display:none}
+  ul.dash{padding-left:20px;margin:8px 0}
+  ul.dash li{margin-bottom:7px;color:var(--ink2)}
+  code{background:#f1f5f9;border:1px solid var(--line);padding:1px 6px;border-radius:6px;font-size:12px;color:#0f766e}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+
+  footer{background:#0f172a;color:#94a3b8;padding:26px 28px;font-size:12.5px;line-height:1.7}
+  footer .wrap{padding-bottom:26px}
+  footer b{color:#e2e8f0}
+
+  @media print{
+    nav,.hero{position:static} body{background:#fff}
+    section{box-shadow:none;border:none;border-top:1px solid var(--line);border-radius:0;page-break-inside:auto}
+    tr,.callout{page-break-inside:avoid} h2{page-break-after:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <p class="kicker">DIY Build Documentation</p>
+    <h1>Brinkley Model Z 2680 — Victron Off-Grid Expansion</h1>
+    <p>Extended dry camping without running out of power: a second matching MPPT for portable solar, a 3–4 battery LiFePO4 bank, alternator DC-DC charging, and a MultiPlus-II wired into the factory inverter &amp; generator prep. No AC on the inverter — that stays a generator/shore job.</p>
+    <div class="meta">
+      <span><b>Factory MPPT:</b> Victron SmartSolar 100/50</span>
+      <span><b>Converter:</b> WFCO (Li-capable)</span>
+      <span><b>Batteries:</b> Vatrer 12V 300Ah ×3–4 · 15.12×7.64×9.76" · M8</span>
+      <span><b>Tow:</b> Chevy 2500HD 6.6L · 170 A alternator</span>
+      <span><b>Portables:</b> MC4 output, already owned</span>
+    </div>
+  </div>
+</header>
+
+<nav><ul>
+  <li><a href="#diagram">Diagram</a></li>
+  <li><a href="#wires">Wire Schedule</a></li>
+  <li><a href="#guide">Cable-Making 101</a></li>
+  <li><a href="#tray">Battery Tray</a></li>
+  <li><a href="#parts">Parts</a></li>
+  <li><a href="#tools">Tools</a></li>
+  <li><a href="#install">Install</a></li>
+  <li><a href="#budget">Budget</a></li>
+</ul></nav>
+
+<div class="wrap">
+
+<!-- ============================ DIAGRAM ============================ -->
+<section id="diagram">
+  <h2><span class="dot"></span>System Diagram — Existing vs. New</h2>
+  <p class="lead">Solid blue / gray / purple lines are Brinkley factory wiring (keep). Dashed orange / red / dark / green lines are new. Only two factory cuts exist: <b>①</b> the shore/generator splice at the Power Center, and <b>⑥</b> the fused 7-way tap for the DC-DC charger. Everything else is additive.</p>
+
+  <div class="legend">
+    <span class="chip"><span class="sw" style="border-color:var(--existing)"></span>Existing AC (shore / gen)</span>
+    <span class="chip"><span class="sw" style="border-color:var(--dcold)"></span>Existing DC</span>
+    <span class="chip"><span class="sw" style="border-color:var(--pv-old)"></span>Existing PV</span>
+    <span class="chip"><span class="sw" style="border-color:var(--new)"></span>New AC</span>
+    <span class="chip"><span class="sw" style="border-color:var(--dcpos)"></span>New DC +</span>
+    <span class="chip"><span class="sw" style="border-color:var(--dcneg)"></span>New DC −</span>
+    <span class="chip"><span class="sw" style="border-color:var(--pv-new);border-top-style:dashed"></span>New PV (portable)</span>
+    <span class="chip"><span class="sw box" style="border-color:var(--existing)"></span>Existing component</span>
+    <span class="chip"><span class="sw box" style="border-color:var(--new);border-style:dashed;background:#fff7ed"></span>New component</span>
+  </div>
+
+  <div class="diagram">
+  <svg viewBox="0 0 1480 1010" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,'Segoe UI',Inter,Roboto,Helvetica,Arial" font-size="13">
+    <defs>
+      <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.14"/></filter>
+      <marker id="arrO" markerWidth="9" markerHeight="9" refX="6.5" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 z" fill="#ea580c"/></marker>
+      <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="#eef2f7" stroke-width="1"/></pattern>
+    </defs>
+
+    <!-- RV shell -->
+    <rect x="250" y="50" width="1190" height="880" rx="26" fill="url(#grid)" stroke="#94a3b8" stroke-width="2.5"/>
+    <text x="845" y="36" text-anchor="middle" font-size="15" font-weight="800" fill="#475569" letter-spacing="0.14em">BRINKLEY MODEL Z 2680 — ONE-LINE</text>
+    <text x="272" y="76" font-size="10.5" fill="#94a3b8" font-weight="600">ROOF</text>
+    <text x="272" y="540" font-size="10.5" fill="#94a3b8" font-weight="600">FRONT / ENTRY</text>
+
+    <!-- ===== truck ===== -->
+    <g filter="url(#sh)">
+      <rect x="28" y="430" width="184" height="152" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    </g>
+    <text x="120" y="462" text-anchor="middle" font-size="20">🛻</text>
+    <text x="120" y="486" text-anchor="middle" font-weight="800" fill="#1e3a8a">TOW VEHICLE</text>
+    <text x="120" y="504" text-anchor="middle" font-size="12" fill="#334155">Chevy 2500HD 6.6L</text>
+    <text x="120" y="521" text-anchor="middle" font-size="12" fill="#334155">170 A alternator</text>
+    <circle cx="212" cy="466" r="9" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+
+    <!-- ===== existing sources (blue) ===== -->
+    <g filter="url(#sh)">
+      <rect x="330" y="80" width="250" height="48" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="290" y="440" width="130" height="52" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="290" y="560" width="130" height="52" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="290" y="660" width="150" height="70" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="500" y="560" width="200" height="170" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="515" y="660" width="170" height="52" rx="8" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="760" y="80" width="200" height="64" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+    </g>
+    <text x="455" y="100" text-anchor="middle" font-weight="700">☀️ Roof Solar 370 W</text>
+    <text x="455" y="117" text-anchor="middle" font-size="11" fill="#1d4ed8">existing · 740 W ready</text>
+    <text x="355" y="462" text-anchor="middle" font-size="12" font-weight="700">7-Way Junction</text>
+    <text x="355" y="479" text-anchor="middle" font-size="10.5" fill="#1d4ed8">existing</text>
+    <text x="355" y="582" text-anchor="middle" font-size="12" font-weight="700">🔌 50 A Shore</text>
+    <text x="355" y="599" text-anchor="middle" font-size="10.5" fill="#1d4ed8">existing inlet</text>
+    <text x="365" y="690" text-anchor="middle" font-size="12" font-weight="700">Generator Prep</text>
+    <text x="365" y="707" text-anchor="middle" font-size="10.5" fill="#1d4ed8">≤ 5.5 kW · front bay</text>
+    <text x="600" y="584" text-anchor="middle" font-size="13" font-weight="800">Power Center</text>
+    <text x="600" y="601" text-anchor="middle" font-size="11" fill="#1d4ed8">50 A main · breakers</text>
+    <text x="600" y="681" text-anchor="middle" font-size="11.5" font-weight="700">WFCO Converter</text>
+    <text x="600" y="697" text-anchor="middle" font-size="10.5" fill="#15803d">Li mode · standby backup</text>
+    <text x="860" y="106" text-anchor="middle" font-size="13" font-weight="800">MPPT #1</text>
+    <text x="860" y="124" text-anchor="middle" font-size="11" fill="#334155">Victron SmartSolar 100/50 · factory</text>
+
+    <!-- conduit -->
+    <line x1="715" y1="128" x2="715" y2="870" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 6"/>
+    <text x="708" y="862" font-size="10" fill="#94a3b8" text-anchor="end" transform="rotate(-90 708 862)">existing roof → basement conduit</text>
+
+    <!-- ===== new components (orange dashed) ===== -->
+    <g filter="url(#sh)">
+      <rect x="760" y="180" width="200" height="64" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="8 5"/>
+      <rect x="760" y="280" width="200" height="64" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="8 5"/>
+      <rect x="1020" y="180" width="230" height="130" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="3" stroke-dasharray="8 5"/>
+      <rect x="1020" y="400" width="110" height="48" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
+      <rect x="1150" y="400" width="120" height="48" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
+      <rect x="1290" y="400" width="130" height="48" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
+      <rect x="1290" y="490" width="130" height="48" rx="8" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5"/>
+      <rect x="1290" y="572" width="130" height="48" rx="8" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5"/>
+      <rect x="1020" y="680" width="400" height="120" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="3" stroke-dasharray="8 5"/>
+      <rect x="1150" y="902" width="190" height="26" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5"/>
+    </g>
+    <text x="860" y="206" text-anchor="middle" font-size="13" font-weight="800">MPPT #2 <tspan fill="#9a3412">(NEW)</tspan></text>
+    <text x="860" y="224" text-anchor="middle" font-size="11" fill="#334155">Victron SmartSolar 100/50 · matches #1</text>
+    <text x="860" y="306" text-anchor="middle" font-size="13" font-weight="800">Orion-Tr Smart <tspan fill="#9a3412">(NEW)</tspan></text>
+    <text x="860" y="324" text-anchor="middle" font-size="11" fill="#334155">12/12-30 isolated DC-DC</text>
+    <text x="1135" y="212" text-anchor="middle" font-size="15" font-weight="800">MultiPlus-II <tspan fill="#9a3412">(NEW)</tspan></text>
+    <text x="1135" y="234" text-anchor="middle" font-size="12.5" fill="#334155">12/3000-130</text>
+    <text x="1135" y="254" text-anchor="middle" font-size="11" fill="#64748b">inverter · 130 A charger · 50 A transfer</text>
+    <text x="1135" y="272" text-anchor="middle" font-size="11" fill="#9a3412">AC-IN 1 · AC-OUT · DC</text>
+    <text x="1075" y="420" text-anchor="middle" font-size="11.5" font-weight="800" fill="#991b1b">Class T</text>
+    <text x="1075" y="436" text-anchor="middle" font-size="11" fill="#991b1b">300 A</text>
+    <text x="1210" y="420" text-anchor="middle" font-size="11.5" font-weight="800" fill="#991b1b">Disconnect</text>
+    <text x="1210" y="436" text-anchor="middle" font-size="11" fill="#991b1b">400 A</text>
+    <text x="1355" y="420" text-anchor="middle" font-size="11.5" font-weight="800" fill="#991b1b">+ Busbar</text>
+    <text x="1355" y="436" text-anchor="middle" font-size="11" fill="#991b1b">5-stud M8</text>
+    <text x="1355" y="510" text-anchor="middle" font-size="11.5" font-weight="800">SmartShunt</text>
+    <text x="1355" y="526" text-anchor="middle" font-size="10.5" fill="#475569">500 A / 100 mV</text>
+    <text x="1355" y="592" text-anchor="middle" font-size="11.5" font-weight="800">− Loads Busbar</text>
+    <text x="1355" y="608" text-anchor="middle" font-size="10.5" fill="#475569">all 12 V returns</text>
+    <text x="1220" y="704" text-anchor="middle" font-size="13" font-weight="800">NEW BATTERY TRAY — Vatrer 12 V 300 Ah × 3–4</text>
+    <text x="1220" y="722" text-anchor="middle" font-size="10.5" fill="#9a3412">each 15.12"D × 7.64"W × 9.76"H · M8 · self-heating · 200 A BMS</text>
+    <g filter="url(#sh)">
+      <rect x="1040" y="736" width="82" height="50" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+      <rect x="1140" y="736" width="82" height="50" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+      <rect x="1240" y="736" width="82" height="50" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+      <rect x="1340" y="736" width="66" height="50" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2" stroke-dasharray="5 4"/>
+    </g>
+    <text x="1081" y="766" text-anchor="middle" font-size="11.5" font-weight="700">BAT 1</text>
+    <text x="1181" y="766" text-anchor="middle" font-size="11.5" font-weight="700">BAT 2</text>
+    <text x="1281" y="766" text-anchor="middle" font-size="11.5" font-weight="700">BAT 3</text>
+    <text x="1373" y="766" text-anchor="middle" font-size="11.5" font-weight="700">BAT 4?</text>
+    <text x="1245" y="920" text-anchor="middle" font-size="10.5" font-weight="800" fill="#166534">MC4 BULKHEAD INLET</text>
+
+    <!-- portable panels (outside) -->
+    <g filter="url(#sh)">
+      <rect x="1120" y="950" width="280" height="44" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="8 5"/>
+    </g>
+    <text x="1260" y="968" text-anchor="middle" font-size="12" font-weight="800" fill="#166534">🔆 PORTABLE SOLAR — already owned</text>
+    <text x="1260" y="984" text-anchor="middle" font-size="10.5" fill="#166534">MC4 outputs · series pair ≤ 600 W</text>
+
+    <!-- ===== EXISTING wiring ===== -->
+    <line x1="221" y1="466" x2="290" y2="466" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="255" y="458" text-anchor="middle" font-size="10" fill="#1d4ed8" font-weight="600">existing</text>
+    <line x1="420" y1="586" x2="500" y2="586" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+    <text x="460" y="578" text-anchor="middle" font-size="10" fill="#1d4ed8">6 AWG</text>
+    <path d="M 440 695 L 470 695 L 470 640 L 500 640" fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+    <text x="474" y="722" font-size="10" fill="#1d4ed8">gen feed</text>
+    <path d="M 580 104 L 760 104" fill="none" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="670" y="96" text-anchor="middle" font-size="10" fill="#7c3aed" font-weight="600">existing PV</text>
+    <path d="M 960 112 L 990 112 L 990 356 L 1330 356 L 1330 400" fill="none" stroke="#94a3b8" stroke-width="3.5" stroke-linejoin="round"/>
+    <text x="998" y="348" font-size="10" fill="#64748b" font-weight="600">existing MPPT output</text>
+    <path d="M 600 712 L 600 770 L 1010 770 L 1010 740 L 1020 740" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linejoin="round"/>
+    <text x="790" y="762" text-anchor="middle" font-size="10" fill="#64748b">existing battery cables → 12 V loads via − busbar</text>
+    <path d="M 700 514 L 1290 514" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="985" y="507" text-anchor="middle" font-size="10" fill="#64748b">existing load returns re-terminated to − busbar</text>
+
+    <!-- ===== NEW wiring ===== -->
+    <path d="M 700 580 L 735 580 L 735 160 L 1000 160 L 1000 200 L 1020 200" fill="none" stroke="#ea580c" stroke-width="4.5" stroke-linejoin="round" marker-end="url(#arrO)"/>
+    <text x="744" y="452" font-size="10" fill="#9a3412" font-weight="700">NEW AC-IN 1 · 6 AWG ×3</text>
+    <path d="M 1020 262 L 750 262 L 750 600 L 700 600" fill="none" stroke="#ea580c" stroke-width="4.5" stroke-linejoin="round" marker-end="url(#arrO)"/>
+    <text x="880" y="254" text-anchor="middle" font-size="10" fill="#9a3412" font-weight="700">NEW AC-OUT → panel loads · 6 AWG ×3</text>
+
+    <path d="M 1060 736 L 1060 448" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <line x1="1130" y1="424" x2="1150" y2="424" stroke="#dc2626" stroke-width="5"/>
+    <line x1="1270" y1="424" x2="1290" y2="424" stroke="#dc2626" stroke-width="5"/>
+    <text x="1068" y="560" font-size="10" fill="#dc2626" font-weight="700">NEW 1/0 (2/0 if &gt;6 ft)</text>
+
+    <path d="M 1355 400 L 1355 340 L 1135 340 L 1135 310" fill="none" stroke="#dc2626" stroke-width="5" stroke-linejoin="round"/>
+
+    <path d="M 960 212 L 1000 212 L 1000 376 L 1310 376 L 1310 400" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="1010" y="370" font-size="10" fill="#dc2626" font-weight="700">6 AWG · ANL 60 A</text>
+
+    <path d="M 960 312 L 985 312 L 985 392 L 1290 392" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="1215" y="388" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">6 AWG · ANL 30 A</text>
+
+    <path d="M 420 466 L 430 466 L 430 300 L 760 300" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="440" y="292" font-size="10" fill="#dc2626" font-weight="700">⑥ NEW tap 6 AWG · ANL 30 A (match truck trailer fuse)</text>
+
+    <path d="M 120 582 L 120 745 L 770 745 L 770 344" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3 5" stroke-linejoin="round"/>
+    <text x="420" y="738" font-size="10" fill="#ea580c" font-weight="600">14 AWG engine-sense → ignition-switched (truck side)</text>
+
+    <path d="M 1300 736 L 1300 650 L 1355 650 L 1355 620" fill="none" stroke="#1e293b" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M 1355 572 L 1355 538" fill="none" stroke="#1e293b" stroke-width="5"/>
+    <text x="1288" y="666" font-size="10" fill="#1e293b" font-weight="700" text-anchor="end">NEW 1/0 · sole battery − path</text>
+
+    <path d="M 1245 902 L 1245 870 L 715 870 L 715 778 A 8 8 0 0 1 715 762 L 715 308 A 8 8 0 0 1 715 292 L 715 212 L 760 212" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="980" y="862" text-anchor="middle" font-size="10" fill="#166534" font-weight="700">⑤ NEW MC4 extension · 10 AWG UV PV wire · up existing conduit</text>
+    <line x1="1245" y1="950" x2="1245" y2="928" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5"/>
+
+    <!-- parallel links -->
+    <path d="M 1122 752 L 1140 752 M 1222 752 L 1240 752 M 1322 752 L 1340 752" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 1122 766 L 1140 766 M 1222 766 L 1240 766 M 1322 766 L 1340 766" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- callout badges -->
+    <g font-size="12" font-weight="800">
+      <circle cx="717" cy="580" r="12" fill="#ea580c"/><text x="717" y="584.5" text-anchor="middle" fill="#fff">1</text>
+      <circle cx="1060" cy="470" r="12" fill="#dc2626"/><text x="1060" y="474.5" text-anchor="middle" fill="#fff">2</text>
+      <circle cx="1032" cy="692" r="12" fill="#ea580c"/><text x="1032" y="696.5" text-anchor="middle" fill="#fff">3</text>
+      <circle cx="770" cy="190" r="12" fill="#ea580c"/><text x="770" y="194.5" text-anchor="middle" fill="#fff">4</text>
+      <circle cx="1352" cy="915" r="12" fill="#16a34a"/><text x="1352" y="919.5" text-anchor="middle" fill="#fff">5</text>
+      <circle cx="430" cy="452" r="12" fill="#dc2626"/><text x="430" y="456.5" text-anchor="middle" fill="#fff">6</text>
+      <circle cx="1300" cy="650" r="12" fill="#1e293b"/><text x="1300" y="654.5" text-anchor="middle" fill="#fff">7</text>
+      <circle cx="695" cy="640" r="12" fill="#15803d"/><text x="695" y="644.5" text-anchor="middle" fill="#fff">8</text>
+    </g>
+
+    <!-- title block -->
+    <g>
+      <rect x="272" y="820" width="250" height="86" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#sh)"/>
+      <text x="286" y="842" font-size="11" font-weight="800" fill="#0f172a" letter-spacing="0.08em">VICTRON OFF-GRID BUILD</text>
+      <text x="286" y="858" font-size="10" fill="#64748b">Solid = factory (keep) · Dashed = new</text>
+      <text x="286" y="873" font-size="10" fill="#64748b">Factory cuts: ① splice · ⑥ fused tap</text>
+      <text x="286" y="892" font-size="9.5" fill="#94a3b8">Rev A · 2026-10-17 · not to scale</text>
+    </g>
+  </svg>
+  </div>
+</section>
+
+<!-- ============================ WIRE SCHEDULE ============================ -->
+<section id="wires">
+  <h2><span class="dot"></span>Wire Schedule — Gauges &amp; Estimated Lengths</h2>
+  <p class="lead"><b>Measure before you cut.</b> Route a string first, add 10–20% slack, then cut. Flexible stranded copper only — never solid house wire in a vehicle (vibration cracks it). Use welding cable (Class K, 105 °C) for anything ≥ 6 AWG in the DC system.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>ID</th><th>Circuit</th><th>Wire</th><th>Est. length</th><th>Protection</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><b>W1</b></td><td>MultiPlus-II DC+ (busbar → inverter)</td><td>1/0 AWG welding cable (2/0 if &gt; 6 ft)</td><td>6 ft</td><td>Class T 300 A + 400 A disconnect within 18" of battery</td><td><span class="tag t-new">NEW</span> reuse inverter-prep run if ≥ 1/0</td></tr>
+      <tr><td><b>W2</b></td><td>MultiPlus-II DC− (− busbar → inverter)</td><td>1/0 AWG welding cable</td><td>4 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W3</b></td><td>Battery parallel links (diagonal, M8 studs)</td><td>1/0 AWG welding cable</td><td>4 × 20 in + 2 × 36 in</td><td>each battery's 200 A BMS</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W4</b></td><td>MPPT #2 output +</td><td>6 AWG</td><td>12 ft</td><td>ANL 60 A at busbar</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W5</b></td><td>MPPT #2 output −</td><td>8 AWG</td><td>12 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W6</b></td><td>MC4 inlet → MPPT #2 PV input</td><td>10 AWG UV PV wire ×2, MC4 both ends</td><td>20 ft (existing conduit)</td><td>MC4 30 A/pair — series pair ≈ 12–14 A</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W7</b></td><td>7-way 12 V pin → Orion-Tr input</td><td>6 AWG</td><td>12 ft</td><td>ANL 30 A at RV battery (match truck fuse)</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W8</b></td><td>Orion-Tr output + → + busbar</td><td>6 AWG</td><td>8 ft</td><td>ANL 30 A</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W9</b></td><td>Orion-Tr ground bond</td><td>6 AWG</td><td>3 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W10</b></td><td>Engine-sense (ignition → Orion sense)</td><td>14 AWG</td><td>8 ft (truck side)</td><td>ATO 5 A</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W11</b></td><td>AC-IN 1 pigtail (shore/gen splice → MultiPlus)</td><td>6 AWG THHN ×3 (L1, L2, N)</td><td>5 ft each</td><td>existing 50 A main breaker</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W12</b></td><td>AC-OUT pigtail (MultiPlus → panel main lugs)</td><td>6 AWG THHN ×3 (L1, L2, N)</td><td>5 ft each</td><td>MultiPlus 50 A pass-through</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W13</b></td><td>Battery − → SmartShunt → − loads busbar</td><td>1/0 AWG (shunt link often included)</td><td>2 ft + 2 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W14</b></td><td>Existing 12 V returns → − loads busbar</td><td>4 AWG</td><td>8 ft</td><td>existing branch fuses</td><td><span class="tag t-new">NEW</span> re-terminate</td></tr>
+      <tr><td><b>W15</b></td><td>Roof panel → MPPT #1</td><td>existing PV wire</td><td>—</td><td>factory</td><td><span class="tag t-exist">EXISTING</span></td></tr>
+      <tr><td><b>W16</b></td><td>MPPT #1 output → battery +</td><td>existing</td><td>—</td><td>factory fuse</td><td><span class="tag t-exist">EXISTING</span></td></tr>
+      <tr><td><b>W17</b></td><td>Shore → Power Center; gen bay → transfer</td><td>existing 6 AWG</td><td>—</td><td>50 A main</td><td><span class="tag t-reuse">REUSE</span> spliced at ①</td></tr>
+      <tr><td><b>W18</b></td><td>WFCO → 12 V loads (Li mode, standby)</td><td>existing battery cables</td><td>—</td><td>existing</td><td><span class="tag t-reuse">REUSE</span></td></tr>
+      <tr><td><b>W19</b></td><td>Battery − → chassis ground</td><td>verify ≥ 2 AWG; upgrade to 2/0 if lighter</td><td>3 ft</td><td>—</td><td><span class="tag t-check">CHECK</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Cable purchase list (with slack)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Cable</th><th>Buy</th><th>Covers</th></tr></thead>
+    <tbody>
+      <tr><td>1/0 AWG flexible welding cable — red</td><td>25 ft</td><td>W1, W3 links, W13</td></tr>
+      <tr><td>1/0 AWG flexible welding cable — black</td><td>15 ft</td><td>W2, W3 links, W13</td></tr>
+      <tr><td>2/0 AWG welding cable — red</td><td>10 ft (optional)</td><td>W1 if battery is far / future upgrade</td></tr>
+      <tr><td>6 AWG THHN — black (AC only)</td><td>40 ft</td><td>W11, W12 pigtails</td></tr>
+      <tr><td>6 AWG welding/auto — red</td><td>40 ft</td><td>W4, W7, W8</td></tr>
+      <tr><td>6 AWG welding/auto — black</td><td>15 ft</td><td>W9, spares</td></tr>
+      <tr><td>8 AWG auto — black</td><td>15 ft</td><td>W5</td></tr>
+      <tr><td>10 AWG UV PV wire — red + black</td><td>25 ft each</td><td>W6 (add MC4 ends)</td></tr>
+      <tr><td>4 AWG auto — black</td><td>10 ft</td><td>W14</td></tr>
+      <tr><td>14 AWG auto</td><td>15 ft</td><td>W10 sense + misc</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================ CABLE GUIDE ============================ -->
+<section id="guide">
+  <h2><span class="dot"></span>Beginner's Guide to Making the Cables</h2>
+  <p class="lead">You've never fabricated cables before — this walks through every part, tool, and joint. <b>Practice on 6-inch scrap offcuts of each size before touching the real runs</b> (buy 2–3 ft extra per size for practice and mistakes).</p>
+
+  <h3>1. Vocabulary</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Term</th><th>What it is</th><th>Where it's used here</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cable</b></td><td>Flexible multi-strand copper wire with insulation. Sizes: 1/0 &gt; 2 AWG &gt; 6 AWG &gt; 10 AWG (bigger number = thinner wire; "1/0" reads "one-aught").</td><td>All W1–W14 runs</td></tr>
+      <tr><td><b>Lug</b></td><td>A tinned copper sleeve crimped onto a cable's bare end, leaving a hole to bolt to a stud. <b>Two-hole lugs</b> for the biggest cables.</td><td>1/0 cables → battery M8 studs, busbars, MultiPlus</td></tr>
+      <tr><td><b>Ring terminal</b></td><td>Small pre-insulated copper ring crimped onto 14–6 AWG wire, then bolted to a stud.</td><td>6/8 AWG to busbars &amp; fuses; sense lead</td></tr>
+      <tr><td><b>ANL fuse</b></td><td>Flat ceramic fuse with two holes; the cable lug bolts directly to it. The standard big-DC fuse in RVs.</td><td>Class T 300 A (main), ANL 60/30 A branches</td></tr>
+      <tr><td><b>MC4 connector</b></td><td>Standard click-together solar connector (male = pin, female = socket). Your portables already have these.</td><td>W6 solar run, both ends</td></tr>
+      <tr><td><b>Heat-shrink</b></td><td>Plastic tubing that shrinks with heat. <b>Adhesive-lined (marine grade)</b> has glue inside that melts and waterproofs the crimp. 3:1 = shrinks to a third of printed size.</td><td>Every crimp and stripped section</td></tr>
+      <tr><td><b>Crimp</b></td><td>Permanently compressing a connector onto bare copper with a tool — the correct automotive method. <b>Never solder</b> power cables in a vehicle: vibration work-hardens solder until it cracks and overheats.</td><td>All terminations</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2. Your cable-making tool kit</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Tool</th><th>What it does</th><th>Example / budget</th></tr></thead>
+    <tbody>
+      <tr><td><b>Hydraulic crimper + 1/0–2/0 dies</b></td><td>Makes the hex crimps on big lugs. Hand crimpers physically cannot do 1/0 properly — this tool is non-negotiable.</td><td>IWISS SN-50C / Dorman / Ensto · $120–250</td></tr>
+      <tr><td>Ratchet crimper (10–6 AWG)</td><td>Hex/dimple crimps on ring terminals and small lugs.</td><td>IWISS SN-01/06 · $25–40</td></tr>
+      <tr><td>MC4 solar crimper</td><td>Crushes the tiny MC4 contact tabs onto 10 AWG PV wire; die shape must match your connectors (Stäubli-compatible).</td><td>IWISS SN-2546 / YBTC-4 · $25–90</td></tr>
+      <tr><td>Ratcheting cable cutter (≥ 250 kcmil)</td><td>Cuts stranded cable cleanly without splaying strands.</td><td>$25–60</td></tr>
+      <tr><td>Wire strippers + knife</td><td>Small wire: strippers. 1/0: shallow spiral score with a knife — insulation only, never into copper.</td><td>$10–20</td></tr>
+      <tr><td>Heat gun</td><td>Shrinks tubing. A hair dryer is not hot enough.</td><td>$20–30</td></tr>
+      <tr><td><b>In-lb torque wrench</b></td><td>Too loose = fire-risk hot spot; too tight = stripped stud. The most important safety tool here.</td><td>1/4" drive 50–250 in-lb · $35–60</td></tr>
+      <tr><td>Multimeter + DC clamp meter</td><td>Continuity-test every finished cable; verify charging currents later.</td><td>$40 + $50</td></tr>
+      <tr><td>String, tape, Sharpie</td><td>String-route every run for length before cutting; label front/back of every cable.</td><td>$10</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Anatomy of a proper crimp — the 6 rules</h3>
+  <ol class="steps">
+    <li><b>Right size, matched set.</b> Lug marked "1/0" gets 1/0 cable and the die sized for that barrel. No improvising.</li>
+    <li><b>Strip the right length.</b> Most lugs have an insulation stop inside the barrel: insulation flush at the entrance, copper filling the rest. Too long = exposed copper; too short = insulation inside the crimp (bad connection).</li>
+    <li><b>Fully insert, no frays.</b> Every strand goes in the barrel. If they splay, re-strip — never cut strands to make it "fit."</li>
+    <li><b>Hex crimp, two dents, rotated.</b> One hex squeeze near the conductor side, rotate 180°, squeeze again near the stud side. The tool must bottom out — if it closes easily, the die or lug size is wrong.</li>
+    <li><b>Adhesive-lined shrink over every crimp.</b> Slide the tubing on <i>before</i> crimping (the classic rookie mistake), covering barrel + ¾" of intact insulation each side; heat middle-outward until glue beads at both ends.</li>
+    <li><b>Test, then torque.</b> Multimeter continuity (beep, near 0 Ω), tug test (20+ lb), bolt with star washer, torque to spec, then a paint-pen mark across lug-to-busbar so you can spot rotation later.</li>
+  </ol>
+
+  <h3>4. Torque cheat sheet <span style="font-weight:400;font-size:12px;color:var(--ink3)">(verify on each unit's label)</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Termination</th><th>Torque</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Vatrer battery M8 studs</td><td>≈ 8 N·m (70 in-lb)</td><td>Follow Vatrer manual if printed on case; star washer under lug</td></tr>
+      <tr><td>Victron MultiPlus / MPPT / Orion M8</td><td>≈ 4 N·m (35 in-lb)</td><td>Check VictronConnect manual / terminal label</td></tr>
+      <tr><td>Class T fuse holder</td><td>≈ 9–10 N·m (80–90 in-lb)</td><td>Per fuse-holder maker's label</td></tr>
+      <tr><td>ANL 60 A / 30 A</td><td>≈ 4–5 N·m (35–45 in-lb)</td><td>Snug + firm; re-check after 500 miles</td></tr>
+      <tr><td>AC lugs (Power Center, MultiPlus AC)</td><td>typ. 6 AWG ≈ 2.8–4 N·m (25–35 in-lb)</td><td>Torque screwdriver; over-tightening crushes stranded wire</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5. Cable recipes — make these one at a time</h3>
+
+  <h4>Recipe A — Battery links &amp; main leads (W1/W2/W3/W13): 1/0 cable, two-hole lugs</h4>
+  <ol class="steps">
+    <li>Route string, add 10%, mark, cut with the cable cutter.</li>
+    <li>Slide adhesive-lined shrink (big enough to swallow the lug barrel) onto the cable. <b>First!</b></li>
+    <li>Strip ~1" with a knife: shallow spiral score, snap, pull. All strands full-length and clean.</li>
+    <li>Insert copper fully into the two-hole lug until insulation hits the barrel stop.</li>
+    <li>Hydraulic tool, correct die: hex squeeze near barrel mouth, rotate 180°, squeeze near the holes. Tool must close completely.</li>
+    <li>Shrink over the whole barrel until tight, glue beading at both ends.</li>
+    <li>Continuity probe lug-hole to far end (beep, near zero). Tug test. Label the cable's route (e.g., "BAT1+ → BAT2+").</li>
+    <li>Make 6 links total: 4 × 20", 2 × 36".</li>
+  </ol>
+
+  <h4>Recipe B — Branch DC cables (W4/W5/W7/W8/W9): 6–8 AWG, ring terminals</h4>
+  <ol class="steps">
+    <li>Measure, cut, slide on ¾–1" adhesive-lined shrink.</li>
+    <li>Strip ⅜" with strippers; twist strands clockwise so they stay tight.</li>
+    <li>Thread the ring terminal's insulation funnel over the jacket; copper into the barrel.</li>
+    <li>Ratchet crimper: one firm squeeze until the ratchet releases (matching die for bare barrels).</li>
+    <li>Shrink, continuity, tug test. ANL fuses clamp the ring with their own studs + star washers.</li>
+  </ol>
+
+  <h4>Recipe C — Portable solar run (W6): 10 AWG PV wire, MC4 ends</h4>
+  <div class="callout tip"><span class="ic">💡</span><div>Your panels already have MC4 pigtails — you're only making the <b>extension</b> from the RV inlet to MPPT #2. Use UV-rated double-insulated PV wire, not auto wire.</div></div>
+  <ol class="steps">
+    <li>Easiest: buy a pre-made 10 AWG MC4 extension (20 ft, male+female). Or make it: strip 7 mm, insert into each MC4 contact (copper visible in the contact window), crimp with the MC4 tool, push the crimped contact into the housing until it clicks and the O-ring seats.</li>
+    <li>Tug each wire 15 lb — it must not pull from the housing.</li>
+    <li>At MPPT #2, the bare tinned stranded ends clamp directly into PV+ / PV− (accepts up to 4 AWG stranded); bootlace ferrules + shrink if you want it tidy; torque ≈ 1.5 N·m (13 in-lb).</li>
+    <li>Mount the inlet so mated connectors hang <b>down</b> with a drip loop — never let them sit in puddles.</li>
+  </ol>
+
+  <h4>Recipe D — AC pigtails (W11/W12): 6 AWG THHN in the Power Center</h4>
+  <ol class="steps">
+    <li>Shore unplugged, generator off. Photograph the Power Center before touching anything.</li>
+    <li>Cut three 5-ft lengths: black (L1), red (L2), white (N) — keep house color code.</li>
+    <li>Strip ½"; twist clockwise; ferrule or tin optional under screw clamps.</li>
+    <li>Land on MultiPlus AC-IN 1 (L, L, N) and AC-OUT (L, L, N) per the unit diagram; torque to markings.</li>
+    <li>Route through existing knockouts with grommets; clamp against chafe.</li>
+    <li><b>Continuity map before power:</b> beep out L1/L2/N panel-lug → MultiPlus to prove no crossed pairs; confirm open (OL) from any hot to chassis.</li>
+  </ol>
+
+  <h4>Recipe E — Engine-sense (W10) and small wire</h4>
+  <ol class="steps">
+    <li>14 AWG with an insulated ring or Scotchlok T-tap at an ignition-switched truck fuse (test first: 12 V only with key ON).</li>
+    <li>Inline ATO 5 A holder within 6" of the truck side; route with hitch articulation slack, unpluggable at the RV.</li>
+  </ol>
+
+  <h3>6. Assembly order &amp; polarity discipline</h3>
+  <ul class="dash">
+    <li><b>Colors:</b> red = DC+, black = DC−, white = AC neutral, black/red THHN = AC hots. Label both ends of every cable with its ID (W1…W19) before routing.</li>
+    <li><b>One cable at a time.</b> Never leave a live battery terminal loose — a dropped 1/0 on the chassis throws a welding-arc flash. Battery negative disconnects <b>first</b>, reconnects last with the disconnect switch OFF.</li>
+    <li><b>First-connection ritual:</b> negatives → positive main through the (OFF) disconnect → switch ON → SmartShunt shows voltage → enable MultiPlus, MPPTs, Orion one at a time, watching the shunt.</li>
+  </ul>
+</section>
+
+<!-- ============================ TRAY ============================ -->
+<section id="tray">
+  <h2><span class="dot"></span>Battery Tray — Sized for the Vatrers</h2>
+  <p class="lead">Battery: <b>15.12"D × 7.64"W × 9.76"H, M8 top terminals</b>. Factory GC27 slots (~13.5" × 6.7" × 9.4") cannot take them — build a flat tray.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Layout</th><th>Tray footprint (batteries + ¾" gaps + 1" lug clearance)</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td><b>Single row ×3</b></td><td>≈ 26" W × 17" D × 11" H</td><td>Basement bay between frames, low &amp; centered</td></tr>
+      <tr><td><b>Single row ×4</b></td><td>≈ 34" W × 17" D × 11" H</td><td>Pass-through storage (check door clearance)</td></tr>
+      <tr><td><b>2×2 block ×4</b></td><td>≈ 16.5" W × 32" D × 11" H</td><td>If width is tight but depth is free</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="dash">
+    <li>Platform: ¾" plywood or HDPE, sealed/painted; two stainless hold-downs per battery across the top (not just front).</li>
+    <li>Keep terminals reachable from front/top — you'll torque-check after 500 miles.</li>
+    <li>Weight: confirm per-battery on the Vatrer sheet (typ. ~46–60 lb class); 4 × 60 lb ≈ 240 lb replacing ~120 lb of AGMs — re-weigh at a scale after the swap.</li>
+    <li>Leave vent clearance above terminals — LFP vents gas under fault; don't seal into an airtight box.</li>
+  </ul>
+</section>
+
+<!-- ============================ PARTS ============================ -->
+<section id="parts">
+  <h2><span class="dot"></span>Parts List</h2>
+  <h3>Major components</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Qty</th><th>Part</th><th>Role</th><th>~Price</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><b>Victron MultiPlus-II 12/3000-130 120 V</b></td><td>Inverter + 130 A charger + 50 A transfer</td><td>$1,500</td></tr>
+      <tr><td>1</td><td><b>Victron SmartSolar MPPT 100/50 Bluetooth</b></td><td>MPPT #2 — portable array (matches factory #1)</td><td>$370</td></tr>
+      <tr><td>1</td><td><b>Victron Orion-Tr Smart 12/12-30 isolated</b></td><td>Alternator → LFP while towing (170 A alt is ample)</td><td>$230</td></tr>
+      <tr><td>1</td><td><b>Victron SmartShunt 500 A / 100 mV</b></td><td>Bank SOC, app monitoring</td><td>$120</td></tr>
+      <tr><td>3–4</td><td><b>Vatrer 12 V 300 Ah self-heating LiFePO4</b> (200 A BMS, BT, M8)</td><td>~11.5–15.4 kWh usable</td><td>$700–900 ea</td></tr>
+      <tr><td>1</td><td>MC4 bulkhead panel inlet (IP67, 2-pole)</td><td>Weatherproof portable connection</td><td>$25–45</td></tr>
+      <tr><td>1</td><td>MC4 extension cable 10 AWG, 20 ft (or make per Recipe C)</td><td>Inlet → MPPT #2</td><td>$30–50</td></tr>
+      <tr><td>opt</td><td>Victron MultiControl Remote</td><td>Panel-side on/off + charge-current knob</td><td>$60–150</td></tr>
+      <tr><td>opt</td><td>Victron BatteryProtect 12/200</td><td>Low-voltage disconnect for sensitive loads</td><td>$100</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Protection &amp; distribution</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Qty</th><th>Part</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Class T fuse holder + 300 A fuse</td><td>MultiPlus feed, within 18" of BAT1+</td></tr>
+      <tr><td>1</td><td>400 A battery main disconnect</td><td>Service safety</td></tr>
+      <tr><td>1</td><td>ANL holder + 60 A</td><td>MPPT #2 output</td></tr>
+      <tr><td>2</td><td>ANL holder + 30 A</td><td>Orion input &amp; output (match truck trailer fuse)</td></tr>
+      <tr><td>1</td><td>ATO 5 A holder + fuse</td><td>Engine-sense</td></tr>
+      <tr><td>1</td><td>Positive busbar, 5-stud M8</td><td>MPPT ×2, Orion, MultiPlus, factory MPPT #1</td></tr>
+      <tr><td>1</td><td>Negative loads busbar</td><td>All 12 V returns; single link to SmartShunt</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Terminals, consumables, mounting</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Qty</th><th>Part</th></tr></thead>
+    <tbody>
+      <tr><td>10</td><td>1/0 AWG two-hole lugs, M8 (6 red / 4 black) — M8 because Vatrer studs are M8</td></tr>
+      <tr><td>12</td><td>6 AWG insulated ring terminals (red/black)</td></tr>
+      <tr><td>4</td><td>8 AWG ring terminals (black)</td></tr>
+      <tr><td>4</td><td>MC4 connector pairs (same brand family as your panels)</td></tr>
+      <tr><td>1</td><td>Bootlace ferrule kit 10 AWG (tidy MPPT ends, optional)</td></tr>
+      <tr><td>1</td><td>Adhesive-lined (marine) heat-shrink assortment incl. large 1/0 sizes + 3:1 kit — <b>not</b> thin hardware-store kind</td></tr>
+      <tr><td>1</td><td>Battery tray: plywood/HDPE + 6–8 stainless hold-downs + anchor hardware</td></tr>
+      <tr><td>1</td><td>4–5" 12 V vent fan or louvered grille (MultiPlus compartment)</td></tr>
+      <tr><td>—</td><td>Star washers M8/M10 · adhesive cable mounts · split-loom ½" &amp; ¾" · UV cable ties · thread-locker · silicone sealant · grommets · label tape · paint-mark pen</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================ TOOLS ============================ -->
+<section id="tools">
+  <h2><span class="dot"></span>Tool List</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Category</th><th>Tools</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cable making</b> <span style="color:var(--ink3)">(see Guide)</span></td><td>Hydraulic crimper + 1/0–2/0 hex dies · ratchet crimper 10–6 AWG · MC4 crimper · ratcheting cable cutter · strippers + knife · heat gun · adhesive-lined heat-shrink</td></tr>
+      <tr><td>Torque</td><td>In-lb torque wrench (50–250) · torque screwdriver · sockets/wrenches 8–13 mm · nut drivers · hex keys</td></tr>
+      <tr><td>Test</td><td>True-rms multimeter · DC clamp meter · 12 V test light · fish tape/pull string</td></tr>
+      <tr><td>Mechanical</td><td>Drill + step bits · hole saws (inlet, vent) · jigsaw (tray) · level · tape measure · Sharpie · shop vac · headlamp</td></tr>
+      <tr><td>Safety</td><td>Insulated/taped wrenches for AC · gloves · eye protection · fire extinguisher · wheel chocks · a friend for 50–60 lb batteries</td></tr>
+      <tr><td>Software</td><td>Phone/laptop with <b>VictronConnect</b> (BT: MPPT #2, Orion-Tr Smart, SmartShunt, MultiPlus-II)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================ INSTALL ============================ -->
+<section id="install">
+  <h2><span class="dot"></span>Install Instructions</h2>
+  <div class="callout warn"><span class="ic">⚠️</span><div><b>Safety first:</b> shore unplugged, generator off, battery disconnect OFF before any AC work. No rings or watches. DC side: negative <b>off first, on last</b> (with disconnect switch OFF). All DC fuses within 18" of battery positive. If the 50 A panel splice (Phase 3, step 3) feels intimidating, any RV electrician will do that half-hour of work — it protects you and the Brinkley warranty.</div></div>
+
+  <h3>Phase 0 — Verify (½ day, before buying cable)</h3>
+  <ol class="steps">
+    <li>Confirm gauge/termination points of the factory inverter-prep cables (need ≥ 1/0 for W1; if lighter, run your own). Locate the generator transfer relay and inverter-prep splice (①). Photograph everything.</li>
+    <li>Find the WFCO lithium-mode switch and confirm it's settable — it stays as standby backup (⑧).</li>
+    <li>Check the truck's trailer 12 V fuse rating (usually 30 A on GM HD) — sets W7's fuse and realistic driving charge (~25 A via 7-way).</li>
+    <li>Pull string through the roof→basement conduit; pick the MC4 inlet location in pass-through storage; plan to seal the penetration.</li>
+    <li>Measure the chosen tray spot against the footprint table; email Brinkley service for warranty position; keep all factory parts boxed.</li>
+  </ol>
+
+  <h3>Phase 1 — Practice weekend (1 evening)</h3>
+  <ol class="steps">
+    <li>Buy 3 ft each of 1/0, 6 AWG, and 10 AWG PV offcuts + spare lugs/rings/MC4s.</li>
+    <li>Run Recipes A, B, C on scrap. Saw practice crimps open: copper should look cold-forged into the barrel — no voids, no cut strands.</li>
+    <li>Only after 3–4 clean practice crimps per size, build the real cables.</li>
+  </ol>
+
+  <h3>Phase 2 — Battery bank + tray (1 day)</h3>
+  <ol class="steps">
+    <li>Build/mount the tray (footprint table), strap batteries, keep terminal access.</li>
+    <li>Install 400 A disconnect + Class T 300 A on BAT1+ within 18".</li>
+    <li>Diagonal parallel with W3 links: + BAT1→2→3(→4), − BAT4→3→2(→1); main + from BAT1, main − from BAT4 (opposite corners = even sharing). Torque M8 ≈ 70 in-lb (verify Vatrer label).</li>
+    <li>W13: BAT4− → SmartShunt → − loads busbar. <b>All</b> 12 V returns (existing + W14) land on the − loads busbar so the shunt meters everything.</li>
+    <li>Set Vatrer BMS parallel mode, self-heat on; pair the BT apps.</li>
+  </ol>
+
+  <h3>Phase 3 — MultiPlus-II (1–2 days, core job)</h3>
+  <ol class="steps">
+    <li>Mount upright, ≥ 4" air clearance, fan/grille if enclosed.</li>
+    <li>DC: W1/W2 lugs to MultiPlus terminals, torque ≈ 35 in-lb (verify label).</li>
+    <li>AC (①): move shore/gen feed from panel main lugs → AC-IN 1 (W11); AC-OUT → panel main lugs (W12). Factory bonding stays; never create a second neutral-ground bond.</li>
+    <li>WFCO → lithium mode (⑧), standby backup. If it ever back-feeds oddly, lift its output fuse — otherwise leave live.</li>
+    <li>VictronConnect: LiFePO4 per Vatrer label (typ. absorb 14.4 / float 13.8); charger 130 A; shore limit 50 A; generator limit 40 A; low-batt alarm 11.8 V; PowerAssist ON; SmartShunt paired (900–1,200 Ah).</li>
+  </ol>
+
+  <h3>Phase 4 — MPPT #2 + MC4 inlet (½ day)</h3>
+  <ol class="steps">
+    <li>Mount MPPT #2 beside #1 (④), ventilated ≥ 10 cm above/below.</li>
+    <li>Install MC4 bulkhead inlet (⑤), sealed, connectors facing down with a drip loop.</li>
+    <li>Build/install W6 (Recipe C) through the conduit to MPPT #2 PV terminals.</li>
+    <li>W4/W5 output → +busbar (ANL 60 A) / −busbar. Configure identical to MPPT #1; pair both in VictronConnect — two harvesters, one view.</li>
+    <li>Plug in the portable series pair only with panels shaded or the MPPT DC switch off. Verify series Voc &lt; 100 V cold (2× ~41 V ≈ 82 V: OK).</li>
+  </ol>
+
+  <h3>Phase 5 — Orion-Tr DC-DC (½ day)</h3>
+  <ol class="steps">
+    <li>Mount near bank. W7 from 7-way junction 12 V pin → Orion +IN, ANL 30 A at the RV battery end (protects the truck's #10 trailer wire; the 170 A alternator is no problem).</li>
+    <li>W10 engine-sense to an ignition-switched truck fuse (test first), ATO 5 A in line. W9 ground.</li>
+    <li>W8 output → +busbar, ANL 30 A. Configure 14.4 V / 30 A (or 25 A if the truck fuse is 30 A).</li>
+    <li>Highway test with the clamp meter: expect 25–30 A; ~50–70 Ah per 2–3 h tow. A top-up, not a fast charger.</li>
+  </ol>
+
+  <h3>Phase 6 — Commissioning checklist</h3>
+  <div class="tbl"><table>
+    <thead><tr><th style="width:36px">✔</th><th>Test</th></tr></thead>
+    <tbody>
+      <tr><td>☐</td><td>Shore: panel live, bulk charge ~130 A tapering; transfer silent</td></tr>
+      <tr><td>☐</td><td>Unplug shore: loads stay on &lt; 20 ms; fridge/pump/Smart-Command unaffected</td></tr>
+      <tr><td>☐</td><td>Generator: auto-transfer, charges + passes through, 40 A limit respected</td></tr>
+      <tr><td>☐</td><td>Both MPPTs harvest (roof always, portable when plugged); both in VictronConnect</td></tr>
+      <tr><td>☐</td><td>30-min drive: clamp meter +25–30 A from Orion; SOC rises</td></tr>
+      <tr><td>☐</td><td>Cold: self-heat engages &lt; ~40 °F; charge 0 until warm</td></tr>
+      <tr><td>☐</td><td>SmartShunt: full charge → reset 100%; log cycles in VRM</td></tr>
+      <tr><td>☐</td><td>All factory loads normal; torque re-check + paint marks after 500 miles</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================ BUDGET ============================ -->
+<section id="budget">
+  <h2><span class="dot"></span>Operating Budget — What This Buys You</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Scenario</th><th>Consumption</th><th>3 × 300 Ah (~11.5 kWh)</th><th>4 × 300 Ah (~15.4 kWh)</th></tr></thead>
+    <tbody>
+      <tr><td>Dry camping, no AC (fridge, lights, pump, TV, outlets)</td><td>~2–3 kWh/day</td><td><b>~4–5 days</b></td><td><b>~6+ days</b></td></tr>
+      <tr><td>+ roof 370 W + portable ≤600 W sun (~2–4 kWh/day)</td><td>net ≈ 0</td><td colspan="2"><b>indefinite in fair weather</b></td></tr>
+      <tr><td>Recharge 50% on shore/generator @130 A</td><td>—</td><td>~3.5 h</td><td>~5 h</td></tr>
+      <tr><td>Recharge 50% towing only @~28 A</td><td>—</td><td>~17 h tow</td><td>~22 h tow</td></tr>
+      <tr><td>AC (18k Chill Cube)</td><td>~1.5 kWh/hr</td><td colspan="2">generator or shore only (by design)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <b>Sources:</b> Brinkley RV Model Z spec tables &amp; Owner's Hub — factory Victron SmartSolar MPPT 100/50, WFCO converter, inverter prep (RVMP Flex Power 5500i install doc), generator prep ≤ 5.5 kW, roof→basement conduit, Z 2680 solar backer drawings.<br>
+    <b>Owner-confirmed:</b> Vatrer 300 Ah dims 15.12 × 7.64 × 9.76" · M8 terminals · WFCO Li-capable · 170 A alternator · MC4 portable panels.<br>
+    Verify all field values (cable gauges, case dimensions, charge voltages) at install. Rev A · 2026-10-17.
+  </div>
+</footer>
+
+</body>
+</html>
