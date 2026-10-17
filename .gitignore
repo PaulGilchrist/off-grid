@@ -147,3 +147,11 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# GitHub Pages (Jekyll) — local build artifacts and Ruby/Bundler state
+# Pages builds happen server-side; these only appear if previewing with
+# `bundle exec jekyll serve` locally. (Gemfile.lock stays tracked on purpose.)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
