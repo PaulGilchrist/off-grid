@@ -8,8 +8,8 @@
   :root{
     --ink:#0f172a; --ink2:#334155; --ink3:#64748b; --line:#e2e8f0; --bg:#f8fafc;
     --accent:#0d9488; --accent2:#0f766e; --amber:#b45309;
-    --existing:#2563eb; --new:#ea580c; --pv-old:#7c3aed; --pv-new:#16a34a;
-    --dcpos:#dc2626; --dcneg:#1e293b; --dcold:#94a3b8;
+    --victron:#2563eb; --house:#7c3aed; --wirepos:#dc2626; --wireneg:#1e293b;
+    --ac-neutral:#ffffff; --ac-ground:#16a34a;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -44,6 +44,8 @@
   .chip{display:inline-flex;align-items:center;gap:8px;font-weight:600}
   .sw{display:inline-block;width:30px;height:0;border-top-width:4px;border-top-style:solid;border-radius:2px}
   .sw.box{height:13px;border:2px solid;border-radius:4px;background:#fff}
+  .sw.sw-white{border-top-color:#fff;box-shadow:0 1px 0 #94a3b8,0 -1px 0 #94a3b8}
+  .sw.sw-dash{border-top-style:dashed;border-top-color:#dc2626}
 
   /* ---------- svg ---------- */
   .diagram{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
@@ -60,9 +62,9 @@
   td b,td strong{color:var(--ink)}
 
   .tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.03em;white-space:nowrap}
-  .t-new{background:#ffedd5;color:#9a3412}
-  .t-exist{background:#dbeafe;color:#1d4ed8}
-  .t-reuse{background:#dcfce7;color:#15803d}
+  .t-new{background:#dbeafe;color:#1d4ed8}
+  .t-exist{background:#f3e8ff;color:#7c3aed}
+  .t-reuse{background:#faf5ff;color:#9333ea}
   .t-check{background:#fef9c3;color:#a16207}
 
   /* ---------- callouts ---------- */
@@ -133,25 +135,25 @@
 <!-- ============================ DIAGRAM ============================ -->
 <section id="diagram">
   <h2><span class="dot"></span>System Diagram — Existing vs. New</h2>
-  <p class="lead">Solid blue / gray / purple lines are Brinkley factory wiring (keep). Dashed orange / red / dark / green lines are new. Only two factory cuts exist: <b>①</b> the shore/generator splice at the Power Center, and <b>⑧</b> the WFCO converter output (unit stays in place, fully disabled). The truck feed <b>⑥</b> is a new heavy circuit: 1 AWG from the truck battery through an Anderson quick-disconnect at the hitch. <b>Bay gear is drawn to scale (16 px/in); the RV side is schematic and stays left of the bay.</b> Wall row left→right: <b>Orion XS → Orion IP67 → MultiPlus-II → Lynx → MPPT #1 over MPPT #2</b>. Battery + chain: <b>BAT1+ → 300 A breaker → BEP 400 A double-pole switch → Lynx BAT+ (M10)</b>; the Lynx is rotated like the pre-wired kit — <b>BAT+ and − studs on the bottom, branch studs on the right</b>, fuses and both busbars internal. Battery bank on the floor centered under the Lynx — <b>4 now (2S2P · 600 Ah), BAT 5/6 reserved → 2S3P · 900 Ah</b>; main − is shown at its final <b>BAT6−</b> take-off (BAT4− until 5/6 land) through the SmartShunt — mounted low, closest to the batteries. Everything else is additive.</p>
+  <p class="lead">Colors match the actual wire spools: <b>red = + / hot</b>, <b>black = − / neutral return</b>, and the only <b>white (neutral)</b> + <b>green (ground)</b> conductors are the 4-wire 240 V AC runs into and out of the MultiPlus. <b>Solid lines are existing factory wiring (keep); dashed lines are new.</b> Device boxes: <b>blue = Victron or new-build gear</b>, <b>purple = existing house gear</b>. Only two factory cuts exist: <b>①</b> the shore/generator splice at the Power Center, and <b>⑧</b> the WFCO converter output (unit stays in place, fully disabled). The truck feed <b>⑥</b> is a new heavy circuit: 1 AWG from the truck battery through an Anderson quick-disconnect at the hitch. <b>Bay gear is drawn to scale (16 px/in); the RV side is schematic and stays left of the bay.</b> Wall row left→right: <b>Orion XS → Orion IP67 → MultiPlus-II → Lynx → MPPT #1 over MPPT #2</b>. Battery + chain: <b>BAT1+ → 300 A breaker → BEP 400 A double-pole switch → Lynx BAT+ (M10)</b>; the Lynx is rotated like the pre-wired kit — <b>BAT+ and − studs on the bottom, branch studs + the MultiPlus − on the right</b>, fuses and both busbars internal — so <b>every branch carries a red + AND a black − wire</b> (MPPTs return to the − bus studs; the Orions drop to the − rail that lands on the Lynx −). The <b>BEP 400 A switch direct-bolts under BAT+</b> and the <b>SmartShunt direct-bolts to the − battery input (bottom-right)</b> — no wire between them. Battery bank on the floor, dropped low and centered under the Lynx — <b>4 now (2S2P · 600 Ah), BAT 5/6 reserved → 2S3P · 900 Ah</b>; main − is shown at its final <b>BAT6−</b> take-off (BAT4− until 5/6 land) up through the SmartShunt into the Lynx. Both Orion DC-DC converters have <b>all terminals on one edge, red · black · red</b>. Everything else is additive.</p>
 
   <div class="legend">
-    <span class="chip"><span class="sw" style="border-color:var(--existing)"></span>Existing AC (shore / gen)</span>
-    <span class="chip"><span class="sw" style="border-color:var(--dcold)"></span>Existing DC</span>
-    <span class="chip"><span class="sw" style="border-color:var(--pv-old)"></span>Existing PV</span>
-    <span class="chip"><span class="sw" style="border-color:var(--new)"></span>New AC</span>
-    <span class="chip"><span class="sw" style="border-color:var(--dcpos)"></span>New DC +</span>
-    <span class="chip"><span class="sw" style="border-color:var(--dcneg)"></span>New DC −</span>
-    <span class="chip"><span class="sw" style="border-color:var(--pv-new);border-top-style:dashed"></span>New PV (portable)</span>
-    <span class="chip"><span class="sw box" style="border-color:var(--existing)"></span>Existing component</span>
-    <span class="chip"><span class="sw box" style="border-color:var(--new);border-style:dashed;background:#fff7ed"></span>New component</span>
+    <span class="chip"><span class="sw" style="border-color:#dc2626"></span>Wire + / hot</span>
+    <span class="chip"><span class="sw" style="border-color:#1e293b"></span>Wire − / neutral return</span>
+    <span class="chip"><span class="sw sw-white"></span>AC neutral (white)</span>
+    <span class="chip"><span class="sw" style="border-color:#16a34a"></span>AC ground (green)</span>
+    <span class="chip"><span class="sw" style="border-color:#64748b"></span>Existing wire (solid)</span>
+    <span class="chip"><span class="sw sw-dash"></span>New wire (dashed)</span>
+    <span class="chip"><span class="sw box" style="border-color:#2563eb;background:#eff6ff"></span>Victron / new device</span>
+    <span class="chip"><span class="sw box" style="border-color:#7c3aed;background:#f5f3ff"></span>Existing house device</span>
   </div>
 
   <div class="diagram">
-  <svg viewBox="0 0 1560 1100" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,'Segoe UI',Inter,Roboto,Helvetica,Arial" font-size="13">
+     <svg viewBox="0 0 1560 1100" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,'Segoe UI',Inter,Roboto,Helvetica,Arial" font-size="13">
     <defs>
       <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.14"/></filter>
-      <marker id="arrO" markerWidth="9" markerHeight="9" refX="6.5" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 z" fill="#ea580c"/></marker>
+      <marker id="arrR" markerWidth="9" markerHeight="9" refX="6.5" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 z" fill="#dc2626"/></marker>
+      <marker id="arrW" markerWidth="9" markerHeight="9" refX="6.5" refY="3.2" orient="auto"><path d="M0,0 L7,3.2 L0,6.4 z" fill="#ffffff" stroke="#94a3b8" stroke-width="0.6"/></marker>
       <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#eef2f7" stroke-width="1"/></pattern>
     </defs>
 
@@ -160,282 +162,299 @@
     <text x="875" y="36" text-anchor="middle" font-size="15" font-weight="800" fill="#475569" letter-spacing="0.14em">BRINKLEY MODEL Z 2680 — ONE-LINE · BAY GEAR TO SCALE 16 px/in</text>
     <text x="272" y="76" font-size="10.5" fill="#94a3b8" font-weight="600">ROOF</text>
     <text x="272" y="530" font-size="10.5" fill="#94a3b8" font-weight="600">RV — EXISTING · NOT IN BAY</text>
-    <text x="640" y="64" font-size="10.5" fill="#c2703d" font-weight="700">GARAGE BAY — VICTRON + BATTERIES · TO SCALE</text>
+    <text x="640" y="64" font-size="10.5" fill="#1d4ed8" font-weight="700">GARAGE BAY — VICTRON + BATTERIES · TO SCALE</text>
 
-    <!-- ===== truck ===== -->
+    <!-- ===== truck (existing · green) ===== -->
     <g filter="url(#sh)">
-      <rect x="28" y="430" width="184" height="152" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="28" y="430" width="184" height="152" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
     </g>
     <text x="120" y="462" text-anchor="middle" font-size="20">🛻</text>
-    <text x="120" y="486" text-anchor="middle" font-weight="800" fill="#1e3a8a">TOW VEHICLE</text>
+    <text x="120" y="486" text-anchor="middle" font-weight="800" fill="#6d28d9">TOW VEHICLE</text>
     <text x="120" y="504" text-anchor="middle" font-size="12" fill="#334155">Chevy 2500HD 6.6L</text>
     <text x="120" y="521" text-anchor="middle" font-size="12" fill="#334155">170 A alternator</text>
     <text x="120" y="540" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">MRBF 125 A · 1 AWG</text>
     <text x="120" y="556" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">→ Anderson at hitch</text>
 
-    <!-- ===== existing RV sources (blue) — left of the bay ===== -->
+    <!-- ===== existing RV sources (house · green) — left of the bay ===== -->
     <g filter="url(#sh)">
-      <rect x="330" y="80" width="250" height="48" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="290" y="440" width="130" height="52" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="250" y="560" width="130" height="52" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="270" y="660" width="150" height="70" rx="10" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="440" y="560" width="180" height="170" rx="12" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="455" y="660" width="150" height="52" rx="8" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="330" y="80" width="250" height="48" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
+      <rect x="290" y="440" width="130" height="52" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
+      <rect x="250" y="560" width="130" height="52" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
+      <rect x="270" y="660" width="150" height="70" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
+      <rect x="440" y="560" width="180" height="170" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
+      <rect x="455" y="660" width="150" height="52" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
     </g>
-    <text x="455" y="100" text-anchor="middle" font-weight="700">☀️ Roof Solar 370 W</text>
-    <text x="455" y="117" text-anchor="middle" font-size="11" fill="#1d4ed8">existing · 740 W ready</text>
-    <text x="355" y="462" text-anchor="middle" font-size="12" font-weight="700">7-Way Junction</text>
-    <text x="355" y="479" text-anchor="middle" font-size="10.5" fill="#1d4ed8">existing · lighting only</text>
-    <text x="315" y="582" text-anchor="middle" font-size="12" font-weight="700">🔌 50 A Shore</text>
-    <text x="315" y="599" text-anchor="middle" font-size="10.5" fill="#1d4ed8">existing inlet</text>
-    <text x="345" y="690" text-anchor="middle" font-size="12" font-weight="700">Generator Prep</text>
-    <text x="345" y="707" text-anchor="middle" font-size="10.5" fill="#1d4ed8">≤ 5.5 kW · front bay</text>
-    <text x="530" y="584" text-anchor="middle" font-size="13" font-weight="800">Power Center</text>
-    <text x="530" y="601" text-anchor="middle" font-size="11" fill="#1d4ed8">50 A main · breakers</text>
-    <text x="530" y="681" text-anchor="middle" font-size="11.5" font-weight="700">WFCO Converter</text>
-    <text x="530" y="697" text-anchor="middle" font-size="10.5" fill="#991b1b">⑧ DISABLED · output capped</text>
+    <text x="455" y="100" text-anchor="middle" font-weight="700" fill="#6d28d9">☀️ Roof Solar 370 W</text>
+    <text x="455" y="117" text-anchor="middle" font-size="11" fill="#6d28d9">existing · 740 W ready</text>
+    <text x="355" y="462" text-anchor="middle" font-size="12" font-weight="700" fill="#6d28d9">7-Way Junction</text>
+    <text x="355" y="479" text-anchor="middle" font-size="10.5" fill="#6d28d9">existing · lighting only</text>
+    <text x="315" y="582" text-anchor="middle" font-size="12" font-weight="700" fill="#6d28d9">🔌 50 A Shore</text>
+    <text x="315" y="599" text-anchor="middle" font-size="10.5" fill="#6d28d9">existing inlet</text>
+    <text x="345" y="690" text-anchor="middle" font-size="12" font-weight="700" fill="#6d28d9">Generator Prep</text>
+    <text x="345" y="707" text-anchor="middle" font-size="10.5" fill="#6d28d9">≤ 5.5 kW · front bay</text>
+    <text x="530" y="584" text-anchor="middle" font-size="13" font-weight="800" fill="#6d28d9">Power Center</text>
+    <text x="530" y="601" text-anchor="middle" font-size="11" fill="#6d28d9">50 A main · breakers</text>
+    <text x="530" y="681" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6d28d9">WFCO Converter</text>
+    <text x="530" y="697" text-anchor="middle" font-size="10.5" fill="#dc2626">⑧ DISABLED · output capped</text>
 
-    <!-- ===== bay wall equipment — true scale 16 px/in · left→right: XS · IP67 · MultiPlus · Lynx · MPPT#2 ===== -->
+    <!-- ===== bay wall equipment — Victron/new = BLUE outline · solid box (wires are red/black) ===== -->
     <g filter="url(#sh)">
-      <!-- Orion XS 1400 ≈10.6x5.9 in -->
-      <rect x="560" y="388" width="170" height="94" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="8 5"/>
-      <!-- Orion IP67 24/12-100 · 5.0x10.4 in portrait — LEFT of the inverter -->
-      <rect x="746" y="274" width="80" height="208" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="8 5"/>
+      <!-- Orion XS 1400 · 5.44x4.90 in (138x124 mm) portrait -->
+      <rect x="600" y="395" width="78" height="87" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- Orion IP67 24/12-100 · 5.0x10.4 in portrait — centered between XS and MultiPlus -->
+      <rect x="720" y="274" width="80" height="208" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
       <!-- MultiPlus-II 10.8x22.7 in -->
-      <rect x="842" y="119" width="173" height="363" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="3" stroke-dasharray="8 5"/>
-      <!-- Lynx Distributor M10 rotated: 6.7x11.4 in · BAT+/− bottom · branches right -->
-      <rect x="1031" y="300" width="107" height="182" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
-      <!-- MPPT #1 SmartSolar 100/50 · 7.32x5.12 in LANDSCAPE -->
-      <rect x="1190" y="190" width="117" height="82" rx="8" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
-      <!-- MPPT #2 SmartSolar Tr 250/70 · 9.84x7.28 in LANDSCAPE -->
-      <rect x="1190" y="365" width="157" height="117" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="8 5"/>
-      <!-- MC4 inlet -->
-      <rect x="1360" y="150" width="72" height="48" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="8 5"/>
-      <!-- BEP 770-DP-EZ · 6.78x2.7 in -->
-      <rect x="1009" y="500" width="108" height="43" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
-      <!-- RED WOLF 300 A breaker · 1.9x1.4 in -->
-      <rect x="1048" y="566" width="30" height="22" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
-      <!-- SmartShunt 500 · 4.7x1.8 in -->
-      <rect x="1280" y="890" width="75" height="29" rx="5" fill="#f1f5f9" stroke="#1e293b" stroke-width="2.5"/>
+      <rect x="842" y="119" width="173" height="363" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="3.5"/>
+      <!-- Lynx Distributor M10 rotated: 6.7x11.4 in · BAT+/− bottom · branches + MultiPlus − right -->
+      <rect x="1031" y="300" width="107" height="182" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- MPPT #1 SmartSolar 100/50 · 7.32x5.12 in LANDSCAPE (top-right stack) -->
+      <rect x="1190" y="128" width="117" height="82" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- MPPT #2 SmartSolar Tr 250/70 · 9.84x7.28 in LANDSCAPE (below MPPT #1) -->
+      <rect x="1190" y="245" width="157" height="117" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- MC4 inlet (new) -->
+      <rect x="1360" y="150" width="72" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- BEP 770-DP-EZ · 6.78x2.7 in — DIRECT BOLT under Lynx BAT+ (bottom-left) -->
+      <rect x="1009" y="482" width="108" height="43" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- RED WOLF 300 A breaker · 1.9x1.4 in — wired below BEP -->
+      <rect x="1048" y="535" width="30" height="22" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- SmartShunt 500 · 4.7x1.8 in — DIRECT BOLT to Lynx − battery input (bottom-right) -->
+      <rect x="1117" y="482" width="75" height="29" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
     </g>
-    <text x="645" y="428" text-anchor="middle" font-size="12" font-weight="800">Orion XS 1400 <tspan fill="#9a3412">(NEW)</tspan></text>
-    <text x="645" y="446" text-anchor="middle" font-size="10" fill="#334155">12/24-50 DC-DC · IP65</text>
-    <text x="786" y="370" text-anchor="middle" font-size="11" font-weight="800">Orion</text>
-    <text x="786" y="386" text-anchor="middle" font-size="11" font-weight="800">IP67 <tspan fill="#9a3412">(NEW)</tspan></text>
-    <text x="786" y="402" text-anchor="middle" font-size="9" fill="#334155">24/12-100</text>
-    <text x="928" y="290" text-anchor="middle" font-size="14" font-weight="800">MultiPlus-II <tspan fill="#9a3412">(NEW)</tspan></text>
+    <text x="639" y="430" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">Orion XS <tspan fill="#1d4ed8">(NEW)</tspan></text>
+    <text x="639" y="446" text-anchor="middle" font-size="9" fill="#334155">12/24-50</text>
+    <text x="760" y="370" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">Orion</text>
+    <text x="760" y="386" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">IP67 <tspan fill="#1d4ed8">(NEW)</tspan></text>
+    <text x="760" y="402" text-anchor="middle" font-size="9" fill="#334155">24/12-100</text>
+    <text x="928" y="290" text-anchor="middle" font-size="14" font-weight="800" fill="#1e3a8a">MultiPlus-II <tspan fill="#1d4ed8">(NEW)</tspan></text>
     <text x="928" y="312" text-anchor="middle" font-size="11.5" fill="#334155">24/3000/70-50 · 2x120V</text>
     <text x="928" y="332" text-anchor="middle" font-size="10.5" fill="#64748b">split-phase · 70 A charger</text>
     <text x="928" y="352" text-anchor="middle" font-size="10" fill="#2563eb" font-weight="700">📶 VE.Bus dongle → BT</text>
-    <text x="1084" y="378" text-anchor="middle" font-size="11" font-weight="800" fill="#991b1b">LYNX</text>
-    <text x="1084" y="393" text-anchor="middle" font-size="9.5" font-weight="800" fill="#991b1b">DISTRIBUTOR M10</text>
-    <text x="1084" y="408" text-anchor="middle" font-size="8.5" fill="#991b1b">MEGA fuses · ± internal</text>
-    <text x="1248" y="222" text-anchor="middle" font-size="11.5" font-weight="800">MPPT #1</text>
-    <text x="1248" y="240" text-anchor="middle" font-size="9" fill="#334155">SmartSolar 100/50</text>
-    <text x="1248" y="254" text-anchor="middle" font-size="9" fill="#334155">factory</text>
-    <text x="1268" y="412" text-anchor="middle" font-size="12" font-weight="800">MPPT #2 <tspan fill="#9a3412">(NEW)</tspan></text>
-    <text x="1268" y="430" text-anchor="middle" font-size="9.5" fill="#334155">SmartSolar Tr 250/70</text>
-    <text x="1396" y="170" text-anchor="middle" font-size="10" font-weight="800" fill="#166534">MC4</text>
-    <text x="1396" y="184" text-anchor="middle" font-size="9" fill="#166534">INLET</text>
-    <text x="1063" y="517" text-anchor="middle" font-size="10" font-weight="800" fill="#991b1b">BEP 770-DP-EZ</text>
-    <text x="1063" y="533" text-anchor="middle" font-size="8.5" fill="#991b1b">400 A DP switch · M10</text>
-    <text x="1042" y="580" text-anchor="end" font-size="8.5" font-weight="800" fill="#991b1b">300 A</text>
-    <text x="1317" y="932" text-anchor="middle" font-size="9.5" font-weight="800">SmartShunt 500</text>
+    <text x="1084" y="378" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">LYNX</text>
+    <text x="1084" y="393" text-anchor="middle" font-size="9.5" font-weight="800" fill="#1e3a8a">DISTRIBUTOR M10</text>
+    <text x="1084" y="408" text-anchor="middle" font-size="8.5" fill="#2563eb">MEGA fuses · ± internal</text>
+    <text x="1248" y="160" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1e3a8a">MPPT #1</text>
+    <text x="1248" y="178" text-anchor="middle" font-size="9" fill="#334155">SmartSolar 100/50</text>
+    <text x="1248" y="192" text-anchor="middle" font-size="9" fill="#334155">factory</text>
+    <text x="1268" y="277" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">MPPT #2 <tspan fill="#1d4ed8">(NEW)</tspan></text>
+    <text x="1268" y="295" text-anchor="middle" font-size="9.5" fill="#334155">SmartSolar Tr 250/70</text>
+    <text x="1396" y="170" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a8a">MC4</text>
+    <text x="1396" y="184" text-anchor="middle" font-size="9" fill="#1e3a8a">INLET</text>
+    <text x="1063" y="499" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a8a">BEP 770-DP-EZ</text>
+    <text x="1063" y="515" text-anchor="middle" font-size="8.5" fill="#2563eb">400 A DP · M10</text>
+    <text x="1042" y="550" text-anchor="end" font-size="8.5" font-weight="800" fill="#1e3a8a">300 A</text>
+    <text x="1155" y="500" text-anchor="middle" font-size="8" font-weight="800" fill="#1e3a8a">Shunt</text>
 
-    <!-- ===== terminal stubs ===== -->
-    <!-- XS left end -->
+    <!-- ===== terminal stubs (+ red · − black) ===== -->
+    <!-- XS bottom · red-black-red (IN+ · IN− common · OUT+) -->
     <g stroke-width="3.5">
-      <line x1="552" y1="400" x2="560" y2="400" stroke="#dc2626"/><line x1="552" y1="416" x2="560" y2="416" stroke="#1e293b"/>
-      <line x1="552" y1="432" x2="560" y2="432" stroke="#dc2626"/><line x1="552" y1="448" x2="560" y2="448" stroke="#1e293b"/>
+      <line x1="615" y1="482" x2="615" y2="490" stroke="#dc2626"/><line x1="639" y1="482" x2="639" y2="490" stroke="#1e293b"/>
+      <line x1="663" y1="482" x2="663" y2="490" stroke="#dc2626"/>
     </g>
-    <g font-size="7.5" font-weight="700" text-anchor="end" fill="#475569">
-      <text x="550" y="398">IN+</text><text x="550" y="414">IN−</text><text x="550" y="430">OUT+</text><text x="550" y="446">OUT−</text>
+    <g font-size="7" font-weight="700" text-anchor="middle">
+      <text x="615" y="500" fill="#dc2626">IN+</text><text x="639" y="500" fill="#1e293b">IN−</text><text x="663" y="500" fill="#dc2626">OUT+</text>
     </g>
-    <!-- IP67: all terminals on BOTTOM · 2 red (IN+ · OUT+) + 1 black (IN− common) -->
+    <!-- IP67 bottom · red-black-red (IN+ · IN− common · OUT+) -->
     <g stroke-width="3.5">
-      <line x1="766" y1="482" x2="766" y2="490" stroke="#dc2626"/><line x1="786" y1="482" x2="786" y2="490" stroke="#dc2626"/>
-      <line x1="806" y1="482" x2="806" y2="490" stroke="#1e293b"/>
+      <line x1="740" y1="482" x2="740" y2="490" stroke="#dc2626"/><line x1="760" y1="482" x2="760" y2="490" stroke="#1e293b"/>
+      <line x1="780" y1="482" x2="780" y2="490" stroke="#dc2626"/>
     </g>
-    <g font-size="7.5" font-weight="700" text-anchor="middle">
-      <text x="760" y="500" fill="#dc2626">OUT+</text><text x="786" y="500" fill="#dc2626">IN+</text><text x="810" y="500" fill="#1e293b">IN−</text>
+    <g font-size="7" font-weight="700" text-anchor="middle">
+      <text x="740" y="500" fill="#dc2626">IN+</text><text x="760" y="500" fill="#1e293b">IN−</text><text x="780" y="500" fill="#dc2626">OUT+</text>
     </g>
-    <!-- MultiPlus bottom -->
+    <!-- MultiPlus bottom · DC studs (AC 4-wire bundles land on bottom edge) -->
     <g stroke-width="4">
-      <line x1="862" y1="482" x2="862" y2="500" stroke="#ea580c"/><line x1="907" y1="482" x2="907" y2="514" stroke="#ea580c"/>
-      <line x1="987" y1="482" x2="987" y2="496" stroke="#dc2626"/><line x1="1004" y1="482" x2="1004" y2="496" stroke="#1e293b"/>
+      <line x1="945" y1="482" x2="945" y2="496" stroke="#dc2626"/><line x1="968" y1="482" x2="968" y2="496" stroke="#1e293b"/>
     </g>
     <g font-size="8" font-weight="700">
-      <text x="982" y="478" text-anchor="end" fill="#dc2626">BAT+</text><text x="1010" y="478" fill="#1e293b">BAT−</text>
+      <text x="940" y="478" text-anchor="end" fill="#dc2626">BAT+</text><text x="974" y="478" fill="#1e293b">BAT−</text>
     </g>
-    <!-- Lynx: BAT+ & − both on BOTTOM · branches + MultiPlus on RIGHT -->
-    <line x1="1063" y1="482" x2="1063" y2="490" stroke="#dc2626" stroke-width="4.5"/>
+    <!-- Lynx: BAT+ bottom-left (bolt→BEP) · − bottom-right (bolt→shunt) · branches + MultiPlus − on RIGHT -->
+    <circle cx="1063" cy="482" r="4.5" fill="#dc2626"/>
     <text x="1056" y="478" text-anchor="end" font-size="8" fill="#dc2626" font-weight="700">BAT+ M10</text>
-    <line x1="1128" y1="482" x2="1128" y2="490" stroke="#1e293b" stroke-width="4.5"/>
-    <text x="1124" y="478" text-anchor="end" font-size="8" fill="#1e293b" font-weight="700">− M10</text>
+    <circle cx="1128" cy="482" r="4.5" fill="#1e293b"/>
+    <text x="1132" y="478" font-size="8" fill="#1e293b" font-weight="700">− M10</text>
+    <line x1="1138" y1="460" x2="1146" y2="460" stroke="#1e293b" stroke-width="3.5"/>
+    <text x="1150" y="463" font-size="7.5" font-weight="700" fill="#1e293b">MP−</text>
     <g stroke-width="3.5">
       <line x1="1138" y1="320" x2="1146" y2="320" stroke="#dc2626"/><line x1="1138" y1="350" x2="1146" y2="350" stroke="#dc2626"/>
       <line x1="1138" y1="380" x2="1146" y2="380" stroke="#dc2626"/><line x1="1138" y1="410" x2="1146" y2="410" stroke="#dc2626"/>
-      <line x1="1138" y1="440" x2="1146" y2="440" stroke="#ea580c"/>
+      <line x1="1138" y1="440" x2="1146" y2="440" stroke="#dc2626"/>
     </g>
-    <g font-size="7.5" font-weight="700" fill="#991b1b">
+    <g font-size="7.5" font-weight="700" fill="#1d4ed8">
       <text x="1150" y="323">S1</text><text x="1150" y="353">S2</text><text x="1150" y="383">S3</text><text x="1150" y="413">S4</text>
-      <text x="1150" y="443" fill="#ea580c">MP</text>
+      <text x="1150" y="443">MP</text>
     </g>
-    <!-- MPPT1 terminals all on BOTTOM -->
+    <!-- Lynx − busbar branch terminals (black) — every branch returns here -->
+    <line x1="1150" y1="330" x2="1150" y2="372" stroke="#1e293b" stroke-width="2.5"/>
+    <line x1="1146" y1="335" x2="1154" y2="335" stroke="#1e293b" stroke-width="3.5"/>
+    <line x1="1146" y1="365" x2="1154" y2="365" stroke="#1e293b" stroke-width="3.5"/>
+    <text x="1158" y="310" font-size="7.5" font-weight="700" fill="#1e293b">− bus</text>
+    <!-- MPPT1 terminals all on BOTTOM (y=210) -->
     <g stroke-width="3.5">
-      <line x1="1206" y1="272" x2="1206" y2="280" stroke="#dc2626"/><line x1="1226" y1="272" x2="1226" y2="280" stroke="#1e293b"/>
-      <line x1="1246" y1="272" x2="1246" y2="280" stroke="#7c3aed"/><line x1="1266" y1="272" x2="1266" y2="280" stroke="#1e293b"/>
+      <line x1="1206" y1="210" x2="1206" y2="218" stroke="#dc2626"/><line x1="1226" y1="210" x2="1226" y2="218" stroke="#1e293b"/>
+      <line x1="1246" y1="210" x2="1246" y2="218" stroke="#dc2626"/><line x1="1266" y1="210" x2="1266" y2="218" stroke="#1e293b"/>
     </g>
     <g font-size="7" font-weight="700" text-anchor="middle">
-      <text x="1206" y="290" fill="#dc2626">BAT+</text><text x="1226" y="290" fill="#1e293b">BAT−</text><text x="1246" y="290" fill="#7c3aed">PV+</text><text x="1266" y="290" fill="#1e293b">PV−</text>
+      <text x="1206" y="228" fill="#dc2626">BAT+</text><text x="1226" y="228" fill="#1e293b">BAT−</text><text x="1246" y="228" fill="#dc2626">PV+</text><text x="1266" y="228" fill="#1e293b">PV−</text>
     </g>
-    <!-- MPPT2 terminals all on BOTTOM -->
+    <!-- MPPT2 terminals all on BOTTOM (y=362) -->
     <g stroke-width="3.5">
-      <line x1="1206" y1="482" x2="1206" y2="490" stroke="#dc2626"/><line x1="1226" y1="482" x2="1226" y2="490" stroke="#1e293b"/>
-      <line x1="1266" y1="482" x2="1266" y2="490" stroke="#16a34a"/><line x1="1286" y1="482" x2="1286" y2="490" stroke="#1e293b"/>
+      <line x1="1206" y1="362" x2="1206" y2="370" stroke="#dc2626"/><line x1="1226" y1="362" x2="1226" y2="370" stroke="#1e293b"/>
+      <line x1="1266" y1="362" x2="1266" y2="370" stroke="#dc2626"/><line x1="1286" y1="362" x2="1286" y2="370" stroke="#1e293b"/>
     </g>
     <g font-size="7" font-weight="700" text-anchor="middle">
-      <text x="1206" y="500" fill="#dc2626">BAT+</text><text x="1226" y="500" fill="#1e293b">BAT−</text><text x="1266" y="500" fill="#166534">PV+</text><text x="1286" y="500" fill="#1e293b">PV−</text>
+      <text x="1206" y="380" fill="#dc2626">BAT+</text><text x="1226" y="380" fill="#1e293b">BAT−</text><text x="1266" y="380" fill="#dc2626">PV+</text><text x="1286" y="380" fill="#1e293b">PV−</text>
     </g>
 
-    <!-- ===== EXISTING wiring ===== -->
-    <line x1="221" y1="466" x2="290" y2="466" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="380" y1="586" x2="440" y2="586" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
-    <text x="410" y="578" text-anchor="middle" font-size="10" fill="#1d4ed8">6 AWG</text>
-    <path d="M 420 695 L 440 695" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
-    <text x="430" y="712" text-anchor="middle" font-size="9.5" fill="#1d4ed8">gen feed</text>
-    <path d="M 580 104 L 1320 104 L 1320 296 L 1246 296 L 1246 272" fill="none" stroke="#7c3aed" stroke-width="3.5" stroke-linejoin="round"/>
-    <text x="588" y="118" font-size="10" fill="#7c3aed" font-weight="600">roof PV → MPPT #1</text>
-    <path d="M 1146 320 L 1146 296 L 1206 296 L 1206 272" fill="none" stroke="#dc2626" stroke-width="3.5" stroke-linecap="round"/>
-    <text x="1176" y="310" text-anchor="middle" font-size="9" fill="#991b1b" font-weight="600" stroke="#fff" stroke-width="3" paint-order="stroke">S1 → MPPT #1</text>
-    <path d="M 530 712 L 530 726" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="3 6"/>
-    <circle cx="530" cy="730" r="4" fill="#94a3b8"/>
-    <text x="542" y="738" font-size="9.5" fill="#991b1b" stroke="#fff" stroke-width="3" paint-order="stroke">⑧ WFCO output CUT &amp; capped</text>
-    <path d="M 620 620 L 625 620 L 625 558 L 1128 558 L 1128 490" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linejoin="round"/>
-    <text x="700" y="552" text-anchor="middle" font-size="9.5" fill="#64748b" stroke="#fff" stroke-width="3" paint-order="stroke">load returns → − bus</text>
+    <!-- ===== EXISTING wiring (solid · red hot / black neutral) ===== -->
+    <line x1="221" y1="466" x2="290" y2="466" stroke="#dc2626" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="380" y1="586" x2="440" y2="586" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
+    <text x="410" y="578" text-anchor="middle" font-size="10" fill="#334155">6 AWG</text>
+    <path d="M 420 695 L 440 695" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
+    <text x="430" y="712" text-anchor="middle" font-size="9.5" fill="#334155">gen feed</text>
+    <path d="M 580 104 L 1320 104 L 1320 218 L 1246 218 L 1246 210" fill="none" stroke="#dc2626" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M 574 96 L 1328 96 L 1328 224 L 1266 224 L 1266 218" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="588" y="118" font-size="10" fill="#334155" font-weight="600" dx="16">roof PV → MPPT #1</text>
+    <path d="M 530 712 L 530 726" fill="none" stroke="#1e293b" stroke-width="3" stroke-dasharray="3 6"/>
+    <circle cx="530" cy="730" r="4" fill="#1e293b"/>
+    <text x="542" y="738" font-size="9.5" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">⑧ WFCO output CUT &amp; capped</text>
+    <path d="M 620 620 L 625 620 L 625 558 L 1195 558 L 1195 460 L 1146 460" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="700" y="552" text-anchor="middle" font-size="9.5" fill="#475569" stroke="#fff" stroke-width="3" paint-order="stroke">load returns → − bus</text>
 
-    <!-- ===== NEW wiring ===== -->
-    <path d="M 470 560 L 470 500 L 862 500" fill="none" stroke="#ea580c" stroke-width="4.5" stroke-linejoin="round" marker-end="url(#arrO)"/>
-    <text x="474" y="494" font-size="9.5" fill="#9a3412" font-weight="700">AC-IN 6 AWG ×3</text>
-    <path d="M 907 514 L 907 522 L 500 522 L 500 560" fill="none" stroke="#ea580c" stroke-width="4.5" stroke-linejoin="round" marker-end="url(#arrO)"/>
-    <text x="504" y="536" font-size="9.5" fill="#9a3412" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">AC-OUT → panel loads 6 AWG ×3</text>
+    <!-- ===== NEW wiring (dashed · red + / black −) ===== -->
+    <!-- AC-IN 4-wire 240 V split from panel → MultiPlus: L1 black · L2 red · N white · G green -->
+    <path d="M 462 560 L 462 494 L 854 494 L 854 482" fill="none" stroke="#1e293b" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 470 560 L 470 500 L 862 500 L 862 482" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 478 560 L 478 506 L 870 506 L 870 482" fill="none" stroke="#94a3b8" stroke-width="4.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 478 560 L 478 506 L 870 506 L 870 482" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 486 560 L 486 512 L 878 512 L 878 482" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="474" y="488" font-size="9.5" fill="#334155" font-weight="700">AC-IN 240 V 4-wire · 6 AWG · L1·L2·N·G</text>
+    <!-- AC-OUT 4-wire 240 V split → panel loads: L1 black · L2 red · N white · G green -->
+    <path d="M 899 482 L 899 516 L 492 516 L 492 560" fill="none" stroke="#1e293b" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 907 482 L 907 522 L 500 522 L 500 560" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 915 482 L 915 528 L 508 528 L 508 560" fill="none" stroke="#94a3b8" stroke-width="4.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 915 482 L 915 528 L 508 528 L 508 560" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 923 482 L 923 534 L 516 534 L 516 560" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="700" y="550" text-anchor="middle" font-size="9.5" fill="#334155" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">AC-OUT 240 V split 4-wire → panel loads</text>
 
-    <!-- battery + chain: BAT1+ → 300 A breaker → BEP switch → Lynx BAT+ (bottom) -->
-    <path d="M 907 632 L 907 614 L 1063 614 L 1063 588" fill="none" stroke="#dc2626" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 1063 566 L 1063 543" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-    <path d="M 1063 500 L 1063 490" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-    <text x="900" y="608" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">BAT1+ 2/0 → BEP → Lynx</text>
+    <!-- battery + chain: BAT1+ → breaker → BEP → Lynx BAT+ (BEP/Lynx direct-bolted · breaker wired) -->
+    <path d="M 907 732 L 907 690 L 1063 690 L 1063 557" fill="none" stroke="#dc2626" stroke-width="5" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M 1063 525 L 1063 535" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <text x="900" y="700" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">BAT1+ 2/0 → breaker → BEP → Lynx</text>
 
-    <!-- MultiPlus BAT+ → down · right PAST Lynx · up into Lynx RIGHT (MP stud) — no bypass -->
-    <path d="M 987 496 L 987 596 L 1184 596 L 1184 440 L 1146 440" fill="none" stroke="#ea580c" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
-    <text x="1085" y="590" text-anchor="middle" font-size="9" fill="#ea580c" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">MultiPlus BAT+ → MP</text>
+    <!-- MultiPlus BAT+ → down LEFT of BEP · right below switch/shunt · up into Lynx RIGHT (MP stud) — fused in Lynx -->
+    <path d="M 945 496 L 945 596 L 1218 596 L 1218 440 L 1146 440" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="1100" y="612" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">MultiPlus BAT+ → MP</text>
+    <!-- MultiPlus BAT− (black) → down · right · up into Lynx RIGHT − stud -->
+    <path d="M 968 496 L 968 588 L 1206 588 L 1206 460 L 1146 460" fill="none" stroke="#1e293b" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
 
-    <!-- battery − chain: BAT6− → SmartShunt → Lynx − BOTTOM stud (sole − path) -->
-    <path d="M 1415 864 L 1415 904 L 1355 904" fill="none" stroke="#1e293b" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 1280 904 L 1175 904 L 1175 558 L 1128 558 L 1128 490" fill="none" stroke="#1e293b" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-    <text x="1000" y="922" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">⑦ BAT6− 2/0 sole − path → shunt → Lynx −</text>
-    <!-- MultiPlus BAT− → − rail -->
-    <path d="M 1004 496 L 1004 558" fill="none" stroke="#1e293b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- battery − chain: BAT6− → up right side → SmartShunt (bottom-right of Lynx) → Lynx − -->
+    <path d="M 1415 964 L 1415 511 L 1155 511" fill="none" stroke="#1e293b" stroke-width="5" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="1300" y="940" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">⑦ BAT6− 2/0 sole − path → shunt → Lynx −</text>
 
     <!-- Lynx branch studs (right) → chargers -->
-    <!-- S2 → MPPT #2 BAT+ (down the right side of MPPT #2) -->
-    <path d="M 1146 350 L 1154 350 L 1154 500 L 1206 500 L 1206 482" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <text x="1180" y="514" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S2 → MPPT #2 · MEGA 80</text>
-    <!-- S3 → Orion XS OUT+ (over the top) -->
-    <path d="M 552 432 L 540 432 L 540 140 L 590 140 L 590 88 L 1162 88 L 1162 380 L 1146 380" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1146 320 L 1146 218 L 1206 218 L 1206 210" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="1176" y="244" text-anchor="middle" font-size="8.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S1 → MPPT #1</text>
+    <path d="M 1146 350 L 1146 372 L 1206 372 L 1206 362" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="1176" y="394" text-anchor="middle" font-size="8.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S2 → MPPT #2 · MEGA 80</text>
+    <!-- branch negatives (black dashed) → Lynx − busbar studs -->
+    <path d="M 1154 335 L 1170 335 L 1170 228 L 1226 228 L 1226 218" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1154 365 L 1180 365 L 1180 378 L 1226 378 L 1226 370" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- Orion negatives (black dashed) → − bus rail → Lynx − -->
+    <path d="M 639 490 L 639 558" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5"/>
+    <path d="M 663 490 L 663 510 L 588 510 L 588 88 L 1162 88 L 1162 380 L 1146 380" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <text x="640" y="82" text-anchor="middle" font-size="9.5" fill="#dc2626" font-weight="700">XS OUT+ → S3 · MEGA 60</text>
-    <!-- S4 → Orion IP67 IN+ (over the top) -->
-    <path d="M 786 490 L 834 490 L 834 112 L 1142 112 L 1142 410 L 1146 410" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <text x="760" y="142" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S4 → IP67 IN+ · MEGA 60</text>
+    <path d="M 740 490 L 808 490 L 808 112 L 1142 112 L 1142 410 L 1146 410" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="740" y="142" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S4 → IP67 IN+ · MEGA 60</text>
     <!-- IP67 IN− → − rail -->
-    <path d="M 806 490 L 806 558" fill="none" stroke="#1e293b" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 760 490 L 760 558" fill="none" stroke="#1e293b" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <text x="850" y="574" text-anchor="middle" font-size="9" fill="#1e293b" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">IN− → bus</text>
     <!-- IP67 OUT+ → Power Center -->
-    <path d="M 766 490 L 766 566 L 620 566" fill="none" stroke="#ea580c" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round" marker-end="url(#arrO)"/>
-    <text x="686" y="580" text-anchor="middle" font-size="9.5" fill="#9a3412" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">IP67 OUT+ → panel</text>
+    <path d="M 780 490 L 780 566 L 620 566" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round" marker-end="url(#arrR)"/>
+    <text x="686" y="580" text-anchor="middle" font-size="9.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">IP67 OUT+ → panel</text>
 
-    <!-- truck feed + engine sense → XS left end -->
-    <path d="M 212 520 L 230 520 L 230 400 L 552 400" fill="none" stroke="#dc2626" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <circle cx="204" cy="520" r="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5"/>
-    <text x="240" y="392" font-size="10" fill="#dc2626" font-weight="700">⑥ 1 AWG truck feed · Anderson SB175</text>
-    <path d="M 120 582 L 120 548 L 545 548 L 545 416 L 552 416" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="3 5" stroke-linejoin="round"/>
-    <text x="330" y="542" text-anchor="middle" font-size="9.5" fill="#ea580c" font-weight="600">14 AWG engine-sense → XS remote</text>
+    <!-- truck feed → Orion XS bottom IN+ (XS auto-starts on input voltage — no sense lead) -->
+    <path d="M 212 520 L 615 520 L 615 490" fill="none" stroke="#dc2626" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <circle cx="204" cy="520" r="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="300" y="514" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">⑥ 1 AWG truck feed · Anderson SB175</text>
 
     <!-- portable PV → MC4 inlet → MPPT #2 -->
-    <path d="M 1396 198 L 1396 510 L 1266 510 L 1266 482" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <path d="M 1440 1044 L 1440 174 L 1432 174" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <text x="1448" y="600" font-size="10" fill="#166534" font-weight="700" transform="rotate(-90 1448 600)" stroke="#fff" stroke-width="3" paint-order="stroke">⑤ NEW MC4 extension · portable panels → inlet → MPPT #2</text>
+    <path d="M 1396 198 L 1396 372 L 1266 372 L 1266 362" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1404 198 L 1404 380 L 1286 380 L 1286 370" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1440 1044 L 1440 174 L 1432 174" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="1448" y="620" font-size="10" fill="#6d28d9" font-weight="700" transform="rotate(-90 1448 620)" stroke="#fff" stroke-width="3" paint-order="stroke">⑤ NEW MC4 extension · portable panels → inlet → MPPT #2</text>
 
-    <!-- ===== battery bank — floor, centered under Lynx · 16 px/in ===== -->
+    <!-- ===== battery bank (new · blue) — floor, dropped low · centered under Lynx · 16 px/in ===== -->
     <g filter="url(#sh)">
-      <rect x="673" y="620" width="242" height="122" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="927" y="620" width="242" height="122" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="1181" y="620" width="242" height="122" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="2" stroke-dasharray="6 4"/>
-      <rect x="673" y="754" width="242" height="122" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="927" y="754" width="242" height="122" rx="6" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="1181" y="754" width="242" height="122" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="2" stroke-dasharray="6 4"/>
+      <rect x="673" y="720" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="927" y="720" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="1181" y="720" width="242" height="122" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4"/>
+      <rect x="673" y="854" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="927" y="854" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="1181" y="854" width="242" height="122" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4"/>
     </g>
-    <text x="794" y="675" text-anchor="middle" font-size="12" font-weight="800">BAT 1</text>
-    <text x="1048" y="675" text-anchor="middle" font-size="12" font-weight="800">BAT 3</text>
-    <text x="1302" y="675" text-anchor="middle" font-size="12" font-weight="800" fill="#9a3412">BAT 5</text>
-    <text x="794" y="811" text-anchor="middle" font-size="12" font-weight="800">BAT 2</text>
-    <text x="1048" y="811" text-anchor="middle" font-size="12" font-weight="800">BAT 4</text>
-    <text x="1302" y="811" text-anchor="middle" font-size="12" font-weight="800" fill="#9a3412">BAT 6</text>
+    <text x="794" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 1</text>
+    <text x="1048" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 3</text>
+    <text x="1302" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">BAT 5</text>
+    <text x="794" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 2</text>
+    <text x="1048" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 4</text>
+    <text x="1302" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">BAT 6</text>
     <!-- terminals: + upper-right · − lower-right -->
     <g stroke-width="2.5" fill="#fff">
-      <circle cx="907" cy="632" r="5" stroke="#dc2626"/><circle cx="907" cy="730" r="5" stroke="#1e293b"/>
-      <circle cx="1161" cy="632" r="5" stroke="#dc2626"/><circle cx="1161" cy="730" r="5" stroke="#1e293b"/>
-      <circle cx="1415" cy="632" r="5" stroke="#dc2626" stroke-dasharray="3 2"/><circle cx="1415" cy="730" r="5" stroke="#1e293b" stroke-dasharray="3 2"/>
-      <circle cx="907" cy="766" r="5" stroke="#dc2626"/><circle cx="907" cy="864" r="5" stroke="#1e293b"/>
-      <circle cx="1161" cy="766" r="5" stroke="#dc2626"/><circle cx="1161" cy="864" r="5" stroke="#1e293b"/>
-      <circle cx="1415" cy="766" r="5" stroke="#dc2626" stroke-dasharray="3 2"/><circle cx="1415" cy="864" r="5" stroke="#1e293b" stroke-dasharray="3 2"/>
+      <circle cx="907" cy="732" r="5" stroke="#dc2626"/><circle cx="907" cy="830" r="5" stroke="#1e293b"/>
+      <circle cx="1161" cy="732" r="5" stroke="#dc2626"/><circle cx="1161" cy="830" r="5" stroke="#1e293b"/>
+      <circle cx="1415" cy="732" r="5" stroke="#dc2626" stroke-dasharray="3 2"/><circle cx="1415" cy="830" r="5" stroke="#1e293b" stroke-dasharray="3 2"/>
+      <circle cx="907" cy="866" r="5" stroke="#dc2626"/><circle cx="907" cy="964" r="5" stroke="#1e293b"/>
+      <circle cx="1161" cy="866" r="5" stroke="#dc2626"/><circle cx="1161" cy="964" r="5" stroke="#1e293b"/>
+      <circle cx="1415" cy="866" r="5" stroke="#dc2626" stroke-dasharray="3 2"/><circle cx="1415" cy="964" r="5" stroke="#1e293b" stroke-dasharray="3 2"/>
     </g>
     <g font-size="9" font-weight="800" text-anchor="middle">
-      <text x="907" y="635.5" fill="#dc2626">+</text><text x="907" y="733.5" fill="#1e293b">−</text>
-      <text x="1161" y="635.5" fill="#dc2626">+</text><text x="1161" y="733.5" fill="#1e293b">−</text>
-      <text x="1415" y="635.5" fill="#dc2626">+</text><text x="1415" y="733.5" fill="#1e293b">−</text>
-      <text x="907" y="769.5" fill="#dc2626">+</text><text x="907" y="867.5" fill="#1e293b">−</text>
-      <text x="1161" y="769.5" fill="#dc2626">+</text><text x="1161" y="867.5" fill="#1e293b">−</text>
-      <text x="1415" y="769.5" fill="#dc2626">+</text><text x="1415" y="867.5" fill="#1e293b">−</text>
+      <text x="907" y="735.5" fill="#dc2626">+</text><text x="907" y="833.5" fill="#1e293b">−</text>
+      <text x="1161" y="735.5" fill="#dc2626">+</text><text x="1161" y="833.5" fill="#1e293b">−</text>
+      <text x="1415" y="735.5" fill="#dc2626">+</text><text x="1415" y="833.5" fill="#1e293b">−</text>
+      <text x="907" y="869.5" fill="#dc2626">+</text><text x="907" y="967.5" fill="#1e293b">−</text>
+      <text x="1161" y="869.5" fill="#dc2626">+</text><text x="1161" y="967.5" fill="#1e293b">−</text>
+      <text x="1415" y="869.5" fill="#dc2626">+</text><text x="1415" y="967.5" fill="#1e293b">−</text>
     </g>
-    <!-- 2S links: orange series front↔back · red + tie back row · black − tie front row to BAT6− -->
-    <path d="M 907 730 L 907 766 M 1161 730 L 1161 766" stroke="#ea580c" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M 1415 730 L 1415 766" stroke="#ea580c" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-    <path d="M 907 632 L 1161 632" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M 1161 632 L 1415 632" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-    <path d="M 907 864 L 1161 864" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M 1161 864 L 1415 864" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-    <text x="1040" y="940" text-anchor="middle" font-size="10" font-weight="800" fill="#9a3412">BATTERY BANK — 2S2P now · 2S3P ready · 24 V</text>
+    <!-- 2S links: red series front↔back · red + tie back row · black − tie front row to BAT6− -->
+    <path d="M 907 830 L 907 866 M 1161 830 L 1161 866" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 1415 830 L 1415 866" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <path d="M 907 732 L 1161 732" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 1161 732 L 1415 732" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <path d="M 907 964 L 1161 964" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 1161 964 L 1415 964" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <text x="1040" y="992" text-anchor="middle" font-size="10" font-weight="800" fill="#1d4ed8">BATTERY BANK — 2S2P now · 2S3P ready · 24 V</text>
 
-    <!-- portable solar -->
+    <!-- portable solar (existing/owned · green) -->
     <g filter="url(#sh)">
-      <rect x="1160" y="1044" width="280" height="44" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="8 5"/>
+      <rect x="1160" y="1044" width="280" height="44" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
     </g>
-    <text x="1300" y="1062" text-anchor="middle" font-size="10.5" font-weight="800" fill="#166534">☀️ PORTABLE SOLAR — already owned</text>
-    <text x="1300" y="1078" text-anchor="middle" font-size="9.5" fill="#166534">MC4 outputs · series pair ≤ 600 W</text>
+    <text x="1300" y="1062" text-anchor="middle" font-size="10.5" font-weight="800" fill="#6d28d9">☀️ PORTABLE SOLAR — already owned</text>
+    <text x="1300" y="1078" text-anchor="middle" font-size="9.5" fill="#6d28d9">MC4 outputs · series pair ≤ 600 W</text>
 
     <!-- callout badges -->
     <g font-size="12" font-weight="800">
-      <circle cx="625" cy="610" r="12" fill="#ea580c"/><text x="625" y="614.5" text-anchor="middle" fill="#fff">1</text>
-      <circle cx="1010" cy="600" r="12" fill="#dc2626"/><text x="1010" y="604.5" text-anchor="middle" fill="#fff">2</text>
-      <circle cx="1084" cy="340" r="12" fill="#ea580c"/><text x="1084" y="344.5" text-anchor="middle" fill="#fff">3</text>
-      <circle cx="1330" cy="345" r="12" fill="#ea580c"/><text x="1330" y="349.5" text-anchor="middle" fill="#fff">4</text>
-      <circle cx="1366" cy="215" r="12" fill="#16a34a"/><text x="1366" y="219.5" text-anchor="middle" fill="#fff">5</text>
-      <circle cx="204" cy="548" r="12" fill="#dc2626"/><text x="204" y="552.5" text-anchor="middle" fill="#fff">6</text>
-      <circle cx="1175" cy="760" r="12" fill="#1e293b"/><text x="1175" y="764.5" text-anchor="middle" fill="#fff">7</text>
-      <circle cx="612" cy="686" r="12" fill="#dc2626"/><text x="612" y="690.5" text-anchor="middle" fill="#fff">8</text>
+      <circle cx="625" cy="610" r="12" fill="#1e293b"/><text x="625" y="614.5" text-anchor="middle" fill="#fff">1</text>
+      <circle cx="1100" cy="560" r="12" fill="#1e293b"/><text x="1100" y="564.5" text-anchor="middle" fill="#fff">2</text>
+      <circle cx="1084" cy="340" r="12" fill="#1e293b"/><text x="1084" y="344.5" text-anchor="middle" fill="#fff">3</text>
+      <circle cx="1330" cy="300" r="12" fill="#1e293b"/><text x="1330" y="304.5" text-anchor="middle" fill="#fff">4</text>
+      <circle cx="1366" cy="215" r="12" fill="#1e293b"/><text x="1366" y="219.5" text-anchor="middle" fill="#fff">5</text>
+      <circle cx="204" cy="548" r="12" fill="#1e293b"/><text x="204" y="552.5" text-anchor="middle" fill="#fff">6</text>
+      <circle cx="1155" cy="525" r="12" fill="#1e293b"/><text x="1155" y="529.5" text-anchor="middle" fill="#fff">7</text>
+      <circle cx="612" cy="686" r="12" fill="#1e293b"/><text x="612" y="690.5" text-anchor="middle" fill="#fff">8</text>
     </g>
 
     <!-- title block -->
     <g>
       <rect x="272" y="880" width="270" height="86" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#sh)"/>
       <text x="286" y="902" font-size="11" font-weight="800" fill="#0f172a" letter-spacing="0.08em">VICTRON OFF-GRID BUILD · 24 V · LYNX M10 + MEGA</text>
-      <text x="286" y="918" font-size="10" fill="#64748b">Solid = factory (keep) · Dashed = new</text>
-      <text x="286" y="933" font-size="10" fill="#64748b">Bay gear to scale 16 px/in · RV side schematic</text>
-      <text x="286" y="948" font-size="9.5" fill="#64748b">BAT+ → 300 A breaker → BEP 400 A → Lynx</text>
-      <text x="286" y="962" font-size="9.5" fill="#94a3b8">Rev F · 2026-10-22 · 24 V system</text>
+      <text x="286" y="918" font-size="10" fill="#2563eb">Blue = Victron / new · Purple = existing house · solid old · dashed new</text>
+      <text x="286" y="933" font-size="10" fill="#64748b">DC red + / black − · AC 240 V 4-wire: L1 black · L2 red · N white · G green</text>
+      <text x="286" y="948" font-size="9.5" fill="#64748b">Every branch wired red + AND black − · Lynx holds both busbars</text>
+      <text x="286" y="962" font-size="9.5" fill="#94a3b8">Rev H · 2026-10-22 · 24 V system</text>
     </g>
   </svg>
+  
   </div>
 
   <h3>Equipment dimensions &amp; terminal map</h3>
@@ -445,17 +464,17 @@
       <tr><td><b>MultiPlus-II 24/3000/70-50</b></td><td><b>578 × 275 × 148 mm</b> (22.7″ × 10.8″ × 5.8″) — confirmed</td><td>Bottom, left→right: <b>AC-IN · AC-OUT · BAT(+|−)</b></td><td>Upright on wall, center of bay · 50 mm side / 75 mm front clearance</td></tr>
       <tr><td><b>SmartSolar MPPT 100/50 (#1)</b></td><td><b>130 × 186 × 70 mm (5.12″H × 7.32″W × 2.76″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, above MPPT #2 · right of Lynx · 4″+ airflow clearance</td></tr>
       <tr><td><b>SmartSolar MPPT Tr 250/70 (#2)</b></td><td><b>185 × 250 × 95 mm (7.28″H × 9.84″W × 3.74″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, right of Lynx · near the right-wall MC4 inlet</td></tr>
-      <tr><td><b>Orion XS 1400</b></td><td>⚠ not published — measure on unit (est. ≈ 270 × 150 × 70 mm)</td><td><b>All IN/OUT on one short end</b></td><td>Wall, far left (where factory MPPT sat) · that end faces the truck-feed entry</td></tr>
-      <tr><td><b>Orion-Tr IP67 24/12-100 (1200 W)</b></td><td><b>265 × 127 × 63 mm</b> (10.4″ × 5.0″ × 2.5″) — confirmed</td><td>Terminal ends — IN one side, OUT the other ⚠ verify</td><td>Below Lynx · upright or sideways, labels readable · ≈1200 BTU/min heat — give it airflow</td></tr>
-      <tr><td><b>Lynx Distributor — M10 version</b></td><td><b>170 × 290 × 80 mm</b> (6.7″H × 11.4″W × 3.1″D) — confirmed · same case as M8 model</td><td><b>BAT in M10 (left)</b> · 4 branch studs + − busbar <b>M8</b> (bottom)</td><td>Wall, right of MultiPlus · studs face down like the pre-wired kit example · M10 BAT-in matches the shunt &amp; breaker studs</td></tr>
-      <tr><td><b>SmartShunt 500 A</b></td><td><b>46 × 120 × 54 mm</b> (1.8″H × 4.7″W × 2.1″D) — confirmed</td><td>M10 · in the sole battery − path</td><td>Low on the wall, between bank and Lynx − busbar — closest to the batteries</td></tr>
+      <tr><td><b>Orion XS 1400</b></td><td><b>138.1 × 124.4 × 53 mm</b> (5.44″H × 4.90″W × 2.09″D) — confirmed</td><td><b>All on one side · red · black · red</b> (IN+ · IN− common · OUT+)</td><td>Wall, far left (where factory MPPT sat) · terminals face down · truck-feed end</td></tr>
+      <tr><td><b>Orion-Tr IP67 24/12-100 (1200 W)</b></td><td><b>265 × 127 × 63 mm</b> (10.4″ × 5.0″ × 2.5″) — confirmed</td><td><b>All on one side · red · black · red</b> (IN+ · IN− common · OUT+)</td><td>Wall, left of MultiPlus · upright, terminals down · ≈1200 BTU/min heat — give it airflow</td></tr>
+      <tr><td><b>Lynx Distributor — M10 version</b></td><td><b>170 × 290 × 80 mm</b> (6.7″H × 11.4″W × 3.1″D) — confirmed · same case as M8 model</td><td><b>BAT+ / − studs on the bottom</b> · 4 branch + studs + <b>MultiPlus − on the right</b></td><td>Wall, right of MultiPlus · rotated like the pre-wired kit · M10 BAT-in bolts straight to the BEP &amp; shunt</td></tr>
+      <tr><td><b>SmartShunt 500 A</b></td><td><b>46 × 120 × 54 mm</b> (1.8″H × 4.7″W × 2.1″D) — confirmed</td><td>M10 · in the sole battery − path</td><td>Direct-bolt to the Lynx − battery input (bottom-right) · no wire between them</td></tr>
       <tr><td><b>RED WOLF 300 A breaker</b></td><td><b>3″D × 1.9″W × 1.4″H</b> — confirmed · 3/8″ screw studs (≈M10) · manual reset</td><td>3/8″ studs · within 18″ of BAT1+</td><td>Floor/wall bracket near bank's back-left corner · reset button faces out</td></tr>
-      <tr><td><b>BEP 770-DP-EZ MC10 Pro Installer 400 A</b></td><td><b>7.05″L × 6.78″W × 2.7″H</b> — confirmed · M10 studs · EZ-Mount base</td><td>Double pole · main battery disconnect</td><td>Between breaker and Lynx · on the wall above the bank · handle accessible</td></tr>
+      <tr><td><b>BEP 770-DP-EZ MC10 Pro Installer 400 A</b></td><td><b>7.05″L × 6.78″W × 2.7″H</b> — confirmed · M10 studs · EZ-Mount base</td><td>Double pole · main battery disconnect</td><td>Direct-bolt under the Lynx BAT+ (bottom-left) · RED WOLF breaker below it · handle accessible</td></tr>
       <tr><td><b>MC4 bulkhead inlet</b></td><td>⚠ unknown — measure when it arrives</td><td>2× MC4 female inside</td><td>Right wall, above MPPT #2 · drill per template</td></tr>
       <tr><td><b>Vatrer 12 V 300 Ah battery</b></td><td><b>9.76″H × 15.12″W × 7.64″D</b> — confirmed</td><td>M8 top · + upper-right · − lower-right (top view)</td><td>Floor, left of bay (old GC27 box removed) · 2×2, space for 6</td></tr>
     </tbody>
   </table></div>
-  <div class="callout warn"><span class="ic">⚠️</span><div><b>⚠ only two entries remain unverified:</b> the <b>Orion XS 1400</b> case size and the <b>MC4 bulkhead inlet</b> — measure them on arrival (or grab the datasheet PDF) before drilling or cutting mounting plates; the diagram is <b>not to scale</b>. Everything else is confirmed. Layout follows the pre-wired 24 V kit convention: Lynx horizontal with studs down, SmartShunt + main shutoff mounted <b>low, closest to the batteries</b>.</div></div>
+  <div class="callout warn"><span class="ic">⚠️</span><div><b>⚠ only one entry remains unverified:</b> the <b>MC4 bulkhead inlet</b> — measure it on arrival (or grab the datasheet PDF) before drilling. Everything else is confirmed. Layout follows the pre-wired 24 V kit convention: Lynx rotated with <b>BAT+ / − studs on the bottom</b>, the <b>BEP 400 A switch direct-bolted under BAT+</b> and the <b>SmartShunt direct-bolted to the − battery input (bottom-right)</b> — no wire between them — while the <b>MultiPlus + and − both land on the Lynx right side</b> (fused in the distributor). Both Orion DC-DC converters have <b>all terminals on one edge, red · black · red</b>.</div></div>
 </section>
 
 <!-- ============================ WIRE SCHEDULE ============================ -->
@@ -474,7 +493,7 @@
       <tr><td><b>W7</b></td><td>Anderson inlet → Orion XS +IN (RV side)</td><td>4 AWG welding (unit terminals max 4 AWG)</td><td>10 ft</td><td>ANL 60 A at the RV inlet</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W8</b></td><td>Orion XS output + → Lynx slot 3</td><td>4 AWG welding</td><td>8 ft</td><td>MEGA 60 A/32 V in Lynx</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W9</b></td><td>Orion XS chassis bond</td><td>6 AWG</td><td>3 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W10</b></td><td>Engine-sense (ignition → Orion XS remote on/off)</td><td>14 AWG</td><td>8 ft (truck side)</td><td>ATO 5 A</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W10</b></td><td>— reserved —</td><td>—</td><td>—</td><td>—</td><td><span class="tag t-exist">N/A</span></td></tr>
       <tr><td><b>W11</b></td><td>AC-IN 1 pigtail (shore/gen splice → MultiPlus)</td><td>6 AWG THHN ×3 (L1, L2, N)</td><td>5 ft each</td><td>existing 50 A main breaker</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W12</b></td><td>AC-OUT pigtail (MultiPlus → panel main lugs)</td><td>6 AWG THHN ×3 (L1, L2, N)</td><td>5 ft each</td><td>MultiPlus 50 A pass-through</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W13</b></td><td>Battery − → SmartShunt (M10) → Lynx − busbar (M8)</td><td>2/0 pigtails; mixed M10→M8 lugs on the shunt link</td><td>2 ft + 2 ft</td><td>—</td><td><span class="tag t-new">NEW</span> sole battery − path</td></tr>
@@ -655,20 +674,20 @@
 
     <!-- batteries: 15.12"W × 7.64"D each (12 px/in) -->
     <g filter="url(#sh2)">
-      <rect x="100" y="120" width="181.4" height="91.7" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="290.4" y="120" width="181.4" height="91.7" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="100" y="220.7" width="181.4" height="91.7" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="290.4" y="220.7" width="181.4" height="91.7" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="2.5"/>
-      <rect x="480.8" y="120" width="181.4" height="91.7" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2" stroke-dasharray="7 5"/>
-      <rect x="480.8" y="220.7" width="181.4" height="91.7" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2" stroke-dasharray="7 5"/>
+      <rect x="100" y="120" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="290.4" y="120" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="100" y="220.7" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="290.4" y="220.7" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="480.8" y="120" width="181.4" height="91.7" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="7 5"/>
+      <rect x="480.8" y="220.7" width="181.4" height="91.7" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="7 5"/>
     </g>
     <g text-anchor="middle">
-      <text x="190.7" y="152" font-size="13" font-weight="800">BAT 1</text><text x="190.7" y="168" font-size="10.5" fill="#7c2d12">12 V · 300 Ah LiFePO4</text><text x="190.7" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
-      <text x="381.1" y="152" font-size="13" font-weight="800">BAT 3</text><text x="381.1" y="168" font-size="10.5" fill="#7c2d12">12 V · 300 Ah LiFePO4</text><text x="381.1" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
-      <text x="190.7" y="252" font-size="13" font-weight="800">BAT 2</text><text x="190.7" y="268" font-size="10.5" fill="#7c2d12">12 V · 300 Ah LiFePO4</text><text x="190.7" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
-      <text x="381.1" y="252" font-size="13" font-weight="800">BAT 4</text><text x="381.1" y="268" font-size="10.5" fill="#7c2d12">12 V · 300 Ah LiFePO4</text><text x="381.1" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
-      <text x="571.5" y="152" font-size="13" font-weight="800" fill="#9a3412">BAT 5</text><text x="571.5" y="168" font-size="10.5" fill="#c2703d">optional · 12 V 300 Ah</text><text x="571.5" y="182" font-size="9" fill="#c2703d">reserved space</text>
-      <text x="571.5" y="252" font-size="13" font-weight="800" fill="#9a3412">BAT 6</text><text x="571.5" y="268" font-size="10.5" fill="#c2703d">optional · 12 V 300 Ah</text><text x="571.5" y="282" font-size="9" fill="#c2703d">reserved space</text>
+      <text x="190.7" y="152" font-size="13" font-weight="800">BAT 1</text><text x="190.7" y="168" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="190.7" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
+      <text x="381.1" y="152" font-size="13" font-weight="800">BAT 3</text><text x="381.1" y="168" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="381.1" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
+      <text x="190.7" y="252" font-size="13" font-weight="800">BAT 2</text><text x="190.7" y="268" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="190.7" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
+      <text x="381.1" y="252" font-size="13" font-weight="800">BAT 4</text><text x="381.1" y="268" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="381.1" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
+      <text x="571.5" y="152" font-size="13" font-weight="800" fill="#1d4ed8">BAT 5</text><text x="571.5" y="168" font-size="10.5" fill="#60a5fa">optional · 12 V 300 Ah</text><text x="571.5" y="182" font-size="9" fill="#60a5fa">reserved space</text>
+      <text x="571.5" y="252" font-size="13" font-weight="800" fill="#1d4ed8">BAT 6</text><text x="571.5" y="268" font-size="10.5" fill="#60a5fa">optional · 12 V 300 Ah</text><text x="571.5" y="282" font-size="9" fill="#60a5fa">reserved space</text>
     </g>
 
     <!-- terminals: + upper-right · − lower-right -->
@@ -689,12 +708,12 @@
       <text x="662.2" y="238.3" fill="#dc2626">+</text><text x="662.2" y="302" fill="#1e293b">−</text>
     </g>
 
-    <!-- series links (orange): front + ↔ back −, shortest possible runs -->
-    <path d="M 281.4 197.7 L 281.4 234.7" stroke="#ea580c" stroke-width="5" stroke-linecap="round"/>
-    <path d="M 471.8 197.7 L 471.8 234.7" stroke="#ea580c" stroke-width="5" stroke-linecap="round"/>
-    <path d="M 662.2 197.7 L 662.2 234.7" stroke="#ea580c" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 4"/>
-    <text x="281.4" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9a3412" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
-    <text x="471.8" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9a3412" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
+    <!-- series links (red): front + ↔ back −, shortest possible runs -->
+    <path d="M 281.4 197.7 L 281.4 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 471.8 197.7 L 471.8 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 662.2 197.7 L 662.2 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 4"/>
+    <text x="281.4" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
+    <text x="471.8" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
 
     <!-- parallel ties: + along back row, − along front row -->
     <path d="M 281.4 134 L 471.8 134" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
@@ -727,7 +746,7 @@
     </g>
 
     <!-- legend -->
-    <text x="381" y="428" text-anchor="middle" font-size="10" font-weight="700" fill="#9a3412">orange = series (back − ↔ front +) · red = + parallel tie · black = − parallel tie · all 2/0 AWG welding cable</text>
+    <text x="381" y="428" text-anchor="middle" font-size="10" font-weight="700" fill="#dc2626">red = series (back − ↔ front +) and + parallel ties · black = − parallel ties · all 2/0 AWG welding cable</text>
     <text x="381" y="444" text-anchor="middle" font-size="10" fill="#475569">main feed diagonal — + from BAT1+ (back-left) · − from BAT6− (front-right far corner) → even sharing across all three pairs · equalize before paralleling</text>
   </svg>
   </div>
