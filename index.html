@@ -104,15 +104,15 @@
   <div class="hero-in">
     <p class="kicker">DIY Build Documentation</p>
     <h1>Brinkley Model Z 2680 — Victron Off-Grid Expansion</h1>
-    <p>Extended dry camping without running out of power — now a <b>24 V</b> system: a <b>MultiPlus-II 24/3000/70-50 2x120V</b> (split-phase) wired into the factory inverter &amp; generator prep, a <b>SmartSolar MPPT Tr 250/70</b> for portable solar with 250 V headroom, a <b>Lynx Distributor M10</b> (M10 battery input, M8 branch studs, MEGA fuses) organizing every DC branch, four Vatrer LiFePO4 in 2S2P (24 V · 600 Ah · ~14.4 kWh), an Orion XS 1400 alternator charger on a dedicated 1 AWG truck feed, and an Orion IP67 24/12-100 feeding the factory 12 V panel. No AC on the inverter for the roof A/C — the 2x120V only passes 240 V through on shore/generator, so the A/C can never drain the bank.</p>
+    <p>Extended dry camping without running out of power — now a <b>24 V</b> system: a <b>MultiPlus-II 24/3000/70-50 2x120V</b> (split-phase) wired into the factory inverter &amp; generator prep, <b>three SmartSolar MPPT 100/50</b> — factory roof, portable inlet #1, portable inlet #2 — a <b>dual Lynx Distributor M10</b> stack (M10 battery input, M8 branch studs, MEGA fuses; Lynx #2 direct-bolts on Lynx #1) organizing every DC branch, six Vatrer LiFePO4 in 2S3P (24 V · 900 Ah · ~21.6 kWh), an Orion XS 1400 alternator charger on a dedicated 4 AWG truck feed, and an Orion IP67 24/12-100 feeding the factory 12 V panel. No AC on the inverter for the roof A/C — the 2x120V only passes 240 V through on shore/generator, so the A/C can never drain the bank.</p>
     <div class="meta">
       <span><b>System:</b> 24 V · 12 V loads via DC-DC converter</span>
       <span><b>Inverter/Charger:</b> MultiPlus-II 24/3000/70-50 2x120V</span>
-      <span><b>Factory MPPT:</b> Victron SmartSolar 100/50</span>
-      <span><b>MPPT #2:</b> SmartSolar Tr 250/70 · Bluetooth</span>
-      <span><b>DC distribution:</b> Lynx Distributor M10 · MEGA fuses</span>
-      <span><b>Batteries:</b> Vatrer 12V 300Ah ×4 · 2S2P = 24V 600Ah · M8</span>
-      <span><b>Tow:</b> Chevy 2500HD 6.6L · 170 A alt · Orion XS 1400</span>
+      <span><b>Factory MPPT:</b> Victron SmartSolar 100/50 · roof</span>
+      <span><b>MPPT #2 + #3:</b> SmartSolar 100/50 ×2 · MC4 inlets · Bluetooth</span>
+      <span><b>DC distribution:</b> Lynx Distributor M10 ×2 · bolt-stacked · MEGA fuses</span>
+      <span><b>Batteries:</b> Vatrer 12V 300Ah ×6 · 2S3P = 24V 900Ah · M8</span>
+      <span><b>Tow:</b> Chevy 2500HD 6.6L · 170 A alt · Orion XS 1400 · 4 AWG feed</span>
       <span><b>WFCO:</b> disabled · AC breaker open · output capped</span>
     </div>
   </div>
@@ -135,7 +135,7 @@
 <!-- ============================ DIAGRAM ============================ -->
 <section id="diagram">
   <h2><span class="dot"></span>System Diagram — Existing vs. New</h2>
-  <p class="lead">Colors match the actual wire spools: <b>red = + / hot</b>, <b>black = − / neutral return</b>, and the only <b>white (neutral)</b> + <b>green (ground)</b> conductors are the 4-wire 240 V AC runs into and out of the MultiPlus. <b>Solid lines are existing factory wiring (keep); dashed lines are new.</b> Device boxes: <b>blue = Victron or new-build gear</b>, <b>purple = existing house gear</b>. Only two factory cuts exist: <b>①</b> the shore/generator splice at the Power Center, and <b>⑧</b> the WFCO converter output (unit stays in place, fully disabled). The truck feed <b>⑥</b> is a new heavy circuit: 1 AWG from the truck battery through an Anderson quick-disconnect at the hitch. <b>Bay gear is drawn to scale (16 px/in); the RV side is schematic and stays left of the bay.</b> Wall row left→right: <b>Orion XS → Orion IP67 → MultiPlus-II → Lynx → MPPT #1 over MPPT #2</b>. Battery + chain: <b>BAT1+ → 300 A breaker → BEP 400 A double-pole switch → Lynx BAT+ (M10)</b>; the Lynx is rotated like the pre-wired kit — <b>BAT+ and − studs on the bottom, branch studs + the MultiPlus − on the right</b>, fuses and both busbars internal — so <b>every branch carries a red + AND a black − wire</b> to a paired stud pair on the Lynx's right side — <b>S1 Orion IP67 · S2 Orion XS · S3 MPPT #1 · S4 MPPT #2</b>, top to bottom, wires nested so none cross (IP67 innermost, XS above and right of it, MPPTs outermost; the Orions route around the top of the MultiPlus). Panel loads return to the − rail that lands on the Lynx −. The <b>BEP 400 A switch direct-bolts under BAT+</b> and the <b>SmartShunt direct-bolts to the − battery input (bottom-right)</b> — no wire between them. Battery bank on the floor, dropped low and centered under the Lynx — <b>4 now (2S2P · 600 Ah), BAT 5/6 reserved → 2S3P · 900 Ah</b>; main − is shown at its final <b>BAT6−</b> take-off (BAT4− until 5/6 land) up through the SmartShunt into the Lynx. Both Orion DC-DC converters have <b>all terminals on one edge, red · black · red</b>. Everything else is additive.</p>
+  <p class="lead">Colors match the actual wire spools: <b>red = + / hot</b>, <b>black = − / neutral return</b>, and the only <b>white (neutral)</b> + <b>green (ground)</b> conductors are the 4-wire 240 V AC runs into and out of the MultiPlus. <b>Solid lines are existing factory wiring (keep); dashed lines are new.</b> Device boxes: <b>blue = Victron or new-build gear</b>, <b>purple = existing house gear</b>. Only two factory cuts exist: <b>①</b> the shore/generator splice at the Power Center, and <b>⑧</b> the WFCO converter output (unit stays in place, fully disabled). The truck feed <b>⑥</b> is a new circuit: <b>4 AWG</b> (the Orion XS input-limits itself to 50 A, so 1 AWG is overkill) from the truck battery through an <b>MRBF 60 A</b> and an Anderson quick-disconnect at the hitch. <b>Bay gear is drawn to scale (16 px/in); the RV side is schematic and stays left of the bay.</b> Wall row left→right: <b>Orion XS → Orion IP67 → MultiPlus-II → Lynx #2 stacked on Lynx #1 → MPPT #1 / #2 / #3</b>. Battery + chain: <b>BAT1+ → 300 A breaker → BEP 400 A double-pole switch → Lynx #1 BAT+ (M10)</b>; both Lynx units are rotated like the pre-wired kit — <b>BAT+ and − studs on the bottom, branch studs on the right</b>, fuses and both busbars internal — and <b>Lynx #2 direct-bolts on top of Lynx #1</b> (the busbars join at the bolt — no wire between them), so its branches feed straight off the same battery bus. Each Lynx has <b>4 fused + branch slots</b> (battery input excluded), so the six circuits split: <b>Lynx #2 — S1 MPPT #1 · S2 MPPT #2</b> (S3/S4 spare with dummies) and <b>Lynx #1 — S1 Orion IP67 · S2 Orion XS · S3 MPPT #3 · S4 MultiPlus (MP)</b>, with <b>every branch carrying a red + AND a black − wire</b> to a paired stud pair on that Lynx's right side. Panel loads return to the − rail that lands on the Lynx −. The <b>BEP 400 A switch direct-bolts under BAT+</b> and the <b>SmartShunt direct-bolts to the − battery input (bottom-right)</b> — no wire between them. Battery bank on the floor, dropped low and centered under the Lynx — <b>6 batteries, 2S3P · 24 V · 900 Ah (~21.6 kWh)</b>; main − takes its <b>BAT6−</b> diagonal take-off up through the SmartShunt into the Lynx −. Both Orion DC-DC converters have <b>all terminals on one edge, red · black · red</b>. Everything else is additive.</p>
 
   <div class="legend">
     <span class="chip"><span class="sw" style="border-color:#dc2626"></span>Wire + / hot</span>
@@ -172,7 +172,7 @@
     <text x="120" y="356" text-anchor="middle" font-weight="800" fill="#6d28d9">TOW VEHICLE</text>
     <text x="120" y="374" text-anchor="middle" font-size="12" fill="#334155">Chevy 2500HD 6.6L</text>
     <text x="120" y="391" text-anchor="middle" font-size="12" fill="#334155">170 A alternator</text>
-    <text x="120" y="410" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">MRBF 125 A · 1 AWG</text>
+    <text x="120" y="410" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">MRBF 60 A · 4 AWG</text>
     <text x="120" y="426" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">→ Anderson at hitch</text>
 
     <!-- ===== existing RV sources (house · green) — left of the bay ===== -->
@@ -205,14 +205,20 @@
       <rect x="720" y="150" width="80" height="208" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
       <!-- MultiPlus-II 10.8x22.7 in -->
       <rect x="842" y="119" width="173" height="363" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="3.5"/>
-      <!-- Lynx Distributor M10 rotated: 6.7x11.4 in · BAT+/− bottom · branches + MultiPlus − right -->
+      <!-- Lynx #2 Distributor M10 rotated — DIRECT-BOLT stack above Lynx #1 (busbar link · no wire) -->
+      <rect x="1031" y="110" width="107" height="182" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- Lynx #1 Distributor M10 rotated: 6.7x11.4 in · BAT+/− bottom · branches + MultiPlus − right -->
       <rect x="1031" y="300" width="107" height="182" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
       <!-- MPPT #1 SmartSolar 100/50 · 7.32x5.12 in LANDSCAPE (top-right stack) -->
       <rect x="1190" y="128" width="117" height="82" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
-      <!-- MPPT #2 SmartSolar Tr 250/70 · 9.84x7.28 in LANDSCAPE (below MPPT #1) -->
-      <rect x="1190" y="245" width="157" height="117" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
-      <!-- MC4 inlet (new) -->
+      <!-- MPPT #2 SmartSolar 100/50 · 7.32x5.12 in LANDSCAPE (below MPPT #1) -->
+      <rect x="1190" y="245" width="117" height="82" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- MPPT #3 SmartSolar 100/50 · 7.32x5.12 in LANDSCAPE (below MPPT #2) -->
+      <rect x="1190" y="362" width="117" height="82" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- MC4 inlet #1 (new · feeds MPPT #2) -->
       <rect x="1360" y="150" width="72" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+      <!-- MC4 inlet #2 (new · feeds MPPT #3) -->
+      <rect x="1360" y="352" width="72" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
       <!-- BEP 770-DP-EZ · 6.78x2.7 in — DIRECT BOLT under Lynx BAT+ (bottom-left) -->
       <rect x="1009" y="482" width="108" height="43" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
       <!-- RED WOLF 300 A breaker · 1.9x1.4 in — wired below BEP -->
@@ -229,16 +235,23 @@
     <text x="928" y="312" text-anchor="middle" font-size="11.5" fill="#334155">24/3000/70-50 · 2x120V</text>
     <text x="928" y="332" text-anchor="middle" font-size="10.5" fill="#64748b">split-phase · 70 A charger</text>
     <text x="928" y="352" text-anchor="middle" font-size="10" fill="#2563eb" font-weight="700">📶 VE.Bus dongle → BT</text>
-    <text x="1084" y="378" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">LYNX</text>
+    <text x="1084" y="188" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">LYNX #2</text>
+    <text x="1084" y="203" text-anchor="middle" font-size="9.5" font-weight="800" fill="#1e3a8a">DISTRIBUTOR M10</text>
+    <text x="1084" y="218" text-anchor="middle" font-size="8.5" fill="#2563eb">MEGA fuses · ± internal</text>
+    <text x="1084" y="378" text-anchor="middle" font-size="11" font-weight="800" fill="#1e3a8a">LYNX #1</text>
     <text x="1084" y="393" text-anchor="middle" font-size="9.5" font-weight="800" fill="#1e3a8a">DISTRIBUTOR M10</text>
     <text x="1084" y="408" text-anchor="middle" font-size="8.5" fill="#2563eb">MEGA fuses · ± internal</text>
     <text x="1248" y="160" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1e3a8a">MPPT #1</text>
     <text x="1248" y="178" text-anchor="middle" font-size="9" fill="#334155">SmartSolar 100/50</text>
     <text x="1248" y="192" text-anchor="middle" font-size="9" fill="#334155">factory</text>
-    <text x="1268" y="277" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">MPPT #2 <tspan fill="#1d4ed8">(NEW)</tspan></text>
-    <text x="1268" y="295" text-anchor="middle" font-size="9.5" fill="#334155">SmartSolar Tr 250/70</text>
+    <text x="1248" y="277" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">MPPT #2 <tspan fill="#1d4ed8">(NEW)</tspan></text>
+    <text x="1248" y="295" text-anchor="middle" font-size="9.5" fill="#334155">SmartSolar 100/50</text>
+    <text x="1248" y="394" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">MPPT #3 <tspan fill="#1d4ed8">(NEW)</tspan></text>
+    <text x="1248" y="412" text-anchor="middle" font-size="9.5" fill="#334155">SmartSolar 100/50</text>
     <text x="1396" y="170" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a8a">MC4</text>
-    <text x="1396" y="184" text-anchor="middle" font-size="9" fill="#1e3a8a">INLET</text>
+    <text x="1396" y="184" text-anchor="middle" font-size="9" fill="#1e3a8a">INLET 1</text>
+    <text x="1396" y="372" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a8a">MC4</text>
+    <text x="1396" y="386" text-anchor="middle" font-size="9" fill="#1e3a8a">INLET 2</text>
     <text x="1063" y="499" text-anchor="middle" font-size="10" font-weight="800" fill="#1e3a8a">BEP 770-DP-EZ</text>
     <text x="1063" y="515" text-anchor="middle" font-size="8.5" fill="#2563eb">400 A DP · M10</text>
     <text x="1042" y="545" text-anchor="end" font-size="8.5" font-weight="800" fill="#1e3a8a">300 A</text>
@@ -273,20 +286,35 @@
     <text x="1056" y="478" text-anchor="end" font-size="8" fill="#dc2626" font-weight="700">BAT+ M10</text>
     <circle cx="1128" cy="482" r="4.5" fill="#1e293b"/>
     <text x="1132" y="478" font-size="8" fill="#1e293b" font-weight="700">− M10</text>
-    <!-- Lynx RIGHT · nested lanes: every red stud paired with its black − tab just below -->
+    <!-- Lynx stack: #2 direct-bolts on #1 (busbar link · no wire) -->
+    <circle cx="1052" cy="296" r="3.5" fill="#64748b"/><circle cx="1116" cy="296" r="3.5" fill="#64748b"/>
+    <text x="1150" y="299" font-size="7.5" font-weight="700" fill="#64748b">direct-bolt · no wire</text>
+    <!-- Lynx #2 RIGHT · 4 branch pairs (S1 MPPT1 · S2 MPPT2 · S3/S4 spare) -->
+    <g stroke-width="3.5">
+      <line x1="1138" y1="140" x2="1146" y2="140" stroke="#dc2626"/><line x1="1138" y1="152" x2="1146" y2="152" stroke="#1e293b"/>
+      <line x1="1138" y1="170" x2="1146" y2="170" stroke="#dc2626"/><line x1="1138" y1="182" x2="1146" y2="182" stroke="#1e293b"/>
+      <line x1="1138" y1="200" x2="1146" y2="200" stroke="#dc2626"/><line x1="1138" y1="212" x2="1146" y2="212" stroke="#1e293b"/>
+      <line x1="1138" y1="230" x2="1146" y2="230" stroke="#dc2626"/><line x1="1138" y1="242" x2="1146" y2="242" stroke="#1e293b"/>
+    </g>
+    <g font-size="7" font-weight="700" fill="#1d4ed8" text-anchor="end">
+      <text x="1133" y="143">1</text><text x="1133" y="173">2</text><text x="1133" y="203">3</text><text x="1133" y="233">4</text>
+    </g>
+    <g font-size="6.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">
+      <text x="1084" y="241">S1 MPPT1 · S2 MPPT2</text><text x="1084" y="251" fill="#64748b">S3/S4 spare · dummies</text>
+    </g>
+    <!-- Lynx #1 RIGHT · nested lanes: every red stud paired with its black − tab just below -->
     <g stroke-width="3.5">
       <line x1="1138" y1="320" x2="1146" y2="320" stroke="#dc2626"/><line x1="1138" y1="332" x2="1146" y2="332" stroke="#1e293b"/>
       <line x1="1138" y1="350" x2="1146" y2="350" stroke="#dc2626"/><line x1="1138" y1="362" x2="1146" y2="362" stroke="#1e293b"/>
-      <line x1="1138" y1="380" x2="1146" y2="380" stroke="#dc2626"/><line x1="1138" y1="392" x2="1146" y2="392" stroke="#1e293b"/>
       <line x1="1138" y1="410" x2="1146" y2="410" stroke="#dc2626"/><line x1="1138" y1="422" x2="1146" y2="422" stroke="#1e293b"/>
-      <line x1="1138" y1="440" x2="1146" y2="440" stroke="#dc2626"/><line x1="1138" y1="452" x2="1146" y2="452" stroke="#1e293b"/>
+      <line x1="1138" y1="456" x2="1146" y2="456" stroke="#dc2626"/><line x1="1138" y1="468" x2="1146" y2="468" stroke="#1e293b"/>
     </g>
     <g font-size="7" font-weight="700" fill="#1d4ed8" text-anchor="end">
-      <text x="1133" y="323">1</text><text x="1133" y="353">2</text><text x="1133" y="383">3</text><text x="1133" y="413">4</text>
-      <text x="1133" y="443" font-size="6.5">MP</text><text x="1133" y="455" font-size="6.5" fill="#1e293b">MP−</text>
+      <text x="1133" y="323">1</text><text x="1133" y="353">2</text><text x="1133" y="413">3</text>
+      <text x="1133" y="459" font-size="6.5">MP</text><text x="1133" y="471" font-size="6.5" fill="#1e293b">MP−</text>
     </g>
     <g font-size="6.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">
-      <text x="1084" y="421">S1 IP67 · S2 XS</text><text x="1084" y="431">S3 MPPT1 · S4 MPPT2</text>
+      <text x="1084" y="421">S1 IP67 · S2 XS</text><text x="1084" y="431">S3 MPPT3 · S4 MP</text>
     </g>
     <!-- MPPT1 terminals all on BOTTOM (y=210) -->
     <g stroke-width="3.5">
@@ -296,13 +324,21 @@
     <g font-size="7" font-weight="700" text-anchor="middle">
       <text x="1206" y="228" fill="#dc2626">BAT+</text><text x="1226" y="228" fill="#1e293b">BAT−</text><text x="1246" y="228" fill="#dc2626">PV+</text><text x="1266" y="228" fill="#1e293b">PV−</text>
     </g>
-    <!-- MPPT2 terminals all on BOTTOM (y=362) -->
+    <!-- MPPT2 terminals all on BOTTOM (y=327) -->
     <g stroke-width="3.5">
-      <line x1="1206" y1="362" x2="1206" y2="370" stroke="#dc2626"/><line x1="1226" y1="362" x2="1226" y2="370" stroke="#1e293b"/>
-      <line x1="1266" y1="362" x2="1266" y2="370" stroke="#dc2626"/><line x1="1286" y1="362" x2="1286" y2="370" stroke="#1e293b"/>
+      <line x1="1206" y1="327" x2="1206" y2="335" stroke="#dc2626"/><line x1="1226" y1="327" x2="1226" y2="335" stroke="#1e293b"/>
+      <line x1="1246" y1="327" x2="1246" y2="335" stroke="#dc2626"/><line x1="1266" y1="327" x2="1266" y2="335" stroke="#1e293b"/>
     </g>
     <g font-size="7" font-weight="700" text-anchor="middle">
-      <text x="1206" y="380" fill="#dc2626">BAT+</text><text x="1226" y="380" fill="#1e293b">BAT−</text><text x="1266" y="380" fill="#dc2626">PV+</text><text x="1286" y="380" fill="#1e293b">PV−</text>
+      <text x="1206" y="345" fill="#dc2626">BAT+</text><text x="1226" y="345" fill="#1e293b">BAT−</text><text x="1246" y="345" fill="#dc2626">PV+</text><text x="1266" y="345" fill="#1e293b">PV−</text>
+    </g>
+    <!-- MPPT3 terminals all on BOTTOM (y=444) -->
+    <g stroke-width="3.5">
+      <line x1="1206" y1="444" x2="1206" y2="452" stroke="#dc2626"/><line x1="1226" y1="444" x2="1226" y2="452" stroke="#1e293b"/>
+      <line x1="1246" y1="444" x2="1246" y2="452" stroke="#dc2626"/><line x1="1266" y1="444" x2="1266" y2="452" stroke="#1e293b"/>
+    </g>
+    <g font-size="7" font-weight="700" text-anchor="middle" stroke="#fff" stroke-width="2.5" paint-order="stroke">
+      <text x="1206" y="462" fill="#dc2626">BAT+</text><text x="1226" y="462" fill="#1e293b">BAT−</text><text x="1246" y="462" fill="#dc2626">PV+</text><text x="1266" y="462" fill="#1e293b">PV−</text>
     </g>
 
     <!-- ===== EXISTING wiring (solid · red hot / black neutral) ===== -->
@@ -342,11 +378,11 @@
     <path d="M 1063 525 L 1063 530" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
     <text x="900" y="700" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">BAT1+ 2/0 → breaker → BEP → Lynx</text>
 
-    <!-- MultiPlus BAT+ → down LEFT of BEP · right below switch/shunt · up into Lynx RIGHT (MP stud) — fused in Lynx -->
-    <path d="M 945 496 L 945 596 L 1244 596 L 1244 440 L 1146 440" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- MultiPlus BAT+ → down LEFT of BEP · right below switch/shunt · up into Lynx #1 RIGHT (MP stud) — fused in Lynx -->
+    <path d="M 945 496 L 945 596 L 1244 596 L 1244 456 L 1146 456" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
     <text x="1100" y="612" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">MultiPlus BAT+ → MP</text>
-    <!-- MultiPlus BAT− (black) → down · right · up into Lynx RIGHT − stud -->
-    <path d="M 968 496 L 968 588 L 1228 588 L 1228 452 L 1146 452" fill="none" stroke="#1e293b" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- MultiPlus BAT− (black) → down · right · up into Lynx #1 RIGHT − stud -->
+    <path d="M 968 496 L 968 588 L 1236 588 L 1236 468 L 1146 468" fill="none" stroke="#1e293b" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
 
     <!-- battery − chain: BAT6− → up right side → SmartShunt (bottom-right of Lynx) → Lynx − -->
     <path d="M 1415 964 L 1430 964 L 1430 511 L 1155 511" fill="none" stroke="#1e293b" stroke-width="5" stroke-dasharray="8 5" stroke-linejoin="round" stroke-linecap="round"/>
@@ -361,17 +397,29 @@
     <path d="M 663 365 L 700 365 L 700 94 L 1164 94 L 1164 350 L 1146 350" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <!-- S2 − XS IN− · topmost run · lane right of S2+ -->
     <path d="M 639 365 L 639 371 L 590 371 L 590 88 L 1172 88 L 1172 362 L 1146 362" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <!-- S3 MPPT #1 BAT+ · down the corridor between Lynx & MPPTs -->
-    <path d="M 1206 218 L 1206 228 L 1180 228 L 1180 380 L 1146 380" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <!-- S3 − MPPT #1 BAT− -->
-    <path d="M 1226 218 L 1226 240 L 1188 240 L 1188 392 L 1146 392" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <!-- S4 MPPT #2 BAT+ · MEGA 80 · outermost lane -->
-    <path d="M 1206 370 L 1206 386 L 1196 386 L 1196 410 L 1146 410" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <!-- S4 − MPPT #2 BAT− -->
-    <path d="M 1226 370 L 1226 394 L 1204 394 L 1204 422 L 1146 422" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- S1/S2 → MPPT #1 / #2 BAT± · up the corridor · direct-bolted Lynx #2 (white casing = jump over IP67/XS lanes) -->
+    <g fill="none" stroke="#ffffff" stroke-width="7" stroke-linejoin="round">
+      <path d="M 1206 218 L 1206 224 L 1188 224 L 1188 140 L 1146 140"/>
+      <path d="M 1226 218 L 1226 230 L 1184 230 L 1184 152 L 1146 152"/>
+      <path d="M 1206 335 L 1206 345 L 1180 345 L 1180 170 L 1146 170"/>
+      <path d="M 1226 335 L 1226 353 L 1176 353 L 1176 182 L 1146 182"/>
+    </g>
+    <!-- S1 MPPT #1 BAT+ · Lynx #2 slot 1 -->
+    <path d="M 1206 218 L 1206 224 L 1188 224 L 1188 140 L 1146 140" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- S1 − MPPT #1 BAT− -->
+    <path d="M 1226 218 L 1226 230 L 1184 230 L 1184 152 L 1146 152" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- S2 MPPT #2 BAT+ · Lynx #2 slot 2 -->
+    <path d="M 1206 335 L 1206 345 L 1180 345 L 1180 170 L 1146 170" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- S2 − MPPT #2 BAT− -->
+    <path d="M 1226 335 L 1226 353 L 1176 353 L 1176 182 L 1146 182" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- S3 MPPT #3 BAT+ · Lynx #1 slot 3 · MEGA 60 -->
+    <path d="M 1206 452 L 1206 410 L 1146 410" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- S3 − MPPT #3 BAT− -->
+    <path d="M 1226 452 L 1226 422 L 1146 422" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <text x="690" y="142" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S1 → IP67</text>
     <text x="584" y="200" text-anchor="end" font-size="9" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">XS OUT+ → S2 · MEGA 60</text>
-    <text x="1252" y="434" text-anchor="middle" font-size="8.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S4 → MPPT #2 · MEGA 80</text>
+    <text x="1252" y="118" text-anchor="middle" font-size="8.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S1/S2 → MPPT #1 · #2 · MEGA 60</text>
+    <text x="1284" y="404" text-anchor="middle" font-size="8.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">S3 → MPPT #3 · MEGA 60</text>
     <!-- IP67 OUT+ → down right of AC bundle · left into panel TOP-LEFT (clear of AC wires) -->
     <path d="M 780 366 L 780 378 L 818 378 L 818 470 L 430 470 L 430 565 L 440 565" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round" marker-end="url(#arrR)"/>
     <text x="620" y="464" text-anchor="middle" font-size="9.5" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">IP67 OUT+ → panel</text>
@@ -379,38 +427,43 @@
     <!-- truck feed → Orion XS bottom IN+ (XS auto-starts on input voltage — no sense lead) -->
     <path d="M 212 404 L 615 404 L 615 365" fill="none" stroke="#dc2626" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <circle cx="204" cy="404" r="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
-    <text x="300" y="398" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">⑥ 1 AWG truck feed · Anderson SB175</text>
+    <text x="300" y="398" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">⑥ 4 AWG truck feed · Anderson SB175 · MRBF 60 A</text>
 
-    <!-- portable PV → MC4 inlet → MPPT #2 -->
-    <path d="M 1396 198 L 1396 372 L 1266 372 L 1266 362" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <path d="M 1404 198 L 1404 380 L 1286 380 L 1286 370" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- portable PV → MC4 inlet #1 → MPPT #2 -->
+    <path d="M 1396 198 L 1396 341 L 1246 341 L 1246 335" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1404 198 L 1404 347 L 1266 347 L 1266 335" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <!-- portable PV → MC4 inlet #2 → MPPT #3 -->
+    <path d="M 1396 400 L 1396 430 L 1246 430 L 1246 444" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1404 400 L 1404 436 L 1266 436 L 1266 444" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <path d="M 1440 1044 L 1440 174 L 1432 174" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
     <path d="M 1448 1044 L 1448 180 L 1432 180" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
-    <text x="1462" y="620" font-size="10" fill="#6d28d9" font-weight="700" transform="rotate(-90 1462 620)" stroke="#fff" stroke-width="3" paint-order="stroke">⑤ NEW MC4 extension · portable panels → inlet → MPPT #2</text>
+    <path d="M 1456 1044 L 1456 366 L 1432 366" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <path d="M 1464 1044 L 1464 372 L 1432 372" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-dasharray="8 5" stroke-linejoin="round"/>
+    <text x="1480" y="620" font-size="10" fill="#6d28d9" font-weight="700" transform="rotate(-90 1480 620)" stroke="#fff" stroke-width="3" paint-order="stroke">⑤ NEW MC4 extensions · portables → inlet 1 → MPPT #2 · inlet 2 → MPPT #3</text>
 
     <!-- ===== battery bank (new · blue) — floor, dropped low · centered under Lynx · 16 px/in ===== -->
     <g filter="url(#sh)">
       <rect x="673" y="720" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
       <rect x="927" y="720" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="1181" y="720" width="242" height="122" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4"/>
+      <rect x="1181" y="720" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
       <rect x="673" y="854" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
       <rect x="927" y="854" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="1181" y="854" width="242" height="122" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4"/>
+      <rect x="1181" y="854" width="242" height="122" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
     </g>
     <text x="794" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 1</text>
     <text x="1048" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 3</text>
-    <text x="1302" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">BAT 5</text>
+    <text x="1302" y="775" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 5</text>
     <text x="794" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 2</text>
     <text x="1048" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 4</text>
-    <text x="1302" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">BAT 6</text>
+    <text x="1302" y="911" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">BAT 6</text>
     <!-- terminals: + upper-right · − lower-right -->
     <g stroke-width="2.5" fill="#fff">
       <circle cx="907" cy="732" r="5" stroke="#dc2626"/><circle cx="907" cy="830" r="5" stroke="#1e293b"/>
       <circle cx="1161" cy="732" r="5" stroke="#dc2626"/><circle cx="1161" cy="830" r="5" stroke="#1e293b"/>
-      <circle cx="1415" cy="732" r="5" stroke="#dc2626" stroke-dasharray="3 2"/><circle cx="1415" cy="830" r="5" stroke="#1e293b" stroke-dasharray="3 2"/>
+      <circle cx="1415" cy="732" r="5" stroke="#dc2626"/><circle cx="1415" cy="830" r="5" stroke="#1e293b"/>
       <circle cx="907" cy="866" r="5" stroke="#dc2626"/><circle cx="907" cy="964" r="5" stroke="#1e293b"/>
       <circle cx="1161" cy="866" r="5" stroke="#dc2626"/><circle cx="1161" cy="964" r="5" stroke="#1e293b"/>
-      <circle cx="1415" cy="866" r="5" stroke="#dc2626" stroke-dasharray="3 2"/><circle cx="1415" cy="964" r="5" stroke="#1e293b" stroke-dasharray="3 2"/>
+      <circle cx="1415" cy="866" r="5" stroke="#dc2626"/><circle cx="1415" cy="964" r="5" stroke="#1e293b"/>
     </g>
     <g font-size="9" font-weight="800" text-anchor="middle">
       <text x="907" y="735.5" fill="#dc2626">+</text><text x="907" y="833.5" fill="#1e293b">−</text>
@@ -421,20 +474,19 @@
       <text x="1415" y="869.5" fill="#dc2626">+</text><text x="1415" y="967.5" fill="#1e293b">−</text>
     </g>
     <!-- 2S links: red series front↔back · red + tie back row · black − tie front row to BAT6− -->
-    <path d="M 907 830 L 907 866 M 1161 830 L 1161 866" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M 1415 830 L 1415 866" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <path d="M 907 830 L 907 866 M 1161 830 L 1161 866 M 1415 830 L 1415 866" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
     <path d="M 907 732 L 1161 732" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M 1161 732 L 1415 732" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <path d="M 1161 732 L 1415 732" fill="none" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
     <path d="M 907 964 L 1161 964" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M 1161 964 L 1415 964" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-    <text x="1040" y="992" text-anchor="middle" font-size="10" font-weight="800" fill="#1d4ed8">BATTERY BANK — 2S2P now · 2S3P ready · 24 V</text>
+    <path d="M 1161 964 L 1415 964" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
+    <text x="1040" y="992" text-anchor="middle" font-size="10" font-weight="800" fill="#1d4ed8">BATTERY BANK — 2S3P · 24 V · 900 Ah (~21.6 kWh)</text>
 
     <!-- portable solar (existing/owned · green) -->
     <g filter="url(#sh)">
       <rect x="1160" y="1044" width="280" height="44" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.5"/>
     </g>
     <text x="1300" y="1062" text-anchor="middle" font-size="10.5" font-weight="800" fill="#6d28d9">☀️ PORTABLE SOLAR — already owned</text>
-    <text x="1300" y="1078" text-anchor="middle" font-size="9.5" fill="#6d28d9">MC4 outputs · series pair ≤ 600 W</text>
+    <text x="1300" y="1078" text-anchor="middle" font-size="9.5" fill="#6d28d9">MC4 outputs · one series pair ≤ 600 W per inlet</text>
 
     <!-- callout badges -->
     <g font-size="12" font-weight="800">
@@ -451,11 +503,11 @@
     <!-- title block -->
     <g>
       <rect x="272" y="880" width="270" height="86" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#sh)"/>
-      <text x="286" y="902" font-size="11" font-weight="800" fill="#0f172a" letter-spacing="0.08em">VICTRON OFF-GRID BUILD · 24 V · LYNX M10 + MEGA</text>
+      <text x="286" y="902" font-size="11" font-weight="800" fill="#0f172a" letter-spacing="0.08em">VICTRON OFF-GRID BUILD · 24 V · DUAL LYNX M10 + MEGA</text>
       <text x="286" y="918" font-size="10" fill="#2563eb">Blue = Victron / new · Purple = existing house · solid old · dashed new</text>
       <text x="286" y="933" font-size="10" fill="#64748b">DC red + / black − · AC 240 V 4-wire: L1 black · L2 red · N white · G green</text>
-      <text x="286" y="948" font-size="9.5" fill="#64748b">Every branch wired red + AND black − · Lynx holds both busbars</text>
-      <text x="286" y="962" font-size="9.5" fill="#94a3b8">Rev H · 2026-10-22 · 24 V system</text>
+      <text x="286" y="948" font-size="9.5" fill="#64748b">Every branch wired red + AND black − · Lynx holds both busbars · Lynx #2 direct-bolts on #1</text>
+      <text x="286" y="962" font-size="9.5" fill="#94a3b8">Rev I · 2026-10-28 · 24 V system · 2S3P 900 Ah</text>
     </g>
   </svg>
   
@@ -466,19 +518,20 @@
     <thead><tr><th>Device</th><th>Dimensions (H × W × D)</th><th>Terminals</th><th>Mounting in bay</th></tr></thead>
     <tbody>
       <tr><td><b>MultiPlus-II 24/3000/70-50</b></td><td><b>578 × 275 × 148 mm</b> (22.7″ × 10.8″ × 5.8″) — confirmed</td><td>Bottom, left→right: <b>AC-IN · AC-OUT · BAT(+|−)</b></td><td>Upright on wall, center of bay · 50 mm side / 75 mm front clearance</td></tr>
-      <tr><td><b>SmartSolar MPPT 100/50 (#1)</b></td><td><b>130 × 186 × 70 mm (5.12″H × 7.32″W × 2.76″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, above MPPT #2 · right of Lynx · 4″+ airflow clearance</td></tr>
-      <tr><td><b>SmartSolar MPPT Tr 250/70 (#2)</b></td><td><b>185 × 250 × 95 mm (7.28″H × 9.84″W × 3.74″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, right of Lynx · near the right-wall MC4 inlet</td></tr>
+      <tr><td><b>SmartSolar MPPT 100/50 (#1)</b></td><td><b>130 × 186 × 70 mm (5.12″H × 7.32″W × 2.76″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, top of the right MPPT stack · branches to <b>Lynx #2 slot 1</b> · 4″+ airflow clearance</td></tr>
+      <tr><td><b>SmartSolar MPPT 100/50 (#2)</b></td><td><b>130 × 186 × 70 mm (5.12″H × 7.32″W × 2.76″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, middle of the MPPT stack · branches to <b>Lynx #2 slot 2</b> · PV from MC4 inlet #1</td></tr>
+      <tr><td><b>SmartSolar MPPT 100/50 (#3)</b></td><td><b>130 × 186 × 70 mm (5.12″H × 7.32″W × 2.76″D)</b> — confirmed datasheet · landscape</td><td><b>BAT left · PV right</b></td><td>Wall, bottom of the MPPT stack · branches to <b>Lynx #1 slot 3</b> · PV from MC4 inlet #2</td></tr>
       <tr><td><b>Orion XS 1400</b></td><td><b>138.1 × 124.4 × 53 mm</b> (5.44″H × 4.90″W × 2.09″D) — confirmed</td><td><b>All on one side · red · black · red</b> (IN+ · IN− common · OUT+)</td><td>Wall, far left (where factory MPPT sat) · terminals face down · truck-feed end</td></tr>
       <tr><td><b>Orion-Tr IP67 24/12-100 (1200 W)</b></td><td><b>265 × 127 × 63 mm</b> (10.4″ × 5.0″ × 2.5″) — confirmed</td><td><b>All on one side · red · black · red</b> (IN+ · IN− common · OUT+)</td><td>Wall, left of MultiPlus · upright, terminals down · ≈1200 BTU/min heat — give it airflow</td></tr>
-      <tr><td><b>Lynx Distributor — M10 version</b></td><td><b>170 × 290 × 80 mm</b> (6.7″H × 11.4″W × 3.1″D) — confirmed · same case as M8 model</td><td><b>BAT+ / − studs on the bottom</b> · 4 branch + studs + <b>MultiPlus − on the right</b></td><td>Wall, right of MultiPlus · rotated like the pre-wired kit · M10 BAT-in bolts straight to the BEP &amp; shunt</td></tr>
+      <tr><td><b>Lynx Distributor — M10 version (×2)</b></td><td><b>170 × 290 × 80 mm</b> (6.7″H × 11.4″W × 3.1″D) each — confirmed · same case as M8 model</td><td><b>BAT+ / − studs on the bottom</b> · 4 branch + studs on the right (battery input excluded)</td><td>Wall, right of MultiPlus · rotated like the pre-wired kit · <b>Lynx #2 direct-bolts on Lynx #1</b> (busbars join at the bolts — no wire) · M10 BAT-in bolts straight to the BEP &amp; shunt</td></tr>
       <tr><td><b>SmartShunt 500 A</b></td><td><b>46 × 120 × 54 mm</b> (1.8″H × 4.7″W × 2.1″D) — confirmed</td><td>M10 · in the sole battery − path</td><td>Direct-bolt to the Lynx − battery input (bottom-right) · no wire between them</td></tr>
       <tr><td><b>RED WOLF 300 A breaker</b></td><td><b>3″D × 1.9″W × 1.4″H</b> — confirmed · 3/8″ screw studs (≈M10) · manual reset</td><td>3/8″ studs · within 18″ of BAT1+</td><td>Floor/wall bracket near bank's back-left corner · reset button faces out</td></tr>
       <tr><td><b>BEP 770-DP-EZ MC10 Pro Installer 400 A</b></td><td><b>7.05″L × 6.78″W × 2.7″H</b> — confirmed · M10 studs · EZ-Mount base</td><td>Double pole · main battery disconnect</td><td>Direct-bolt under the Lynx BAT+ (bottom-left) · RED WOLF breaker below it · handle accessible</td></tr>
-      <tr><td><b>MC4 bulkhead inlet</b></td><td>⚠ unknown — measure when it arrives</td><td>2× MC4 female inside</td><td>Right wall, above MPPT #2 · drill per template</td></tr>
-      <tr><td><b>Vatrer 12 V 300 Ah battery</b></td><td><b>9.76″H × 15.12″W × 7.64″D</b> — confirmed</td><td>M8 top · + upper-right · − lower-right (top view)</td><td>Floor, left of bay (old GC27 box removed) · 2×2, space for 6</td></tr>
+      <tr><td><b>MC4 bulkhead inlet (×2)</b></td><td>⚠ unknown — measure when they arrive</td><td>2× MC4 female inside each</td><td>Right wall — inlet 1 above MPPT #2 (→ MPPT #2 PV) · inlet 2 below it (→ MPPT #3 PV) · drill per template</td></tr>
+      <tr><td><b>Vatrer 12 V 300 Ah battery</b></td><td><b>9.76″H × 15.12″W × 7.64″D</b> — confirmed</td><td>M8 top · + upper-right · − lower-right (top view)</td><td>Floor, left of bay (old GC27 box removed) · 2×3 · all six installed</td></tr>
     </tbody>
   </table></div>
-  <div class="callout warn"><span class="ic">⚠️</span><div><b>⚠ only one entry remains unverified:</b> the <b>MC4 bulkhead inlet</b> — measure it on arrival (or grab the datasheet PDF) before drilling. Everything else is confirmed. Layout follows the pre-wired 24 V kit convention: Lynx rotated with <b>BAT+ / − studs on the bottom</b>, the <b>BEP 400 A switch direct-bolted under BAT+</b> and the <b>SmartShunt direct-bolted to the − battery input (bottom-right)</b> — no wire between them — while the <b>MultiPlus + and − both land on the Lynx right side</b> (fused in the distributor). Both Orion DC-DC converters have <b>all terminals on one edge, red · black · red</b>.</div></div>
+  <div class="callout warn"><span class="ic">⚠️</span><div><b>⚠ only one entry remains unverified:</b> the <b>MC4 bulkhead inlets (×2)</b> — measure them on arrival (or grab the datasheet PDF) before drilling. Everything else is confirmed. Layout follows the pre-wired 24 V kit convention: both Lynx units rotated with <b>BAT+ / − studs on the bottom</b>, the <b>BEP 400 A switch direct-bolted under BAT+</b> and the <b>SmartShunt direct-bolted to the − battery input (bottom-right)</b> — no wire between them — and <b>Lynx #2 direct-bolts on Lynx #1</b> so its two spare-to-loaded branch slots share the same busbar with no interconnect wire. Each Lynx carries only <b>4 fused + branch circuits</b> (battery input excluded), so MPPT #1/#2 land on Lynx #2 while IP67, XS, MPPT #3 and the MultiPlus stay on Lynx #1. Both Orion DC-DC converters have <b>all terminals on one edge, red · black · red</b>.</div></div>
 </section>
 
 <!-- ============================ WIRE SCHEDULE ============================ -->
@@ -490,28 +543,31 @@
     <tbody>
       <tr><td><b>W1</b></td><td>MultiPlus-II DC+ (BEP switch LOAD → MultiPlus DC+)</td><td>2/0 AWG welding cable — <b>M10 lug on switch, M8 on MultiPlus</b> (Victron min 1/0 ≤ 5 m); T-branch to Lynx BAT-in uses an <b>M8→M10</b> lug pair</td><td>6 ft</td><td>300 A breaker (main fuse) within 18" of BAT1+ → BEP 400 A switch (disconnect)</td><td><span class="tag t-new">NEW</span> reuse inverter-prep run only if ≥ 2/0</td></tr>
       <tr><td><b>W2</b></td><td>MultiPlus-II DC− (Lynx − busbar → MultiPlus DC−)</td><td>2/0 AWG welding cable, M8 both ends</td><td>4 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W3</b></td><td>Battery links — 2 series (BAT1−→BAT2+, BAT3−→BAT4+) + pair +/− ties</td><td>2/0 AWG welding cable</td><td>2 × 20 in + 2 × 24 in</td><td>each battery's 200 A BMS</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W4</b></td><td>MPPT #2 (Tr 250/70) output + → Lynx slot 4</td><td>4 AWG</td><td>12 ft</td><td>MEGA 80 A/32 V in Lynx</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W5</b></td><td>MPPT #2 output − → Lynx − busbar</td><td>4 AWG</td><td>12 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W6</b></td><td>MC4 inlet → MPPT #2 PV input</td><td>10 AWG UV PV wire ×2, MC4 both ends</td><td>20 ft (existing conduit)</td><td>MC4 30 A/pair — series pair ≈ 12–14 A</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W3</b></td><td>Battery links — 3 series (BAT1−→BAT2+, BAT3−→BAT4+, BAT5−→BAT6+) + +/− parallel ties across all three columns</td><td>2/0 AWG welding cable</td><td>3 × 20 in + 2 × 24 in + 2 × 44 in</td><td>each battery's 200 A BMS</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W4</b></td><td>MPPT #2 (100/50) output + → Lynx #2 slot 2</td><td>4 AWG</td><td>12 ft</td><td>MEGA 60 A/32 V in Lynx #2</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W5</b></td><td>MPPT #2 output − → Lynx #2 − busbar</td><td>4 AWG</td><td>12 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W6</b></td><td>MC4 inlet #1 → MPPT #2 PV input</td><td>10 AWG UV PV wire ×2, MC4 both ends</td><td>20 ft (existing conduit)</td><td>MC4 30 A/pair — series pair ≈ 12–14 A</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W7</b></td><td>Anderson inlet → Orion XS +IN (RV side)</td><td>4 AWG welding (unit terminals max 4 AWG)</td><td>10 ft</td><td>ANL 60 A at the RV inlet</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W8</b></td><td>Orion XS output + → Lynx slot 2</td><td>4 AWG welding</td><td>8 ft</td><td>MEGA 60 A/32 V in Lynx</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W8</b></td><td>Orion XS output + → Lynx #1 slot 2</td><td>4 AWG welding</td><td>8 ft</td><td>MEGA 60 A/32 V in Lynx #1</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W9</b></td><td>Orion XS chassis bond</td><td>6 AWG</td><td>3 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W10</b></td><td>— reserved —</td><td>—</td><td>—</td><td>—</td><td><span class="tag t-exist">N/A</span></td></tr>
       <tr><td><b>W11</b></td><td>AC-IN 1 pigtail (shore/gen splice → MultiPlus)</td><td>6 AWG THHN ×3 (L1, L2, N)</td><td>5 ft each</td><td>existing 50 A main breaker</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W12</b></td><td>AC-OUT pigtail (MultiPlus → panel main lugs)</td><td>6 AWG THHN ×3 (L1, L2, N)</td><td>5 ft each</td><td>MultiPlus 50 A pass-through</td><td><span class="tag t-new">NEW</span></td></tr>
-      <tr><td><b>W13</b></td><td>Battery − → SmartShunt (M10) → Lynx − busbar (M8)</td><td>2/0 pigtails; mixed M10→M8 lugs on the shunt link</td><td>2 ft + 2 ft</td><td>—</td><td><span class="tag t-new">NEW</span> sole battery − path</td></tr>
+      <tr><td><b>W13</b></td><td>BAT6− → SmartShunt (M10) → Lynx − busbar (M8)</td><td>2/0 pigtails; mixed M10→M8 lugs on the shunt link</td><td>2 ft + 2 ft</td><td>—</td><td><span class="tag t-new">NEW</span> sole battery − path</td></tr>
       <tr><td><b>W14</b></td><td>Existing 12 V returns → Lynx − busbar</td><td>4 AWG</td><td>8 ft</td><td>existing branch fuses</td><td><span class="tag t-new">NEW</span> re-terminate</td></tr>
       <tr><td><b>W15</b></td><td>Roof panel → MPPT #1</td><td>existing PV wire</td><td>—</td><td>factory</td><td><span class="tag t-exist">EXISTING</span></td></tr>
-      <tr><td><b>W16</b></td><td>MPPT #1 output → Lynx slot 3</td><td>existing (reuse if ≥ 6 AWG)</td><td>—</td><td>MEGA 60 A/32 V in Lynx</td><td><span class="tag t-reuse">REUSE</span> re-terminate</td></tr>
+      <tr><td><b>W16</b></td><td>MPPT #1 output → Lynx #2 slot 1</td><td>existing (reuse if ≥ 6 AWG)</td><td>—</td><td>MEGA 60 A/32 V in Lynx #2</td><td><span class="tag t-reuse">REUSE</span> re-terminate</td></tr>
       <tr><td><b>W17</b></td><td>Shore → Power Center; gen bay → transfer</td><td>existing 6 AWG</td><td>—</td><td>50 A main</td><td><span class="tag t-reuse">REUSE</span> spliced at ①</td></tr>
       <tr><td><b>W18</b></td><td>WFCO output — cut, capped; AC breaker open (unit stays)</td><td>existing battery cables — abandoned</td><td>—</td><td>existing branch breaker</td><td><span class="tag t-check">DISABLE ⑧</span></td></tr>
       <tr><td><b>W19</b></td><td>Battery − → chassis ground</td><td>verify ≥ 2 AWG; upgrade to 2/0 if lighter</td><td>3 ft</td><td>—</td><td><span class="tag t-check">CHECK</span></td></tr>
-      <tr><td><b>W20</b></td><td>Truck: battery + → MRBF → hitch Anderson plug</td><td>1 AWG welding + Anderson SB175</td><td>25 ft (truck)</td><td>MRBF 125 A at truck battery</td><td><span class="tag t-new">NEW</span> truck side ⑥</td></tr>
-      <tr><td><b>W22</b></td><td>Lynx slot 1 → Orion IP67 IN +</td><td>4 AWG welding</td><td>10 ft</td><td>MEGA 60 A/32 V in Lynx</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W20</b></td><td>Truck: battery + → MRBF → hitch Anderson plug</td><td>4 AWG welding + Anderson SB175 — the XS input-limits at 50 A, so 4 AWG (≈ 0.6 V drop over 25 ft) is plenty; 1 AWG was overkill</td><td>25 ft (truck)</td><td>MRBF 60 A at truck battery</td><td><span class="tag t-new">NEW</span> truck side ⑥</td></tr>
+      <tr><td><b>W22</b></td><td>Lynx #1 slot 1 → Orion IP67 IN +</td><td>4 AWG welding</td><td>10 ft</td><td>MEGA 60 A/32 V in Lynx #1</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W23</b></td><td>Lynx − busbar → Orion IP67 IN − (common)</td><td>4 AWG welding</td><td>10 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W24</b></td><td>Orion IP67 OUT + → 12 V fuse panel feed (was WFCO)</td><td>2 AWG welding</td><td>12 ft</td><td>ANL 100 A at converter</td><td><span class="tag t-new">NEW</span></td></tr>
       <tr><td><b>W25</b></td><td>BAT1+ → 300 A breaker LINE → BEP 770-DP-EZ IN → BEP OUT → Lynx BAT+ (M10)</td><td>2/0 AWG welding, M10 lugs</td><td>2 ft + 2 ft</td><td>300 A breaker = main fuse · BEP = main disconnect</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W26</b></td><td>MPPT #3 (100/50) output + → Lynx #1 slot 3</td><td>4 AWG</td><td>12 ft</td><td>MEGA 60 A/32 V in Lynx #1</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W27</b></td><td>MPPT #3 output − → Lynx #1 − busbar</td><td>4 AWG</td><td>12 ft</td><td>—</td><td><span class="tag t-new">NEW</span></td></tr>
+      <tr><td><b>W28</b></td><td>MC4 inlet #2 → MPPT #3 PV input</td><td>10 AWG UV PV wire ×2, MC4 both ends</td><td>20 ft (new conduit run)</td><td>MC4 30 A/pair — series pair ≈ 12–14 A</td><td><span class="tag t-new">NEW</span></td></tr>
     </tbody>
   </table></div>
 
@@ -519,16 +575,15 @@
   <div class="tbl"><table>
     <thead><tr><th>Cable</th><th>Buy</th><th>Covers</th></tr></thead>
     <tbody>
-      <tr><td>2/0 AWG flexible welding cable — red</td><td>30 ft</td><td>W1, W3 series + ties, W25 (BAT+ → breaker)</td></tr>
-      <tr><td>2/0 AWG flexible welding cable — black</td><td>25 ft</td><td>W2, W3 series + ties, W13</td></tr>
-      <tr><td>1 AWG flexible welding cable — red (truck)</td><td>30 ft</td><td>W20 truck battery → hitch Anderson</td></tr>
-      <tr><td>4 AWG welding/auto — red</td><td>30 ft</td><td>W4, W7, W8, W22</td></tr>
-      <tr><td>4 AWG welding/auto — black</td><td>25 ft</td><td>W5, W23, spares</td></tr>
+      <tr><td>2/0 AWG flexible welding cable — red</td><td>35 ft</td><td>W1, W3 series + ties (3 columns), W25 (BAT+ → breaker)</td></tr>
+      <tr><td>2/0 AWG flexible welding cable — black</td><td>30 ft</td><td>W2, W3 series + ties (3 columns), W13</td></tr>
+      <tr><td>4 AWG welding/auto — red</td><td>75 ft</td><td>W4, W7, W8, W22, W26, W20 (truck run, 30 ft with slack)</td></tr>
+      <tr><td>4 AWG welding/auto — black</td><td>40 ft</td><td>W5, W23, W27, spares</td></tr>
       <tr><td>2 AWG welding — red</td><td>12 ft</td><td>W24 (Orion IP67 → 12 V panel)</td></tr>
       <tr><td>6 AWG THHN — black (AC only)</td><td>40 ft</td><td>W11, W12 pigtails</td></tr>
       <tr><td>6 AWG welding/auto — red</td><td>10 ft</td><td>W16 reuse check / spares</td></tr>
       <tr><td>6 AWG welding/auto — black</td><td>15 ft</td><td>W9, spares</td></tr>
-      <tr><td>10 AWG UV PV wire — red + black</td><td>25 ft each</td><td>W6 (add MC4 ends)</td></tr>
+      <tr><td>10 AWG UV PV wire — red + black</td><td>50 ft each</td><td>W6 + W28 (two inlet runs, add MC4 ends)</td></tr>
       <tr><td>4 AWG auto — black</td><td>10 ft</td><td>W14</td></tr>
       <tr><td>14 AWG auto</td><td>15 ft</td><td>W10 sense + misc</td></tr>
     </tbody>
@@ -544,10 +599,10 @@
   <div class="tbl"><table>
     <thead><tr><th>Term</th><th>What it is</th><th>Where it's used here</th></tr></thead>
     <tbody>
-      <tr><td><b>Cable</b></td><td>Flexible multi-strand copper wire with insulation. Sizes: 2/0 &gt; 1/0 &gt; 2 AWG &gt; 6 AWG &gt; 10 AWG (bigger number = thinner wire; "2/0" reads "two-aught").</td><td>All W1–W24 runs</td></tr>
+      <tr><td><b>Cable</b></td><td>Flexible multi-strand copper wire with insulation. Sizes: 2/0 &gt; 1/0 &gt; 2 AWG &gt; 6 AWG &gt; 10 AWG (bigger number = thinner wire; "2/0" reads "two-aught").</td><td>All W1–W28 runs</td></tr>
       <tr><td><b>Lug</b></td><td>A tinned copper sleeve crimped onto a cable's bare end, leaving a hole to bolt to a stud. <b>Two-hole lugs</b> for the biggest cables. Match the hole to the stud: <b>M8</b> for Lynx branches/battery/MultiPlus, <b>M10</b> for the 300 A breaker, BEP switch &amp; SmartShunt.</td><td>2/0 cables → battery M8 studs, Lynx busbars, MultiPlus; M10 on breaker/BEP/shunt</td></tr>
       <tr><td><b>Ring terminal</b></td><td>Small pre-insulated copper ring crimped onto 14–4 AWG wire, then bolted to a stud.</td><td>4/6 AWG to Lynx studs &amp; fuses; sense lead</td></tr>
-      <tr><td><b>MEGA fuse</b></td><td>Large blade-style bolt-down fuse (the big sibling of the car "MAXI" fuse). This is <b>what the Lynx Distributor holds</b> — one per fused circuit, M8 terminals, 32 V rating for a 24 V system.</td><td>Lynx slots: 60/60/60/80 A (Orion IP67 in, Orion XS, MPPT #1, MPPT #2)</td></tr>
+      <tr><td><b>MEGA fuse</b></td><td>Large blade-style bolt-down fuse (the big sibling of the car "MAXI" fuse). This is <b>what the Lynx Distributor holds</b> — one per fused circuit, M8 terminals, 32 V rating for a 24 V system.</td><td>Lynx slots: 60 A ×5 (Orion IP67 in, Orion XS, MPPT #1, MPPT #2, MPPT #3) + dummies in the MP position and Lynx #2's two spare slots</td></tr>
       <tr><td><b>ANL fuse</b></td><td>Flat ceramic fuse with two holes; the cable lug bolts directly to it. Used here only where there's no Lynx slot.</td><td>Anderson RV inlet (60 A), Orion IP67 output (100 A)</td></tr>
       <tr><td><b>MC4 connector</b></td><td>Standard click-together solar connector (male = pin, female = socket). Your portables already have these.</td><td>W6 solar run, both ends</td></tr>
       <tr><td><b>Heat-shrink</b></td><td>Plastic tubing that shrinks with heat. <b>Adhesive-lined (marine grade)</b> has glue inside that melts and waterproofs the crimp. 3:1 = shrinks to a third of printed size.</td><td>Every crimp and stripped section</td></tr>
@@ -588,8 +643,7 @@
       <tr><td>Vatrer battery M8 studs</td><td>≈ 8 N·m (70 in-lb)</td><td>Follow Vatrer manual if printed on case; star washer under lug</td></tr>
       <tr><td>MultiPlus-II 2x120V battery M8 (×2 +, ×2 −)</td><td>≈ 12 N·m (105 in-lb)</td><td>Per Victron manual — insulated box spanner; two cables per polarity</td></tr>
       <tr><td><b>Lynx Distributor M10 — M8 cable nuts</b></td><td>≈ 14 N·m (120 in-lb)</td><td>All four fused + &amp; − studs are M8; middle-row busbar nuts 10 N·m · <b>M10 BAT-in stud ≈ 20 N·m (180 in-lb)</b></td></tr>
-      <tr><td>SmartSolar MPPT Tr 250/70 battery + PV (AWG 2)</td><td>≈ 2.4 N·m (21 in-lb)</td><td>Per Victron manual; small torque — do not over-tighten</td></tr>
-      <tr><td>SmartSolar MPPT 100/50 (factory #1) M8</td><td>≈ 4 N·m (35 in-lb)</td><td>Check VictronConnect manual / terminal label</td></tr>
+      <tr><td>SmartSolar MPPT 100/50 ×3 (factory #1 + new #2/#3) — M8 BAT &amp; PV studs</td><td>≈ 4 N·m (35 in-lb)</td><td>Check VictronConnect manual / terminal label; star washer under each lug</td></tr>
       <tr><td>Orion XS / Orion IP67 terminals</td><td>≈ 4 N·m (35 in-lb)</td><td>Snug; do not strip — verify label</td></tr>
       <tr><td><b>300 A breaker M10 · SmartShunt 500 M10 · BEP 770 M10</b></td><td>≈ 16–20 N·m (140–180 in-lb) · BEP ≈ 9.5 N·m (80 in-lb)</td><td>M10 studs on the battery path — verify on each unit's label</td></tr>
       <tr><td>ANL 60 A / 100 A (Anderson inlet, IP67 out)</td><td>≈ 4–5 N·m (35–45 in-lb)</td><td>Snug + firm; re-check after 500 miles</td></tr>
@@ -608,10 +662,10 @@
     <li>Hydraulic tool, correct die: hex squeeze near barrel mouth, rotate 180°, squeeze near the holes. Tool must close completely.</li>
     <li>Shrink over the whole barrel until tight, glue beading at both ends.</li>
     <li>Continuity probe lug-hole to far end (beep, near zero). Tug test. Label the cable's route (e.g., "BAT1− → BAT2+ SERIES").</li>
-    <li>Make the links: 2 × 20" series (BAT1−→BAT2+, BAT3−→BAT4+), 1 × 24" + tie (BAT1+→BAT3+), 1 × 24" − tie (BAT2−→BAT4−), plus mains W25 (BAT+→breaker), W1 (breaker→MultiPlus), W2, W13.</li>
+    <li>Make the links: 3 × 20" series (BAT1−→BAT2+, BAT3−→BAT4+, BAT5−→BAT6+), + ties along the back row (BAT1+→BAT3+→BAT5+), − ties along the front row (BAT2−→BAT4−→BAT6−), plus mains W25 (BAT+→breaker), W1 (breaker→MultiPlus), W2, W13.</li>
   </ol>
 
-  <h4>Recipe B — Branch DC cables (W4/W5/W7/W8/W9/W22/W23): 4–6 AWG, ring terminals</h4>
+  <h4>Recipe B — Branch DC cables (W4/W5/W7/W8/W9/W22/W23/W26/W27): 4–6 AWG, ring terminals</h4>
   <ol class="steps">
     <li>Measure, cut, slide on ¾–1" adhesive-lined shrink.</li>
     <li>Strip ⅜" with strippers; twist strands clockwise so they stay tight.</li>
@@ -620,13 +674,13 @@
     <li>Shrink, continuity, tug test. <b>At the Lynx, each ring lands under its M8 stud beside the MEGA fuse</b> — star washer, then torque ≈ 14 N·m (120 in-lb). ANL fuses (inlet, IP67 out) clamp the ring with their own studs.</li>
   </ol>
 
-  <h4>Recipe C — Portable solar run (W6): 10 AWG PV wire, MC4 ends</h4>
-  <div class="callout tip"><span class="ic">💡</span><div>Your panels already have MC4 pigtails — you're only making the <b>extension</b> from the RV inlet to MPPT #2. Use UV-rated double-insulated PV wire, not auto wire.</div></div>
+  <h4>Recipe C — Portable solar runs (W6/W28): 10 AWG PV wire, MC4 ends</h4>
+  <div class="callout tip"><span class="ic">💡</span><div>Your panels already have MC4 pigtails — you're only making the <b>extensions</b> from each RV inlet to its MPPT (#1 inlet → MPPT #2, #2 inlet → MPPT #3). Use UV-rated double-insulated PV wire, not auto wire.</div></div>
   <ol class="steps">
-    <li>Easiest: buy a pre-made 10 AWG MC4 extension (20 ft, male+female). Or make it: strip 7 mm, insert into each MC4 contact (copper visible in the contact window), crimp with the MC4 tool, push the crimped contact into the housing until it clicks and the O-ring seats.</li>
+    <li>Easiest: buy pre-made 10 AWG MC4 extensions (20 ft, male+female) — one per inlet. Or make them: strip 7 mm, insert into each MC4 contact (copper visible in the contact window), crimp with the MC4 tool, push the crimped contact into the housing until it clicks and the O-ring seats.</li>
     <li>Tug each wire 15 lb — it must not pull from the housing.</li>
-    <li>At MPPT #2 (Tr 250/70), the screw PV+ / PV− terminals accept up to <b>AWG 2 stranded</b>; the 10 AWG PV wire clamps directly — bootlace ferrules + shrink if you want it tidy; torque ≈ 2.4 N·m (21 in-lb).</li>
-    <li>Mount the inlet so mated connectors hang <b>down</b> with a drip loop — never let them sit in puddles.</li>
+    <li>At each MPPT 100/50, the PV terminals take a folded 10 AWG PV wire or a ring terminal under the M8 stud — bootlace ferrules + shrink if you want it tidy; torque ≈ 4 N·m (35 in-lb).</li>
+    <li>Mount each inlet so mated connectors hang <b>down</b> with a drip loop — never let them sit in puddles.</li>
   </ol>
 
   <h4>Recipe D — AC pigtails (W11/W12): 6 AWG THHN in the Power Center</h4>
@@ -647,7 +701,7 @@
 
   <h3>6. Assembly order &amp; polarity discipline</h3>
   <ul class="dash">
-    <li><b>Colors:</b> red = DC+, black = DC−, white = AC neutral, black/red THHN = AC hots. Label both ends of every cable with its ID (W1…W25) before routing.</li>
+    <li><b>Colors:</b> red = DC+, black = DC−, white = AC neutral, black/red THHN = AC hots. Label both ends of every cable with its ID (W1…W28) before routing.</li>
     <li><b>One cable at a time.</b> Never leave a live battery terminal loose — a dropped 2/0 on the chassis throws a welding-arc flash. Battery negative disconnects <b>first</b>, reconnects last with the breaker + BEP switch OFF.</li>
     <li><b>First-connection ritual:</b> negatives → positive main through the (OFF) 300 A breaker → BEP switch ON → breaker ON → SmartShunt shows voltage → insert Lynx MEGA fuses one circuit at a time (watch the fuse LEDs) → enable MultiPlus, MPPTs, Orion one at a time, watching the shunt.</li>
   </ul>
@@ -668,13 +722,13 @@
     </defs>
 
     <rect x="0" y="0" width="780" height="452" fill="url(#grid2)"/>
-    <text x="381" y="24" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">BATTERY BANK — TOP VIEW · 2×2 now (2S2P · 24 V · 600 Ah) · dashed = optional BAT 5/6 → 2S3P · 900 Ah</text>
+    <text x="381" y="24" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">BATTERY BANK — TOP VIEW · 2×3 (2S3P · 24 V · 900 Ah · ~21.6 kWh) · all six required</text>
 
     <!-- tray outline -->
     <rect x="88" y="108" width="586.2" height="216.4" rx="10" fill="#fff" stroke="#94a3b8" stroke-width="2.5"/>
     <text x="92" y="117" font-size="9" fill="#94a3b8" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">BACK ROW</text>
     <text x="92" y="321" font-size="9" fill="#94a3b8" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">FRONT ROW</text>
-    <text x="670" y="321" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">TRAY ≈ 33″ × 17″ (×4) · ≈ 49″ × 17″ (×6)</text>
+    <text x="670" y="321" text-anchor="end" font-size="9" fill="#94a3b8" font-weight="700" stroke="#fff" stroke-width="3" paint-order="stroke">TRAY ≈ 49″ × 17″</text>
 
     <!-- batteries: 15.12"W × 7.64"D each (12 px/in) -->
     <g filter="url(#sh2)">
@@ -682,16 +736,16 @@
       <rect x="290.4" y="120" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
       <rect x="100" y="220.7" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
       <rect x="290.4" y="220.7" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
-      <rect x="480.8" y="120" width="181.4" height="91.7" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="7 5"/>
-      <rect x="480.8" y="220.7" width="181.4" height="91.7" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="7 5"/>
+      <rect x="480.8" y="120" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <rect x="480.8" y="220.7" width="181.4" height="91.7" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
     </g>
     <g text-anchor="middle">
       <text x="190.7" y="152" font-size="13" font-weight="800">BAT 1</text><text x="190.7" y="168" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="190.7" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
       <text x="381.1" y="152" font-size="13" font-weight="800">BAT 3</text><text x="381.1" y="168" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="381.1" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
       <text x="190.7" y="252" font-size="13" font-weight="800">BAT 2</text><text x="190.7" y="268" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="190.7" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
       <text x="381.1" y="252" font-size="13" font-weight="800">BAT 4</text><text x="381.1" y="268" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="381.1" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
-      <text x="571.5" y="152" font-size="13" font-weight="800" fill="#1d4ed8">BAT 5</text><text x="571.5" y="168" font-size="10.5" fill="#60a5fa">optional · 12 V 300 Ah</text><text x="571.5" y="182" font-size="9" fill="#60a5fa">reserved space</text>
-      <text x="571.5" y="252" font-size="13" font-weight="800" fill="#1d4ed8">BAT 6</text><text x="571.5" y="268" font-size="10.5" fill="#60a5fa">optional · 12 V 300 Ah</text><text x="571.5" y="282" font-size="9" fill="#60a5fa">reserved space</text>
+      <text x="571.5" y="152" font-size="13" font-weight="800">BAT 5</text><text x="571.5" y="168" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="571.5" y="182" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
+      <text x="571.5" y="252" font-size="13" font-weight="800">BAT 6</text><text x="571.5" y="268" font-size="10.5" fill="#1e3a8a">12 V · 300 Ah LiFePO4</text><text x="571.5" y="282" font-size="9" fill="#94a3b8">15.12″W × 7.64″D × 9.76″H</text>
     </g>
 
     <!-- terminals: + upper-right · − lower-right -->
@@ -700,8 +754,8 @@
       <circle cx="471.8" cy="134" r="5.5" stroke="#dc2626"/><circle cx="471.8" cy="197.7" r="5.5" stroke="#1e293b"/>
       <circle cx="281.4" cy="234.7" r="5.5" stroke="#dc2626"/><circle cx="281.4" cy="298.4" r="5.5" stroke="#1e293b"/>
       <circle cx="471.8" cy="234.7" r="5.5" stroke="#dc2626"/><circle cx="471.8" cy="298.4" r="5.5" stroke="#1e293b"/>
-      <circle cx="662.2" cy="134" r="5.5" stroke="#dc2626" stroke-dasharray="3.5 2.5"/><circle cx="662.2" cy="197.7" r="5.5" stroke="#1e293b" stroke-dasharray="3.5 2.5"/>
-      <circle cx="662.2" cy="234.7" r="5.5" stroke="#dc2626" stroke-dasharray="3.5 2.5"/><circle cx="662.2" cy="298.4" r="5.5" stroke="#1e293b" stroke-dasharray="3.5 2.5"/>
+      <circle cx="662.2" cy="134" r="5.5" stroke="#dc2626"/><circle cx="662.2" cy="197.7" r="5.5" stroke="#1e293b"/>
+      <circle cx="662.2" cy="234.7" r="5.5" stroke="#dc2626"/><circle cx="662.2" cy="298.4" r="5.5" stroke="#1e293b"/>
     </g>
     <g font-size="10" font-weight="800" text-anchor="middle">
       <text x="281.4" y="137.6" fill="#dc2626">+</text><text x="281.4" y="201.3" fill="#1e293b">−</text>
@@ -715,17 +769,18 @@
     <!-- series links (red): front + ↔ back −, shortest possible runs -->
     <path d="M 281.4 197.7 L 281.4 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
     <path d="M 471.8 197.7 L 471.8 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-    <path d="M 662.2 197.7 L 662.2 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 4"/>
+    <path d="M 662.2 197.7 L 662.2 234.7" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
     <text x="281.4" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
     <text x="471.8" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
+    <text x="662.2" y="216.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">series 2/0</text>
 
     <!-- parallel ties: + along back row, − along front row -->
     <path d="M 281.4 134 L 471.8 134" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-    <path d="M 471.8 134 L 662.2 134" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 4"/>
+    <path d="M 471.8 134 L 662.2 134" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
     <path d="M 281.4 298.4 L 471.8 298.4" fill="none" stroke="#1e293b" stroke-width="5" stroke-linecap="round"/>
-    <path d="M 471.8 298.4 L 662.2 298.4" fill="none" stroke="#1e293b" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 4"/>
-    <text x="376.1" y="130" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">+ parallel tie · 2/0</text>
-    <text x="376.1" y="294" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e293b" stroke="#fff" stroke-width="3" paint-order="stroke">− parallel tie · 2/0</text>
+    <path d="M 471.8 298.4 L 662.2 298.4" fill="none" stroke="#1e293b" stroke-width="5" stroke-linecap="round"/>
+    <text x="471.8" y="130" text-anchor="middle" font-size="9.5" font-weight="700" fill="#dc2626" stroke="#fff" stroke-width="3" paint-order="stroke">+ parallel tie · 2/0</text>
+    <text x="471.8" y="294" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1e293b" stroke="#fff" stroke-width="3" paint-order="stroke">− parallel tie · 2/0</text>
 
     <!-- main feeds — diagonal take-off for balanced sharing (+ back-left → breaker → switch, − far corner BAT6− → shunt) -->
     <path d="M 281.4 134 L 281.4 52" fill="none" stroke="#dc2626" stroke-width="5.5" marker-end="url(#arrR2)"/>
@@ -737,14 +792,14 @@
     <g stroke="#64748b" stroke-width="1">
       <line x1="100" y1="336" x2="281.4" y2="336"/><line x1="100" y1="332" x2="100" y2="340"/><line x1="281.4" y1="332" x2="281.4" y2="340"/>
       <line x1="100" y1="354" x2="471.8" y2="354"/><line x1="100" y1="350" x2="100" y2="358"/><line x1="471.8" y1="350" x2="471.8" y2="358"/>
-      <line x1="100" y1="372" x2="662.2" y2="372" stroke-dasharray="4 3"/><line x1="100" y1="368" x2="100" y2="376"/><line x1="662.2" y1="368" x2="662.2" y2="376"/>
+      <line x1="100" y1="372" x2="662.2" y2="372"/><line x1="100" y1="368" x2="100" y2="376"/><line x1="662.2" y1="368" x2="662.2" y2="376"/>
       <line x1="686" y1="120" x2="686" y2="211.7"/><line x1="682" y1="120" x2="690" y2="120"/><line x1="682" y1="211.7" x2="690" y2="211.7"/>
       <line x1="706" y1="120" x2="706" y2="312.4"/><line x1="702" y1="120" x2="710" y2="120"/><line x1="702" y1="312.4" x2="710" y2="312.4"/>
     </g>
     <g font-size="10" fill="#475569" font-weight="600">
       <text x="190.7" y="332" text-anchor="middle">15.12″</text>
       <text x="285.9" y="350" text-anchor="middle">30.24″ W (2 × 15.12″)</text>
-      <text x="381.1" y="368" text-anchor="middle" fill="#94a3b8">45.36″ W — with BAT 5/6 added</text>
+      <text x="381.1" y="368" text-anchor="middle">45.36″ W — 3 columns (2S3P)</text>
       <text x="682" y="165.8" text-anchor="middle" transform="rotate(-90 682 165.8)">7.64″</text>
       <text x="700" y="216.2" text-anchor="middle" transform="rotate(-90 700 216.2)">15.28″ D (2 × 7.64″)</text>
     </g>
@@ -758,17 +813,16 @@
   <div class="tbl"><table>
     <thead><tr><th>Layout</th><th>Battery footprint</th><th>Tray footprint (+ ¾" gaps + 1" lug clearance)</th><th>Best for</th></tr></thead>
     <tbody>
-      <tr><td><b>2×2 block ×4 — now</b></td><td><b>30.24" W × 15.28" D</b></td><td>≈ 33" W × 17" D × 11" H</td><td>Basement bay — low &amp; centered, terminals face the access side</td></tr>
-      <tr><td><b>2×3 block ×6 — future</b></td><td><b>45.36" W × 15.28" D</b></td><td>≈ 49" W × 17" D × 11" H</td><td>Drop BAT 5/6 into the reserved right column → 2S3P = 24 V · 900 Ah (~21.6 kWh)</td></tr>
+      <tr><td><b>2×3 block ×6 — build</b></td><td><b>45.36" W × 15.28" D</b></td><td>≈ 49" W × 17" D × 11" H</td><td>Basement bay — low &amp; centered, terminals face the access side · 2S3P = 24 V · 900 Ah (~21.6 kWh)</td></tr>
     </tbody>
   </table></div>
   <ul class="dash">
     <li><b>Series pairs run front-to-back in each column</b> (BAT1+BAT2, BAT3+BAT4, BAT5+BAT6): each front battery's + sits directly beside its partner's − across the ¾" gap, so the 2/0 series links are the shortest possible runs.</li>
-    <li><b>Parallel ties run outside:</b> + tie along the back row, − tie along the front row. The series jumpers consume each pair's facing terminals (back − to front +), so the bank's free poles are the <b>back-row +</b> and <b>front-row −</b>. Main + exits at <b>BAT1+</b> (back-left, shortest run to the 300 A breaker), main − at <b>BAT6−</b> (front-right far corner, to the SmartShunt) — a <b>diagonal</b> take-off so all pairs share current evenly; until BAT 5/6 land, the − temporarily bolts to BAT4−.</li>
-    <li><b>Expansion to 6:</b> place BAT 5/6 in the reserved right column, add the short series link, extend both ties (dashed), and move the main − to the new far corner <b>BAT6−</b> (+ stays at BAT1+ — still the diagonal pair). Equalize the new pair to 100% before paralleling.</li>
+    <li><b>Parallel ties run outside:</b> + tie along the back row, − tie along the front row. The series jumpers consume each pair's facing terminals (back − to front +), so the bank's free poles are the <b>back-row +</b> and <b>front-row −</b>. Main + exits at <b>BAT1+</b> (back-left, shortest run to the 300 A breaker), main − at <b>BAT6−</b> (front-right far corner, to the SmartShunt) — a <b>diagonal</b> take-off so all three pairs share current evenly.</li>
+    <li><b>All three series pairs (BAT1+2, BAT3+4, BAT5+6)</b> are built and charged to 100% — and confirmed within 0.1 V of each other — <b>before</b> any parallel tie goes on.</li>
     <li>Platform: ¾" plywood or HDPE, sealed/painted; two stainless hold-downs per battery across the top (not just front).</li>
     <li>Keep terminals reachable from the access side — you'll torque-check after 500 miles.</li>
-    <li>Weight: confirm per-battery on the Vatrer sheet (typ. ~46–60 lb class); 4 × 60 lb ≈ 240 lb replacing ~120 lb of AGMs; six ≈ 360 lb — re-weigh at a scale after the swap.</li>
+    <li>Weight: confirm per-battery on the Vatrer sheet (typ. ~46–60 lb class); six ≈ 280–360 lb replacing ~120 lb of AGMs — re-weigh at a scale after the swap and check the floor/axle rating.</li>
     <li>Leave vent clearance above terminals — LFP vents gas under fault; don't seal into an airtight box.</li>
   </ul>
 </section>
@@ -781,15 +835,15 @@
     <thead><tr><th>Qty</th><th>Part</th><th>Role</th><th>~Price</th></tr></thead>
     <tbody>
       <tr><td>1</td><td><b>Victron MultiPlus-II 24/3000/70-50 2x120 V</b></td><td>Inverter + 70 A charger + 50 A/leg transfer; split-phase 120/240 V pass-through, 120 V on both legs in inverter mode</td><td>$1,400</td></tr>
-      <tr><td>1</td><td><b>Victron Lynx Distributor (M10 version)</b></td><td>DC busbar: 4 fuse-protected + circuits (MEGA fuses) + − busbar + ground; fuse-status LEDs · <b>M10 battery input</b>, M8 branches</td><td>$150–180</td></tr>
-      <tr><td>1</td><td><b>Victron SmartSolar MPPT Tr 250/70 Bluetooth</b></td><td>MPPT #2 — portable array; 250 V PV input, 70 A out, auto 12/24/36/48 V (24 V here)</td><td>$430–470</td></tr>
+      <tr><td>2</td><td><b>Victron Lynx Distributor (M10 version)</b></td><td>DC busbar ×2, <b>direct-bolt stacked</b> (busbars join at the bolts — no interconnect wire): 4 fuse-protected + circuits each (MEGA fuses) + − busbar + ground; fuse-status LEDs · <b>M10 battery input</b>, M8 branches</td><td>$150–180 ea</td></tr>
+      <tr><td>2</td><td><b>Victron SmartSolar MPPT 100/50 Bluetooth</b></td><td>MPPT #2 + #3 — two portable arrays via MC4 inlets #1/#2; 50 A out each, auto 12/24/36/48 V (24 V here)</td><td>$260–300 ea</td></tr>
       <tr><td>1</td><td><b>Victron Orion XS 1400 12/24-50 DC-DC charger</b></td><td>Alternator → 24 V bank while towing; input-limited 50 A ≈ 24 A out</td><td>$330</td></tr>
       <tr><td>1</td><td><b>Victron Orion IP67 24/12-100 non-isolated</b></td><td>Feeds the factory 12 V panel from the 24 V bank (96% eff)</td><td>$250–300</td></tr>
-      <tr><td>1</td><td><b>Victron SmartShunt 500 A / 100 mV</b></td><td>Bank SOC, app monitoring (set 600 Ah) — <b>M10 studs</b></td><td>$120</td></tr>
-      <tr><td>4</td><td><b>Vatrer 12 V 300 Ah self-heating LiFePO4</b> (200 A BMS, BT, M8)</td><td>2S2P = 24 V 600 Ah · ~14.4 kWh usable</td><td>$600 ea (Amazon)</td></tr>
-      <tr><td>1</td><td>Anderson SB175 inline plug pair (hitch quick-disconnect)</td><td>Truck → RV heavy feed, unpluggable</td><td>$35–50</td></tr>
-      <tr><td>1</td><td>MC4 bulkhead panel inlet (IP67, 2-pole)</td><td>Weatherproof portable connection</td><td>$25–45</td></tr>
-      <tr><td>1</td><td>MC4 extension cable 10 AWG, 20 ft (or make per Recipe C)</td><td>Inlet → MPPT #2</td><td>$30–50</td></tr>
+      <tr><td>1</td><td><b>Victron SmartShunt 500 A / 100 mV</b></td><td>Bank SOC, app monitoring (set 900 Ah) — <b>M10 studs</b></td><td>$120</td></tr>
+      <tr><td>6</td><td><b>Vatrer 12 V 300 Ah self-heating LiFePO4</b> (200 A BMS, BT, M8)</td><td>2S3P = 24 V 900 Ah · ~21.6 kWh usable — all six required</td><td>$600 ea (Amazon)</td></tr>
+      <tr><td>1</td><td>Anderson SB175 inline plug pair (hitch quick-disconnect)</td><td>Truck → RV heavy feed, unpluggable (SB175 is generous for a 50 A-limited feed — keep for robustness)</td><td>$35–50</td></tr>
+      <tr><td>2</td><td>MC4 bulkhead panel inlet (IP67, 2-pole)</td><td>Weatherproof portable connections — inlet 1 → MPPT #2, inlet 2 → MPPT #3</td><td>$25–45 ea</td></tr>
+      <tr><td>2</td><td>MC4 extension cable 10 AWG, 20 ft (or make per Recipe C)</td><td>Inlet 1 → MPPT #2 · inlet 2 → MPPT #3</td><td>$30–50 ea</td></tr>
       <tr><td>1</td><td><b>VE.Bus Smart dongle</b></td><td>Bluetooth bridge for the MultiPlus-II (no built-in BT on 120 V units) — see Comms</td><td>$60</td></tr>
       <tr><td>1</td><td>MK3-USB interface</td><td>Laptop config + MultiPlus firmware updates (toolbox item)</td><td>$60</td></tr>
       <tr><td>opt</td><td>Victron MultiControl Remote</td><td>Panel-side on/off + charge-current knob</td><td>$60–150</td></tr>
@@ -798,25 +852,26 @@
   </table></div>
 
   <h3>Protection &amp; distribution</h3>
-  <div class="callout tip"><span class="ic">🔩</span><div><b>The battery path is M10; everything else is M8.</b> We chose the <b>Lynx Distributor M10 version</b> so the <b>300 A breaker (3/8″ ≈ M10 studs) → BEP 770 switch (M10) → SmartShunt 500 (M10) → Lynx BAT-in (M10)</b> all share one stud size with clean M10 lugs end-to-end. All four Lynx branch studs, the − busbar, the MultiPlus-II and the Vatrer batteries stay <b>M8</b> — branch lugs are M8 on both Lynx models.</div></div>
+  <div class="callout tip"><span class="ic">🔩</span><div><b>The battery path is M10; everything else is M8.</b> We chose the <b>Lynx Distributor M10 version</b> so the <b>300 A breaker (3/8″ ≈ M10 studs) → BEP 770 switch (M10) → SmartShunt 500 (M10) → Lynx BAT-in (M10)</b> all share one stud size with clean M10 lugs end-to-end. All branch studs on both Lynx units, the − busbars, the MultiPlus-II and the Vatrer batteries stay <b>M8</b> — branch lugs are M8 on both Lynx models. <b>Excluding the battery input, each Lynx has only 4 fused + branch slots</b> — that's why the stack is two units: six right-side circuits (IP67, XS, MPPT #1/#2/#3, MultiPlus) need two distributors.</div></div>
   <div class="tbl"><table>
     <thead><tr><th>Qty</th><th>Part</th><th>Location / protects</th><th>Notes</th></tr></thead>
     <tbody>
       <tr><td>1</td><td><b>300 A main breaker</b> (M10) — RED WOLF 300A manual-reset, e.g.</td><td>BAT1+ → BEP switch, within 18" of battery</td><td><b>Main fuse</b> (Victron recommends 300 A for the 24/3000/70)</td></tr>
       <tr><td>1</td><td><b>BEP 770-DP-EZ MC10 Pro Installer 400 A</b> battery switch</td><td>Breaker LOAD → Lynx BAT+ / MultiPlus</td><td><b>Main disconnect</b> · double pole · M10 studs · EZ-Mount base · 7.05″L × 6.78″W × 2.7″H</td></tr>
-      <tr><td>1</td><td><b>Victron Lynx Distributor (M10 version)</b></td><td>DC load/charge center</td><td>4 fused + circuits + − busbar + ground; 1000 A busbar, 9–60 V; <b>M10 battery input</b>, M8 branches; holds <b>MEGA</b> fuses (sold separately)</td></tr>
-      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx slot 1 — Orion IP67 input</td><td>≈ 52 A in @ 24 V → 60 A fuse; 4 AWG</td></tr>
-      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx slot 2 — Orion XS output</td><td>50 A output → 60 A fuse; 4 AWG</td></tr>
-      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx slot 3 — MPPT #1 (factory 100/50)</td><td>50 A output → 60 A fuse; 6 AWG</td></tr>
-      <tr><td>1</td><td><b>MEGA fuse 80 A / 32 V</b></td><td>Lynx slot 4 — MPPT #2 (Tr 250/70)</td><td>70 A output → 80 A fuse; 4 AWG</td></tr>
-      <tr><td>4</td><td>MEGA <b>dummy</b> fuses (or spare 60 A)</td><td>Any unused Lynx slot</td><td>Keeps the red "blown fuse" LED off when a circuit isn't populated</td></tr>
+      <tr><td>2</td><td><b>Victron Lynx Distributor (M10 version)</b></td><td>DC load/charge center — Lynx #1 (lower) + Lynx #2 (bolt-stacked on top)</td><td>4 fused + circuits each + − busbar + ground; 1000 A busbar, 9–60 V; <b>M10 battery input</b>, M8 branches; holds <b>MEGA</b> fuses (sold separately)</td></tr>
+      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx #1 slot 1 — Orion IP67 input</td><td>≈ 52 A in @ 24 V → 60 A fuse; 4 AWG</td></tr>
+      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx #1 slot 2 — Orion XS output</td><td>50 A output → 60 A fuse; 4 AWG</td></tr>
+      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx #1 slot 3 — MPPT #3 (100/50)</td><td>50 A output → 60 A fuse; 4 AWG</td></tr>
+      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx #2 slot 1 — MPPT #1 (factory 100/50)</td><td>50 A output → 60 A fuse; 6 AWG</td></tr>
+      <tr><td>1</td><td><b>MEGA fuse 60 A / 32 V</b></td><td>Lynx #2 slot 2 — MPPT #2 (100/50)</td><td>50 A output → 60 A fuse; 4 AWG</td></tr>
+      <tr><td>3</td><td>MEGA <b>dummy</b> fuses (or spare 60 A)</td><td>Lynx #1 MP position + Lynx #2 slots 3/4</td><td>Keeps the red "blown fuse" LED off when a circuit isn't populated</td></tr>
       <tr><td>1</td><td>ANL holder + 60 A (RV inlet)</td><td>Anderson inlet → Orion XS lead</td><td>Upstream of the Lynx, at the inlet</td></tr>
       <tr><td>1</td><td>ANL holder + 100 A</td><td>Orion IP67 output → 12 V panel</td><td>On the 12 V side, not a Lynx circuit</td></tr>
-      <tr><td>1</td><td>MRBF 125 A holder + fuse (truck)</td><td>At truck battery +, within 18"</td><td>Truck side of the alternator feed</td></tr>
+      <tr><td>1</td><td>MRBF 60 A holder + fuse (truck)</td><td>At truck battery +, within 18"</td><td>Truck side of the alternator feed — XS input limit is 50 A, so 60 A protects the 4 AWG</td></tr>
       <tr><td>1</td><td>ATO 5 A holder + fuse</td><td>Engine-sense</td><td>14 AWG remote on/off lead</td></tr>
     </tbody>
   </table></div>
-  <div class="callout note"><span class="ic">⚡</span><div><b>MEGA fuse sizing rule:</b> each fuse protects its <i>circuit</i> at roughly 1.25× the continuous current, and the <b>sum of the four Lynx fuses (60 + 60 + 60 + 80 = 260 A) stays well under the Lynx's 1000 A busbar rating</b>. Use <b>32 V-rated</b> MEGA fuses (a 24 V system); 58/64 V parts are for 48 V. Buy one spare of each value.</div></div>
+  <div class="callout note"><span class="ic">⚡</span><div><b>MEGA fuse sizing rule:</b> each fuse protects its <i>circuit</i> at roughly 1.25× the continuous current, and the <b>sum of the five Lynx fuses (60 × 5 = 300 A) stays well under the Lynx's 1000 A busbar rating</b> — and both Lynx busbars are the same node anyway, since #2 direct-bolts on #1. Use <b>32 V-rated</b> MEGA fuses (a 24 V system); 58/64 V parts are for 48 V. Buy one spare of each value.</div></div>
 
   <h3>Terminals, consumables, mounting</h3>
   <div class="tbl"><table>
@@ -825,11 +880,11 @@
       <tr><td>8</td><td>2/0 AWG two-hole lugs, <b>M8</b> (5 red / 3 black) — battery, Lynx busbar, MultiPlus</td></tr>
       <tr><td>4</td><td>2/0 AWG two-hole lugs, <b>M10</b> (red/black) — 300 A breaker, BEP switch &amp; SmartShunt 500 studs</td></tr>
       <tr><td>2</td><td>2/0 mixed <b>M10→M8</b> links (or M10 lug + short link) — SmartShunt/breaker to Lynx − busbar</td></tr>
-      <tr><td>6</td><td>4 AWG lugs/rings, M8 (red/black) — MPPT #2, Orion XS, Orion IP67 in</td></tr>
+      <tr><td>10</td><td>4 AWG lugs/rings, M8 (red/black) — MPPT #2 + #3, Orion XS, Orion IP67 in</td></tr>
       <tr><td>2</td><td>2 AWG lugs, M8/M10 (red) — Orion IP67 output</td></tr>
-      <tr><td>1</td><td>1 AWG lug, M10 (red) — truck MRBF + Anderson</td></tr>
+      <tr><td>2</td><td>4 AWG lugs (red) — truck MRBF 60 A + Anderson hitch end</td></tr>
       <tr><td>12</td><td>6 AWG insulated ring terminals (red/black)</td></tr>
-      <tr><td>4</td><td>MC4 connector pairs (same brand family as your panels)</td></tr>
+      <tr><td>6</td><td>MC4 connector pairs (same brand family as your panels)</td></tr>
       <tr><td>1</td><td>Bootlace ferrule kit 10 AWG (tidy MPPT ends, optional)</td></tr>
       <tr><td>1</td><td>Adhesive-lined (marine) heat-shrink assortment incl. large 2/0 sizes + 3:1 kit — <b>not</b> thin hardware-store kind</td></tr>
       <tr><td>1</td><td>Battery tray: plywood/HDPE + 6–8 stainless hold-downs + anchor hardware</td></tr>
@@ -842,13 +897,14 @@
 <!-- ============================ COMMS ============================ -->
 <section id="comms">
   <h2><span class="dot"></span>Monitoring &amp; Comms — Who Talks, and How</h2>
-  <p class="lead">Four of the six Victron devices have Bluetooth built in. The MultiPlus-II (120 V) does not — the GX variant with built-in Bluetooth is 230 V only — so we bridge it with a <b>VE.Bus Smart dongle</b> and keep an <b>MK3-USB</b> in the toolbox for firmware.</p>
+  <p class="lead">Five of the seven Victron devices have Bluetooth built in. The MultiPlus-II (120 V) does not — the GX variant with built-in Bluetooth is 230 V only — so we bridge it with a <b>VE.Bus Smart dongle</b> and keep an <b>MK3-USB</b> in the toolbox for firmware.</p>
 
   <div class="tbl"><table>
     <thead><tr><th>Device</th><th>Bluetooth</th><th>How to connect</th></tr></thead>
     <tbody>
       <tr><td><b>SmartSolar MPPT #1</b> (factory)</td><td><span class="tag t-reuse">BUILT-IN</span></td><td>VictronConnect direct</td></tr>
       <tr><td><b>SmartSolar MPPT #2</b></td><td><span class="tag t-reuse">BUILT-IN</span></td><td>VictronConnect direct</td></tr>
+      <tr><td><b>SmartSolar MPPT #3</b></td><td><span class="tag t-reuse">BUILT-IN</span></td><td>VictronConnect direct</td></tr>
       <tr><td><b>Orion XS 1400</b></td><td><span class="tag t-reuse">BUILT-IN</span></td><td>VictronConnect direct</td></tr>
       <tr><td><b>SmartShunt 500</b></td><td><span class="tag t-reuse">BUILT-IN</span></td><td>VictronConnect direct</td></tr>
       <tr><td><b>MultiPlus-II 24/3000-70</b></td><td><span class="tag t-check">NONE</span></td><td><b>VE.Bus Smart dongle</b> (RJ45 into the COM port) → Bluetooth; MK3-USB for firmware</td></tr>
@@ -867,7 +923,7 @@
 
   <h3>VE.Smart network (free — no extra hardware)</h3>
   <ul class="dash">
-    <li>The MPPTs, Orion XS, and SmartShunt can form a <b>VE.Smart Bluetooth mesh</b>: the shunt's SOC is shared so every charge source absorbs/floats at the right time, coordinated without any wiring.</li>
+    <li>The MPPTs, Orion XS, and SmartShunt can form a <b>VE.Smart Bluetooth mesh</b>: the shunt's SOC is shared so every charge source absorbs/floats at the right time, coordinated without any wiring. (All three MPPTs join — one network, five members plus the dongle.)</li>
     <li>Set it up in VictronConnect: on each device, <i>Service → VE.Smart Networking → Create network</i> (one device) then <i>Join</i> on the others — same network password.</li>
     <li>The VE.Bus Smart dongle lets the MultiPlus see the network too (charge-state coordination on the AC side).</li>
   </ul>
@@ -886,7 +942,7 @@
       <tr><td>Test</td><td>True-rms multimeter · DC clamp meter · 12 V test light · fish tape/pull string</td></tr>
       <tr><td>Mechanical</td><td>Drill + step bits · hole saws (inlet, vent) · jigsaw (tray) · level · tape measure · Sharpie · shop vac · headlamp</td></tr>
       <tr><td>Safety</td><td>Insulated/taped wrenches for AC · gloves · eye protection · fire extinguisher · wheel chocks · a friend for 50–60 lb batteries</td></tr>
-      <tr><td>Software</td><td>Phone/laptop with <b>VictronConnect</b> (BT: MPPT #2, Orion XS, SmartShunt; MultiPlus-II via VE.Bus Smart dongle) · VEConfigure + MK3-USB for MultiPlus firmware</td></tr>
+      <tr><td>Software</td><td>Phone/laptop with <b>VictronConnect</b> (BT: MPPT #2/#3, Orion XS, SmartShunt; MultiPlus-II via VE.Bus Smart dongle) · VEConfigure + MK3-USB for MultiPlus firmware</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -900,8 +956,8 @@
   <ol class="steps">
     <li>Confirm gauge/termination points of the factory inverter-prep cables (need ≥ 2/0 to reuse W1; if lighter, run your own). Locate the generator transfer relay and inverter-prep splice (①). Photograph everything.</li>
     <li>Locate the WFCO's AC feed breaker in the Power Center — it will be taped <b>OFF</b> and its DC output cut + capped (⑧). The MultiPlus-II takes over charging; the Orion IP67 takes over the 12 V loads.</li>
-    <li>Plan the truck run: route 1 AWG from the truck battery along the frame to the hitch, mount the MRBF 125 A within 18" of the positive post, and pick a weather-protected spot for the Anderson SB175 inlet on the RV front wall.</li>
-    <li>Pull string through the roof→basement conduit; pick the MC4 inlet location in pass-through storage; plan to seal the penetration.</li>
+    <li>Plan the truck run: route 4 AWG from the truck battery along the frame to the hitch, mount the MRBF 60 A within 18" of the positive post (the XS input-limits at 50 A, so 4 AWG + 60 A fuse is the right size), and pick a weather-protected spot for the Anderson SB175 inlet on the RV front wall.</li>
+    <li>Pull string through the roof→basement conduit; pick the two MC4 inlet locations in pass-through storage (inlet 1 → MPPT #2, inlet 2 → MPPT #3); plan to seal both penetrations.</li>
     <li>Measure the chosen tray spot against the footprint table; email Brinkley service for warranty position; keep all factory parts boxed.</li>
   </ol>
 
@@ -914,12 +970,12 @@
 
   <h3>Phase 2 — Battery bank + tray (1 day)</h3>
   <ol class="steps">
-    <li>Build/mount the tray (footprint table), strap batteries in two pairs (BAT1+BAT2 = pair A, BAT3+BAT4 = pair B), keep terminal access.</li>
+    <li>Build/mount the tray (footprint table), strap batteries in three pairs (BAT1+BAT2 = pair A, BAT3+BAT4 = pair B, BAT5+BAT6 = pair C), keep terminal access.</li>
     <li>Install the <b>300 A main breaker (M10)</b> on pair-A + (BAT1+) within 18" — it is the <b>main fuse</b>. Then mount the <b>BEP 770-DP-EZ 400 A switch</b> on the wall just above the bank and land the breaker LOAD on its IN stud, OUT stud → Lynx BAT+ (M10, ≈ 9.5 N·m / 80 in-lb — verify label). The BEP is the <b>service disconnect</b>; its second pole can isolate a negative accessory or stay parked.</li>
-    <li>Series-pair first: BAT1−→BAT2+ and BAT3−→BAT4+ (2/0 series links). Each pair reads ≈ 25.6 V. Charge both pairs to 100% and confirm within 0.1 V of each other <b>before</b> paralleling.</li>
-    <li>Parallel the pairs: + tie BAT1+→BAT3+ (→ Lynx + busbar), − tie BAT2−→BAT4−. Torque M8 ≈ 70 in-lb (verify Vatrer label).</li>
-    <li>W13: BAT4− → SmartShunt (M10) → Lynx − busbar (M8) via a short mixed M10→M8 link. <b>All</b> returns — existing 12 V loads (W14) and the Orion IP67 − common — land on the Lynx − busbar so the shunt meters everything.</li>
-    <li>Mount the <b>Lynx Distributor (M10 version)</b> upright near the bank, swing up the black cable separators, and land the + feeds under their M8 studs (star washer, then nut, ≈ 14 N·m) — the <b>BAT-in stud is M10</b> (≈ 20 N·m). Insert a <b>MEGA fuse in every slot</b> — 60 A (MPPT #1), 80 A (MPPT #2), 60 A (Orion XS), 60 A (Orion IP67 in) — or a dummy in any unused slot so the red LED stays off. The Lynx's own + is fed from the <b>BEP switch OUT</b> (off the 300 A breaker).</li>
+    <li>Series-pair first: BAT1−→BAT2+, BAT3−→BAT4+ and BAT5−→BAT6+ (2/0 series links). Each pair reads ≈ 25.6 V. Charge all three pairs to 100% and confirm they're within 0.1 V of each other <b>before</b> paralleling.</li>
+    <li>Parallel the pairs: + ties BAT1+→BAT3+→BAT5+ (back row → Lynx + busbar), − ties BAT2−→BAT4−→BAT6− (front row). Torque M8 ≈ 70 in-lb (verify Vatrer label).</li>
+    <li>W13: BAT6− (front-right far corner — the diagonal opposite of BAT1+) → SmartShunt (M10) → Lynx − busbar (M8) via a short mixed M10→M8 link. <b>All</b> returns — existing 12 V loads (W14) and the Orion IP67 − common — land on the Lynx − busbar so the shunt meters everything.</li>
+    <li>Mount the <b>two Lynx Distributors (M10 version)</b> upright near the bank, <b>direct-bolting Lynx #2 on top of Lynx #1</b> so the battery busbars join at the bolts (no interconnect wire), swing up the black cable separators, and land the + feeds under their M8 studs (star washer, then nut, ≈ 14 N·m) — the <b>BAT-in stud is M10</b> (≈ 20 N·m) on Lynx #1 only. Insert a <b>MEGA fuse in every slot</b> — Lynx #1: 60 A (Orion IP67 in), 60 A (Orion XS), 60 A (MPPT #3), dummy (MP — the MultiPlus is fused by the 300 A main); Lynx #2: 60 A (MPPT #1), 60 A (MPPT #2), dummy ×2 — so the red LED stays off. The Lynx stack's + is fed from the <b>BEP switch OUT</b> (off the 300 A breaker) into Lynx #1 BAT+; Lynx #2 gets its busbar feed through the stack bolts.</li>
     <li>Set Vatrer BMS series mode per manual (2S per pair, pairs in parallel), self-heat on; pair the BT apps.</li>
   </ol>
 
@@ -929,25 +985,25 @@
     <li>DC: W1 (from the BEP switch OUT) and W2 lugs to the MultiPlus-II M8 battery terminals (two per polarity), torque ≈ 12 N·m / 105 in-lb (verify label); insulated box spanner.</li>
     <li>AC (①): move shore/gen feed from panel main lugs → <b>AC-IN 1 (L1, L2, N)</b> (W11); AC-OUT (L1, L2, N) → panel main lugs (W12). The 2x120V passes both hot legs; charging draws from L1. Factory bonding stays; never create a second neutral-ground bond.</li>
     <li>WFCO (⑧): open + tape its AC breaker OFF, cut its DC output, cap both ends, and land the Orion IP67 OUT + (ANL 100 A, W24) on the 12 V fuse panel feed it used to supply. The two 12 V supplies must never touch the same bus.</li>
-    <li>VictronConnect: LiFePO4 24 V per Vatrer label (absorb 28.8 / float 27.6 / storage 26.4); charger 70 A; shore limit 50 A; generator limit 40 A; low-batt alarm 24.0 V; PowerAssist ON; SmartShunt paired (600 Ah).</li>
-    <li>Plug the <b>VE.Bus Smart dongle</b> into the MultiPlus COM port (RJ45) — from then on the MultiPlus is visible over Bluetooth in VictronConnect. Form the <b>VE.Smart network</b> (MPPT #1, MPPT #2, Orion XS, SmartShunt, dongle — one creates, the rest join, same password). Keep the MK3-USB in the toolbox for MultiPlus firmware updates.</li>
+    <li>VictronConnect: LiFePO4 24 V per Vatrer label (absorb 28.8 / float 27.6 / storage 26.4); charger 70 A; shore limit 50 A; generator limit 40 A; low-batt alarm 24.0 V; PowerAssist ON; SmartShunt paired (900 Ah).</li>
+    <li>Plug the <b>VE.Bus Smart dongle</b> into the MultiPlus COM port (RJ45) — from then on the MultiPlus is visible over Bluetooth in VictronConnect. Form the <b>VE.Smart network</b> (MPPT #1, MPPT #2, MPPT #3, Orion XS, SmartShunt, dongle — one creates, the rest join, same password). Keep the MK3-USB in the toolbox for MultiPlus firmware updates.</li>
   </ol>
 
-  <h3>Phase 4 — MPPT #2 + MC4 inlet (½ day)</h3>
+  <h3>Phase 4 — MPPT #2 + #3 + MC4 inlets (1 day)</h3>
   <ol class="steps">
-    <li>Mount MPPT #2 beside #1 (④), ventilated ≥ 10 cm above/below.</li>
-    <li>Install MC4 bulkhead inlet (⑤), sealed, connectors facing down with a drip loop.</li>
-    <li>Build/install W6 (Recipe C) through the conduit to MPPT #2 PV terminals.</li>
-    <li>W4/W5 output → Lynx <b>slot 4 (MEGA 80 A)</b> / Lynx − busbar. Configure identical charge curve to MPPT #1; pair both in VictronConnect — two harvesters, one view.</li>
-    <li>Plug in the portable series pair only with panels shaded or the MPPT DC switch off. The Tr 250/70 starts up above Vbat+5 V and tolerates up to <b>245 V PV</b> — a series pair (~82 V cold) is trivially safe, and there's headroom to add a longer roof string later.</li>
+    <li>Mount MPPT #2 and #3 below #1 in the right-wall stack (④), ventilated ≥ 10 cm above/below, all three at the same height band as their Lynx (the stack bolts to Lynx #2 just to their left).</li>
+    <li>Install both MC4 bulkhead inlets (⑤), sealed, connectors facing down with a drip loop — inlet 1 above MPPT #2, inlet 2 between the MPPT stack and the bank.</li>
+    <li>Build/install W6 (inlet 1 → MPPT #2) and W28 (inlet 2 → MPPT #3) per Recipe C through the conduit to the PV terminals.</li>
+    <li>W4/W5 output → Lynx <b>#2 slot 2 (MEGA 60 A)</b> / Lynx #2 − busbar. MPPT #3 W26/W27 → Lynx <b>#1 slot 3 (MEGA 60 A)</b> / Lynx #1 − busbar. MPPT #1 re-terminates at Lynx <b>#2 slot 1</b> (W16). Configure identical charge curves on all three; pair them in VictronConnect — three harvesters, one view.</li>
+    <li>Plug in a portable series pair only with panels shaded or the MPPT DC switch off. The 100/50 starts up above Vbat+5 V and tolerates up to <b>100 V PV</b> — a series pair (~82 V cold) fits, but <b>never series more than two panels</b> on a 100/50; add harvest area with parallel strings, not longer series strings.</li>
   </ol>
 
   <h3>Phase 5 — DC-DC: Orion XS 1400 (truck) + Orion IP67 (12 V loads) (1 day)</h3>
   <ol class="steps">
-    <li><b>Truck side (⑥):</b> MRBF 125 A within 18" of the truck battery +, 1 AWG run along the frame to the hitch, Anderson SB175 half there; engine-sense (W10) to an ignition-switched fuse (test first), ATO 5 A in line.</li>
-    <li><b>RV side:</b> mount the Anderson inlet on the front wall (drip loop, connectors facing down). W7: inlet → Orion XS +IN, 4 AWG, ANL 60 A at the inlet. W8: XS output → Lynx <b>slot 2 (MEGA 60 A)</b>, 4 AWG. W9 chassis bond.</li>
-    <li>Configure the XS in VictronConnect: LiFePO4 24 V (absorb 28.8 / float 27.6), <b>input limit 50 A</b> — that's ≈ 24 A into the bank at 28 V (12 V input can't push the full 50 A out; the input limit caps it). Remote on/off to the engine-sense lead.</li>
-    <li><b>Orion IP67 24/12-100:</b> mount near the bank (finned case needs airflow). IN + 4 AWG from Lynx <b>slot 1 (MEGA 60 A)</b>, W22; IN − common 4 AWG to the Lynx − busbar on the <i>load</i> side of the shunt (W23); OUT + 2 AWG (ANL 100 A, W24) to the 12 V panel feed. Verify ≈ 12 V out <b>before</b> landing the panel.</li>
+    <li><b>Truck side (⑥):</b> MRBF 60 A within 18" of the truck battery +, 4 AWG run along the frame to the hitch, Anderson SB175 half there; engine-sense (W10) to an ignition-switched fuse (test first), ATO 5 A in line.</li>
+    <li><b>RV side:</b> mount the Anderson inlet on the front wall (drip loop, connectors facing down). W7: inlet → Orion XS +IN, 4 AWG, ANL 60 A at the inlet. W8: XS output → Lynx #1 <b>slot 2 (MEGA 60 A)</b>, 4 AWG. W9 chassis bond.</li>
+    <li>Configure the XS in VictronConnect: LiFePO4 24 V (absorb 28.8 / float 27.6), <b>input limit 50 A</b> — that's ≈ 24 A into the bank at 28 V (12 V input can't push the full 50 A out; the input limit caps it). <b>Do this before the first tow</b>: the 50 A input limit is exactly what makes the 4 AWG + MRBF 60 A truck feed correctly protected. Remote on/off to the engine-sense lead.</li>
+    <li><b>Orion IP67 24/12-100:</b> mount near the bank (finned case needs airflow). IN + 4 AWG from Lynx #1 <b>slot 1 (MEGA 60 A)</b>, W22; IN − common 4 AWG to the Lynx − busbar on the <i>load</i> side of the shunt (W23); OUT + 2 AWG (ANL 100 A, W24) to the 12 V panel feed. Verify ≈ 12 V out <b>before</b> landing the panel.</li>
     <li>Highway test with the clamp meter: expect ~20–24 A into the bank; ~4–5 kWh per 8 h tow day. A top-up, not a fast charger.</li>
   </ol>
 
@@ -958,12 +1014,12 @@
       <tr><td>☐</td><td>Shore: panel live on both legs (2× 120 V), bulk charge ~70 A tapering; transfer silent</td></tr>
       <tr><td>☐</td><td>Unplug shore: loads stay on &lt; 20 ms; inverter mode puts out 120 V on <b>both</b> legs (240 V outlets dead by design); fridge/pump/Smart-Command unaffected</td></tr>
       <tr><td>☐</td><td>Generator: auto-transfer, charges + passes 120/240 V through, 40 A limit respected</td></tr>
-      <tr><td>☐</td><td>Lynx: all four MEGA fuses seated (60/60/60/80 A); pull one → its circuit dead, others unaffected; re-seat, no red LED stuck on</td></tr>
+      <tr><td>☐</td><td>Lynx: all five MEGA fuses seated (60 A ×5) + dummies (MP, Lynx #2 slots 3/4); pull one → its circuit dead, others unaffected; re-seat, no red LED stuck on</td></tr>
       <tr><td>☐</td><td>WFCO: AC breaker open, output OL (dead) at the capped ends; 12 V bus ~12 V from Orion IP67 only</td></tr>
-      <tr><td>☐</td><td>Both MPPTs harvest (roof always, portable when plugged); both in VictronConnect at 24 V</td></tr>
+      <tr><td>☐</td><td>All three MPPTs harvest (roof always, portable 1 &amp; 2 when plugged); all three in VictronConnect at 24 V</td></tr>
       <tr><td>☐</td><td>30-min drive: clamp meter +20–24 A from Orion XS; SOC rises</td></tr>
       <tr><td>☐</td><td>Cold: self-heat engages &lt; ~40 °F; charge 0 until warm</td></tr>
-      <tr><td>☐</td><td>SmartShunt: 24 V / 600 Ah set; full charge → reset 100%; log cycles in VRM</td></tr>
+      <tr><td>☐</td><td>SmartShunt: 24 V / 900 Ah set; full charge → reset 100%; log cycles in VRM</td></tr>
       <tr><td>☐</td><td>Comms: MultiPlus visible over Bluetooth via VE.Bus Smart dongle; all VE.Smart members joined; MK3-USB firmware check done</td></tr>
       <tr><td>☐</td><td>All factory 12 V loads normal on the Orion IP67; torque re-check + paint marks after 500 miles</td></tr>
     </tbody>
@@ -975,36 +1031,36 @@
   <h2><span class="dot"></span>Budget — Build Cost &amp; What It Buys You</h2>
 
   <h3>Build cost estimate</h3>
-  <p class="lead">Amazon-based prices (Oct 2026). Batteries dominate — at $600 ea on Amazon the bank is $2,400 of the total.</p>
+  <p class="lead">Amazon-based prices (Oct 2026). Batteries dominate — at $600 ea on Amazon the six-battery bank is $3,600 of the total.</p>
   <div class="tbl"><table>
     <thead><tr><th>Group</th><th>Includes</th><th>Low</th><th>High</th></tr></thead>
     <tbody>
-      <tr><td><b>Major components</b></td><td>MultiPlus-II 24/3000/70-50 2x120V · Lynx Distributor · SmartSolar Tr 250/70 · Orion XS 1400 · Orion IP67 24/12-100 · SmartShunt · 4 × Vatrer 300 Ah @ $600 · Anderson · MC4 inlet + extension · VE.Bus Smart dongle · MK3-USB</td><td>$5,290</td><td>$5,465</td></tr>
-      <tr><td><b>Protection &amp; distribution</b></td><td>300 A main breaker (M10) · BEP 770-DP-EZ 400 A switch · MEGA fuses 32 V (60 A + 80 A 5-packs) · ANL 60/100 A · MRBF 125 A · ATO 5 A</td><td>$230</td><td>$330</td></tr>
-      <tr><td><b>Cable</b></td><td>2/0 · 1 AWG (truck) · 4/2 AWG · 6 AWG · PV · THHN · sense — per purchase list with slack</td><td>$330</td><td>$470</td></tr>
-      <tr><td><b>Terminals, consumables, mounting</b></td><td>M8 + M10 lugs · rings · MC4 · heat-shrink · tray + hold-downs · vent fan · washers/loom/ties/sealant</td><td>$250</td><td>$390</td></tr>
-      <tr><td><b>Required total</b></td><td>Everything to complete the build</td><td><b>≈ $6,050</b></td><td><b>≈ $6,600</b></td></tr>
+      <tr><td><b>Major components</b></td><td>MultiPlus-II 24/3000/70-50 2x120V · Lynx Distributor ×2 · SmartSolar 100/50 ×2 · Orion XS 1400 · Orion IP67 24/12-100 · SmartShunt · 6 × Vatrer 300 Ah @ $600 · Anderson · MC4 inlets + extensions ×2 · VE.Bus Smart dongle · MK3-USB</td><td>$6,785</td><td>$7,070</td></tr>
+      <tr><td><b>Protection &amp; distribution</b></td><td>300 A main breaker (M10) · BEP 770-DP-EZ 400 A switch · MEGA fuses 32 V (60 A 5-pack + dummies) · ANL 60/100 A · MRBF 60 A · ATO 5 A</td><td>$230</td><td>$330</td></tr>
+      <tr><td><b>Cable</b></td><td>2/0 · 4/2 AWG (incl. 4 AWG truck run) · 6 AWG · PV · THHN · sense — per purchase list with slack</td><td>$300</td><td>$440</td></tr>
+      <tr><td><b>Terminals, consumables, mounting</b></td><td>M8 + M10 lugs · rings · MC4 ×6 · heat-shrink · tray + hold-downs · vent fan · washers/loom/ties/sealant</td><td>$260</td><td>$400</td></tr>
+      <tr><td><b>Required total</b></td><td>Everything to complete the build</td><td><b>≈ $7,575</b></td><td><b>≈ $8,240</b></td></tr>
       <tr><td>Optional</td><td>MultiControl Remote · BatteryProtect 24 V</td><td>+$160</td><td>+$250</td></tr>
     </tbody>
   </table></div>
-  <div class="callout note"><span class="ic">💰</span><div><b>Owner target: $5,000.</b> That figure is essentially the <i>major components</i> subtotal ($5,290–5,465 with the $600 Amazon batteries, Lynx Distributor, and Tr 250/70). The protection, cable, and consumables groups add ~$765–1,130, so plan on <b>≈ $6,050–6,600</b> all-in. The Lynx + MEGA scheme actually <i>replaced</i> the Class T + 400 A disconnect + loose ANL/busbar pile at roughly the same money — the remaining gap to $5,000 is the small hardware that's easy to overlook when pricing the big boxes.</div></div>
+  <div class="callout note"><span class="ic">💰</span><div><b>Owner target: $5,000.</b> That figure is no longer reachable with the expanded spec — the <i>major components</i> subtotal alone is <b>$6,785–7,070</b> (six $600 batteries, the second Lynx, and the two extra 100/50 MPPTs). Protection, cable, and consumables add ~$790–1,170, so plan on <b>≈ $7,575–8,240</b> all-in. Offsets already baked in: downsizing MPPT #2 from the Tr 250/70 saves ~$170–200, and the 4 AWG truck feed (vs 1 AWG) saves ~$90 of copper — the Lynx + MEGA scheme still <i>replaced</i> the Class T + 400 A disconnect + loose ANL/busbar pile at roughly the same money.</div></div>
 
   <h3>Amazon shopping notes</h3>
   <ul class="dash">
-    <li><b>Welding cable:</b> Amazon sells Class K welding cable cut-to-length (2/0, 1 AWG, 4/2 AWG) — order the purchase-list lengths plus slack; check it's flexible stranded, not solid.</li>
+    <li><b>Welding cable:</b> Amazon sells Class K welding cable cut-to-length (2/0, 4/2 AWG) — order the purchase-list lengths plus slack; check it's flexible stranded, not solid.</li>
     <li><b>Victron gear:</b> confirm the seller is an authorized Victron reseller (warranty); the VE.Bus Smart dongle, MK3-USB, Orion XS, and IP67 are all on Amazon.</li>
     <li><b>Vatrer:</b> confirm the listing is the <b>self-heating</b> version with BT and M8 studs — the non-heated variant can't be series-mixed with heated units.</li>
-    <li><b>Fuses/lugs:</b> <b>MEGA fuses must be the 32 V rating</b> (Victron CIP136060010 = 60 A, CIP136080010 = 80 A, 5-packs) — 58/64 V parts are for 48 V systems. MRBF, ANL, Anderson SB175, and 2/0 two-hole lugs in <b>both M8 and M10</b> are Amazon staples — buy one spare of each fuse value.</li>
+    <li><b>Fuses/lugs:</b> <b>MEGA fuses must be the 32 V rating</b> (Victron CIP136060010 = 60 A, 5-packs — every circuit is 60 A now) plus a dummy-fuse set — 58/64 V parts are for 48 V systems. MRBF 60 A, ANL, Anderson SB175, and 2/0 two-hole lugs in <b>both M8 and M10</b> are Amazon staples — buy one spare of each fuse value.</li>
   </ul>
 
   <h3>Operating scenarios</h3>
   <div class="tbl"><table>
-    <thead><tr><th>Scenario</th><th>Energy</th><th>24 V 600 Ah bank (~14.4 kWh usable)</th></tr></thead>
+    <thead><tr><th>Scenario</th><th>Energy</th><th>24 V 900 Ah bank (~21.6 kWh usable)</th></tr></thead>
     <tbody>
-      <tr><td>Dry camping, no AC (fridge, lights, pump, TV, outlets)</td><td>~2–3 kWh/day</td><td><b>~5–7 days</b></td></tr>
-      <tr><td>+ roof 370 W + portable ≤600 W sun (~2–4 kWh/day)</td><td>net ≈ 0</td><td><b>indefinite in fair weather</b></td></tr>
-      <tr><td>Recharge 50% on shore/generator @70 A (~1.9 kW)</td><td>7.2 kWh</td><td>~4 h</td></tr>
-      <tr><td>Recharge 50% towing only @~24 A (~670 W)</td><td>7.2 kWh</td><td>~11 h tow</td></tr>
+      <tr><td>Dry camping, no AC (fridge, lights, pump, TV, outlets)</td><td>~2–3 kWh/day</td><td><b>~7–10 days</b></td></tr>
+      <tr><td>+ roof 370 W + up to 2× portable ≤600 W sun (~3–5 kWh/day)</td><td>net ≈ 0</td><td><b>indefinite in fair weather</b></td></tr>
+      <tr><td>Recharge 50% on shore/generator @70 A (~1.9 kW)</td><td>10.8 kWh</td><td>~6 h</td></tr>
+      <tr><td>Recharge 50% towing only @~24 A (~670 W)</td><td>10.8 kWh</td><td>~16 h tow</td></tr>
       <tr><td>AC (18k Chill Cube)</td><td>~1.5 kWh/hr</td><td>generator or shore only (by design)</td></tr>
     </tbody>
   </table></div>
@@ -1015,10 +1071,10 @@
 <footer>
   <div class="wrap">
     <b>Sources:</b> Brinkley RV Model Z spec tables &amp; Owner's Hub — factory Victron SmartSolar MPPT 100/50, WFCO converter, inverter prep (RVMP Flex Power 5500i install doc), generator prep ≤ 5.5 kW, roof→basement conduit, Z 2680 solar backer drawings.<br>
-    <b>Owner-confirmed:</b> Vatrer 300 Ah dims 15.12 × 7.64 × 9.76" · M8 terminals · series up to 4 per Vatrer manual (2S2P used) · 170 A alternator · MC4 portable panels.<br>
-    <b>24 V conversion:</b> MultiPlus-II 24/3000/70-50 2x120V split-phase (Victron: 300 A DC fuse — breaker used, 1/0 min ≤ 5 m — 2/0 used) · BEP 770-DP-EZ 400 A main switch · Lynx Distributor M10 version with MEGA 32 V fuses 60/60/60/80 A · SmartSolar MPPT Tr 250/70 (250 V PV, 245 V operating, 70 A out) · Orion XS 1400 12/24-50 (input-limited) · Orion IP67 24/12-100 non-isolated · WFCO disabled.<br>
-    <b>Terminal sizes:</b> battery path is M10 end-to-end — 300 A breaker (3/8″ studs) · BEP 770 switch · SmartShunt 500 · <b>Lynx Distributor M10 version BAT-in</b> — all with M10 lugs. Everything else is M8 (Lynx branch studs + − busbar, Vatrer batteries, MultiPlus-II); the shunt→busbar and Lynx BAT-in links are mixed M10↔M8 lugged.<br>
-    Verify all field values (cable gauges, case dimensions, charge voltages) at install. Rev C · 2026-10-21.
+    <b>Owner-confirmed:</b> Vatrer 300 Ah dims 15.12 × 7.64 × 9.76" · M8 terminals · series up to 4 per Vatrer manual (2S strings × 3 in parallel used) · 170 A alternator · MC4 portable panels.<br>
+    <b>24 V conversion:</b> MultiPlus-II 24/3000/70-50 2x120V split-phase (Victron: 300 A DC fuse — breaker used, 1/0 min ≤ 5 m — 2/0 used) · BEP 770-DP-EZ 400 A main switch · Lynx Distributor M10 version ×2 direct-bolt stacked with MEGA 32 V fuses 60 A ×5 · SmartSolar MPPT 100/50 ×3 (factory roof + two portable MC4 inlets) · Orion XS 1400 12/24-50 (input-limited 50 A → 4 AWG + MRBF 60 A truck feed) · Orion IP67 24/12-100 non-isolated · WFCO disabled.<br>
+    <b>Terminal sizes:</b> battery path is M10 end-to-end — 300 A breaker (3/8″ studs) · BEP 770 switch · SmartShunt 500 · <b>Lynx Distributor M10 version BAT-in</b> — all with M10 lugs. Everything else is M8 (Lynx branch studs + − busbars, Vatrer batteries, MultiPlus-II); the shunt→busbar and Lynx BAT-in links are mixed M10↔M8 lugged.<br>
+    Verify all field values (cable gauges, case dimensions, charge voltages) at install. Rev I · 2026-10-28.
   </div>
 </footer>
 
